@@ -10,10 +10,17 @@ namespace WebProject.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+
         public ActionResult Login()
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Login(LoginModel loginDetails)
+        {
+            return RedirectToAction("Login", "Home");
+        }
     }
+
 }
