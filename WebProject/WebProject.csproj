@@ -228,6 +228,7 @@
     <Compile Include="Classes\LoginClass.cs" />
     <Compile Include="Classes\ObjectHandlerJSON.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrganizerController.cs" />
     <Compile Include="Global.asax.cs">
@@ -250,9 +251,12 @@
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Admin\test.cshtml" />
     <Content Include="Views\_Layout2.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\FacilityIndex.cshtml" />
+    <Content Include="Views\Admin\PlaceIndex.cshtml" />
+    <Content Include="Views\Admin\OrganizerIndex.cshtml" />
+    <Content Include="Views\Help\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
