@@ -20,7 +20,7 @@
         <div class="container">
 
             @Html.ActionLink("Admin start", "Index", "Admin", new { area = "" }, new { @class = "navbar-brand" })
-            <button class="btn btn-danger float-right" type="submit">Logout</button>
+            @Html.ActionLink("Logout", "Login", "Home", new { area = "" }, new { @class = "btn btn-danger float-right" })
 
         </div>
     </nav>

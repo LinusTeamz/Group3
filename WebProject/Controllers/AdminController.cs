@@ -24,11 +24,7 @@ namespace WebProject.Controllers
         {
             try
             {
-                if (Session["user"] == null || Session["user"].ToString() != "admin")
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-
+                
                 List<Facility> model = new List<Facility>();
                 model = await obj.GetFacilityList();
 
@@ -137,10 +133,7 @@ namespace WebProject.Controllers
         // GET: AdminOrganizer
         public async System.Threading.Tasks.Task<ActionResult> OrganizerIndex()
         {
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            
 
             ObjectHandlerJSON json = new ObjectHandlerJSON();
             List<Organizer> model = new List<Organizer>();
@@ -247,10 +240,6 @@ namespace WebProject.Controllers
         // GET: AdminPlace
         public async System.Threading.Tasks.Task<ActionResult> PlaceIndex()
         {
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
 
             ObjectHandlerJSON json = new ObjectHandlerJSON();
             List<Place> model = new List<Place>();

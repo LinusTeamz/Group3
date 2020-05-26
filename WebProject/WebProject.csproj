@@ -251,7 +251,7 @@
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\_Layout2.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\FacilityIndex.cshtml" />
     <Content Include="Views\Admin\PlaceIndex.cshtml" />
