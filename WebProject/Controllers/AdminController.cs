@@ -15,5 +15,13 @@ namespace WebProject.Controllers
         {
             return View();
         }
+
+        public async System.Threading.Tasks.Task<ActionResult> test()
+        {
+            ObjectHandlerJSON json = new ObjectHandlerJSON();
+            var test = await json.GetFacilityList();
+            
+            return View();
+        }
     }
 }
