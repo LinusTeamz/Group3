@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="container mt-3">
+    <h3>Login Admin/Organiser</h3>
+    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+    {
+        <form>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" autocomplete="off">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    }
+    <h4>@ViewBag.ErrorMessage</h4>
+</div>
