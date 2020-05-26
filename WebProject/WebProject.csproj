@@ -105,6 +105,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Custom\LoginStyle.css" />
     <Content Include="Custom\LayoutCSS.css" />
+    <Content Include="Custom\StyleSheet1.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -250,6 +251,8 @@
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Admin\test.cshtml" />
+    <Content Include="Views\_Layout2.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
