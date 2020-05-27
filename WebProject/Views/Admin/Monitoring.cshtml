@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Monitoring";
+}
+
+<h2>Monitoring</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Active</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>@ViewBag.AllaAdresser[0]</td>
+            <td>@ViewBag.AllaResultat[0]</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>@ViewBag.AllaAdresser[1]</td>
+            <td>@ViewBag.AllaResultat[1]</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>@ViewBag.AllaAdresser[2]</td>
+            <td>@ViewBag.AllaResultat[2]</td>
+        </tr>
+        <tr>
+            <th scope="row">4</th>
+            <td>@ViewBag.AllaAdresser[3]</td>
+            <td>@ViewBag.AllaResultat[3]</td>
+        </tr>
+        <tr>
+            <th scope="row">5</th>
+            <td>@ViewBag.AllaAdresser[4]</td>
+            <td>@ViewBag.AllaResultat[4]</td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<p>Amount of sites running: @ViewBag.Message1</p>
