@@ -23,7 +23,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <h1 class="navName" href="#">Organizer</h1>
+            @*<h1 class="navName" href="#">Organizer</h1>*@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>@*
@@ -37,9 +37,9 @@
             @{
                 //if (Session["user"] != null && Session["user"].ToString() == "admin") // för admin
                 //{
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                @*<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <ul class="navbar-nav">
-                        @*<li class="li_nav"><a class="active" href="#home">Home</a></li>*@
+                        <li class="li_nav"><a class="active" href="#home">Home</a></li>
 
                         <li class="nav-item active1">@Html.ActionLink("Index", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                         <li class="nav-item active1">@Html.ActionLink("Places", "PlaceIndex", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
@@ -47,7 +47,7 @@
                         <li class="nav-item active1">@Html.ActionLink("Monitoring", "Monitoring", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
                         <li class="nav-item active1">@Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     </ul>
-                </div>
+                </div>*@
 
                 @*}
             else if (Session["user"] != null && Session["user"].ToString() == "normal") // för arrangör
