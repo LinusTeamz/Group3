@@ -41,6 +41,7 @@ namespace WebProject.classes
         }
         #endregion
         
+        //TODO: Optimera denna kod...
         public async Task <string> UserDetails(string email, string password)
         {
             List<loginModelAPI> loginList = new List<loginModelAPI>();
@@ -57,19 +58,17 @@ namespace WebProject.classes
 
             bool apiPasswordExist = loginList.Any(m => m.Email.Equals(email) && m.Password.Equals(password));
 
-            // Will only loop if item exists
             if (apiPasswordExist)
             {
-                // Not efficient to loop, but works...
-                foreach (var item in loginList)
+                var selectedItem = loginList.Where(m => m.Email.Equals(email) && m.Password.Equals(password));
+
+                foreach (var item in selectedItem)
                 {
-                    // If both are true the role will be set
-                    if (item.Password.Equals(password) && item.Email.Equals(email))
-                    {
-                        role = item.Role;
-                    }
+                    role = item.Role;
                 }
             }
+           
+            
             return role;
         }
     }

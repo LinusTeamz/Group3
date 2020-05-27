@@ -16,9 +16,10 @@ namespace WebProject.classes
         // Egen API
         //private string BaseURL = "http://193.10.202.78/";
         private string organiserBaseURL = "http://localhost:50270/";
+
         // URL:er för egen API
         private string facilityURL = "Facilities", organizersURL = "Organizers", placeURL = "Places", facilitiesBookedURL = "FacilitiesBooked";
-
+        
         // Event API
         private string eventBaseURL = "http://193.10.202.77/EventService/";
         private string eventGetAPI = "Api/Events";

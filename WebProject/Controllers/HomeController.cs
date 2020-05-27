@@ -31,7 +31,7 @@ namespace WebProject.Controllers
             if (role.Equals("Arrangör"))
             {
                 Session["user"] = role;
-                return RedirectToAction("Index","Arrangör");
+                return RedirectToAction("Index", "Organizer");
             }
             else if (role.Equals("Admin"))
             {
