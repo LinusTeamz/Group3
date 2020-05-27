@@ -19,8 +19,10 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
 
-            @Html.ActionLink("Admin start", "Index", "Admin", new { area = "" }, new { @class = "navbar-brand" })
-            @Html.ActionLink("Logout", "Login", "Home", new { area = "" }, new { @class = "btn btn-danger float-right" })
+            @Html.ActionLink("Admin start", "Index", "Admin", null, new { @class = "navbar-brand float-left" })
+            @Html.ActionLink("CRUD Place", "PlaceIndex", "Admin", null, new { @class = "navbar-brand float-left" })
+            @Html.ActionLink("CRUD Facility", "FacilityIndex", "Admin", null, new { @class = "navbar-brand float-left" })
+            @Html.ActionLink("Logout", "Login", "Home", null, new { @class = "btn btn-danger float-right" })
 
         </div>
     </nav>
