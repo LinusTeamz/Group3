@@ -273,11 +273,11 @@ namespace WebProject.Controllers
 
         // POST: AdminPlace/Create
         [HttpPost]
-        public ActionResult PlaceCreate(Place place)
+        public async System.Threading.Tasks.Task<ActionResult> PlaceCreate(Place place)
         {
             try
             {
-                obj.AddPlace(place);
+                await obj.AddPlace(place);
 
                 return RedirectToAction("Index");
             }
@@ -344,9 +344,6 @@ namespace WebProject.Controllers
                 return View();
             }
         }
-    }
-        }
-        // GET: Monitoring
         public ActionResult Monitoring()
         {
             if (Session["user"] == null || Session["user"].ToString() != "admin")
