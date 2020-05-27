@@ -10,6 +10,7 @@ namespace WebProject.Controllers
 {
     public class OrganizerController : Controller
     {
+        ObjectHandlerJSON obj = new ObjectHandlerJSON();
         // GET: Organizer
         public ActionResult Index()
         {
@@ -19,5 +20,16 @@ namespace WebProject.Controllers
         {
             return View();
         }
+        // POST: CreateE/Create
+        [HttpPost]
+
+        public async System.Threading.Tasks.Task<ActionResult> CreateEvent(Event newEvent)
+        {
+            newEvent.Event_Create_Datetime = DateTime.Now;
+            await obj.AddEvent(newEvent);
+            
+            return RedirectToAction("Index", "Organizer");
+        }
+
     }
 }
