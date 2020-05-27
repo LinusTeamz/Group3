@@ -15,5 +15,9 @@ namespace WebProject.Controllers
         {
             return View();
         }
+        public ActionResult CreateEvent()
+        {
+            return View();
+        }
     }
 }
