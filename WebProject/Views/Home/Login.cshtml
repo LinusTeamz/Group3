@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+    <link href="~/Custom/LoginStyle.css" rel="stylesheet" />
+    <div class="container loginForm rounded">
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+        {
+            <div class="form-group">
+                <label for="email">Name</label>
+                <input type="text" class="form-control" id="email" name="name">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="loginButton">Login</button>
+        }
+        <h1>@ViewBag.ErrorMessage</h1>
+    </div>
+
+
