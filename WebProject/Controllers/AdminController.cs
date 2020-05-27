@@ -250,10 +250,10 @@ namespace WebProject.Controllers
         // GET: Monitoring
         public ActionResult Monitoring()
         {
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (Session["user"] == null || Session["user"].ToString() != "admin")
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
 
             List<bool> resultat = new List<bool>();
             List<string> adresser = new List<string>();
