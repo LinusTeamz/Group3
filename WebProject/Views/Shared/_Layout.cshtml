@@ -19,22 +19,56 @@
     <link href="~/Custom/LayoutCSS.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <h1 class="navName" href="#">Organizer</h1>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="#">Features</a>
-                    <a class="nav-item nav-link" href="#">Pricing</a>
-                    <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </div>
+            </button>@*
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active1" href="~/Home/Login">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link active1" href="#">Features</a>
+                <a class="nav-item nav-link active1" href="#">Pricing</a>
             </div>
+        </div>*@
+            @{
+                //if (Session["user"] != null && Session["user"].ToString() == "admin") // för admin
+                //{
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <ul class="navbar-nav">
+                        @*<li class="li_nav"><a class="active" href="#home">Home</a></li>*@
+
+                        <li class="nav-item active1">@Html.ActionLink("Index", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item active1">@Html.ActionLink("Places", "PlaceIndex", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item active1">@Html.ActionLink("Facilities", "FacilityIndex", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item active1">@Html.ActionLink("Monitoring", "Monitoring", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item active1">@Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    </ul>
+                </div>
+
+                @*}
+            else if (Session["user"] != null && Session["user"].ToString() == "normal") // för arrangör
+            {*@
+
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <ul class="navbar-nav">
+                        @*<li class="li_nav"><a class="active" href="#home">Home</a></li>*@
+                        <li class="nav-item active1">@Html.ActionLink("Organizer", "Index", "Organizer", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item active1">@Html.ActionLink("My Events", "myEvents", "Organizer", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item active1">@Html.ActionLink("Create Event", "CreateEvent", "Organizer", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item active1">@Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    </ul>
+                </div>
+                @*}
+            else
+            {
+                @Html.ActionLink("Login", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+            }*@
+            }
         </div>
     </nav>
+
     <div>
         @RenderBody()
     </div>
@@ -42,5 +76,23 @@
     <script src="~/Scripts/jquery-3.0.0.min.js"></script>
     <script src="~/Scripts/popper.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        function myFunction() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 </html>

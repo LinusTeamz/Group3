@@ -344,8 +344,8 @@ namespace WebProject.Controllers
                 return View();
             }
         }
-    }
-        }
+    
+        
         // GET: Monitoring
         public ActionResult Monitoring()
         {

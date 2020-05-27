@@ -257,6 +257,7 @@
     <Content Include="Views\Admin\PlaceIndex.cshtml" />
     <Content Include="Views\Admin\OrganizerIndex.cshtml" />
     <Content Include="Views\Help\Error.cshtml" />
+    <Content Include="Views\Admin\Monitoring.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
