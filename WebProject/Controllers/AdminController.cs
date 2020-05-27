@@ -24,7 +24,11 @@ namespace WebProject.Controllers
         {
             try
             {
-                
+                //if (Session["user"] == null || Session["user"].ToString() != "admin")
+                //{
+                //    return RedirectToAction("Index", "Home");
+                //}
+
                 List<Facility> model = new List<Facility>();
                 model = await obj.GetFacilityList();
 
@@ -43,10 +47,10 @@ namespace WebProject.Controllers
         {
             try
             {
-                if (Session["user"] == null || Session["user"].ToString() != "admin")
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                ////if (Session["user"] == null || Session["user"].ToString() != "admin")
+                ////{
+                ////    return RedirectToAction("Index", "Home");
+                ////}
 
                 return View();
             }
@@ -76,10 +80,10 @@ namespace WebProject.Controllers
         // GET: AdminFacility/Edit/5
         public ActionResult FacilityEdit(int id)
         {
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (Session["user"] == null || Session["user"].ToString() != "admin")
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
 
             return View();
         }
@@ -103,10 +107,10 @@ namespace WebProject.Controllers
         // GET: AdminFacility/Delete/5
         public async System.Threading.Tasks.Task<ActionResult> FacilityDelete(int id)
         {
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (Session["user"] == null || Session["user"].ToString() != "admin")
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
 
             Facility model = new Facility();
 
@@ -130,116 +134,14 @@ namespace WebProject.Controllers
                 return View();
             }
         }
-        // GET: AdminOrganizer
-        public async System.Threading.Tasks.Task<ActionResult> OrganizerIndex()
-        {
-            
-
-            ObjectHandlerJSON json = new ObjectHandlerJSON();
-            List<Organizer> model = new List<Organizer>();
-            model = await json.GetOrganizerList();
-
-            return View(model);
-        }
-
-        // GET: AdminOrganizer/Details/5
-        public ActionResult OrganizerDetails(int id)
-        {
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            return View();
-        }
-
-        // GET: AdminOrganizer/Create
-        public ActionResult OrganizerCreate()
-        {
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            return View();
-        }
-
-        // POST: AdminOrganizer/Create
-        [HttpPost]
-        public ActionResult OrganizerCreate(Organizer organizer)
-        {
-            try
-            {
-                obj.AddOrganizer(organizer);
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: AdminOrganizer/Edit/5
-        public ActionResult OrganizerEdit(int id)
-        {
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            return View();
-        }
-
-        // POST: AdminOrganizer/Edit/5
-        [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> OrganizerEdit(int id, Organizer organizer)
-        {
-            try
-            {
-                await obj.UpdateOrganizer(organizer);
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: AdminOrganizer/Delete/5
-        public async System.Threading.Tasks.Task<ActionResult> OrganizerDelete(int id)
-        {
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            Organizer model = new Organizer();
-
-            model = await obj.GetOrganizerByID(id);
-
-            return View(model);
-        }
-
-        // POST: AdminOrganizer/Delete/5
-        [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> OrganizerDelete(int id, Place place)
-        {
-            try
-            {
-                await obj.DeleteOrganizer(id);
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+       
         // GET: AdminPlace
         public async System.Threading.Tasks.Task<ActionResult> PlaceIndex()
         {
+            //if (Session["user"] == null || Session["user"].ToString() != "admin")
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
 
             ObjectHandlerJSON json = new ObjectHandlerJSON();
             List<Place> model = new List<Place>();
@@ -251,10 +153,10 @@ namespace WebProject.Controllers
         // GET: AdminPlace/Details/5
         public ActionResult PlaceDetails(int id)
         {
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (session["user"] == null || session["user"].tostring() != "admin")
+            //{
+            //    return redirecttoaction("index", "home");
+            //}
 
             return View();
         }
@@ -263,10 +165,10 @@ namespace WebProject.Controllers
         public ActionResult PlaceCreate()
         {
 
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (Session["user"] == null || Session["user"].ToString() != "admin")
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
 
             return View();
         }
@@ -290,10 +192,10 @@ namespace WebProject.Controllers
         // GET: AdminPlace/Edit/5
         public ActionResult PlaceEdit(int id)
         {
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (Session["user"] == null || Session["user"].ToString() != "admin")
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
 
             return View();
         }
@@ -317,10 +219,10 @@ namespace WebProject.Controllers
         // GET: AdminPlace/Delete/5
         public async System.Threading.Tasks.Task<ActionResult> PlaceDelete(int id)
         {
-            if (Session["user"] == null || Session["user"].ToString() != "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //if (Session["user"] == null || Session["user"].ToString() != "admin")
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
 
             Place model = new Place();
 

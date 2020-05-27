@@ -1,0 +1,11 @@
+﻿
+body {
+	background-color: rgba(165, 93, 23, 0.24)
+}
+
+.p_welcome {
+	font-family: 'Bangers', cursive;
+	text-align: center;
+	margin-top: 200px;
+	font-size: 25px;
+}
