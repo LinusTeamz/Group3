@@ -264,6 +264,7 @@
     <Content Include="Views\Admin\PlaceEdit.cshtml" />
     <Content Include="Views\Admin\PlaceDelete.cshtml" />
     <Content Include="Views\Organizer\Index.cshtml" />
+    <Content Include="Views\Organizer\CreateEvent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

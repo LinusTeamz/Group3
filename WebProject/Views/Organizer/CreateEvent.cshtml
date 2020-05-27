@@ -1,0 +1,79 @@
+﻿@model WebProject.Models.Event
+
+@{
+    ViewBag.Title = "CreateEvent";
+}
+    <link href="~/Custom/OrganizerLayout.css" rel="stylesheet" />
+<h2 style="text-align: center; margin-top: 20px">CreateEvent</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="container" style="border:dashed">
+        <table class="table">
+            <tr>
+                <th>Event details</th>
+            </tr>
+            <tr>
+                <td>Event Name</td>
+                <td>
+                    <input id="nameInput" type="text" name="Event_Name" />
+                </td>
+            </tr>
+            <tr>
+                <td>Event Active</td>
+                <td>
+                    <input id="activeInput" type="checkbox" name="Event_Active" />
+                </td>
+            </tr>
+            <tr>
+                <td>Event Arranger Id</td>
+                <td>
+                    <input id="arrangerInput" type="number" name="Event_Arranger_Id" />
+                </td>
+            </tr>
+            <tr>
+                <td>Event Seeking Voulunteers</td>
+                <td>
+                    <input id="voulunteersInput" type="checkbox" name="Event_Seeking_Volunteers" />
+                </td>
+            </tr>
+            <tr>
+                <td>Event Location Id</td>
+                <td>
+                    <input id="locationInput" type="number" name="Event_Location_Id" />
+                </td>
+            </tr>
+
+            @*<tr>
+            <td>Event Category</td>
+            <td>
+                @Html.DropDownListFor(m => m.Event_Category.Category_Name)
+            </td>
+        </tr>*@
+            <tr>
+                <td>Event Description</td>
+                <td>
+                    <input id="descriptionInput" type="text" name="Event_Description" />
+                </td>
+            </tr>
+            <tr>
+                <td>Event Ticket Price</td>
+                <td>
+                    <input id="priceInput" type="number" name="Event_Ticket_Price" />
+                </td>
+            </tr>   
+            <tr>
+                <td>Event Start Date</td>
+                <td>
+                    <input id="dateInput" type="date" width="10" class="date" name="Event_Start_Datetime" />
+                </td>
+            </tr>
+            <tr>
+                <td>Event End Date</td>
+                <td>
+                    <input id="dateInput" type="date" width="10" class="date" name="Event_End_Datetime" />
+                </td>
+            </tr>
+        </table>
+    </div>
+}
