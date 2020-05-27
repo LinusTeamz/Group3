@@ -7,6 +7,10 @@
 
 }
 
+.errorMessage{
+    color:red;
+}
+
 *, :after, :before {
     box-sizing: border-box
 }

@@ -19,6 +19,16 @@ namespace WebProject.Controllers
             // Tar bort session vid start
             Session.Remove("user");
 
+            // Skriv enbart ut ifall det finns data
+            if (TempData.ContainsKey("tempErrorMessage"))
+            {
+                // Skriver ut felmeddelandet
+                ViewBag.ErrorMessage ="* " + TempData["tempErrorMessage"].ToString();
+
+                // Ta bort temp data efter användning
+                TempData.Remove("tempErrorMessage");
+            }
+
             return View();
         }
 
@@ -26,21 +36,28 @@ namespace WebProject.Controllers
         public async System.Threading.Tasks.Task<ActionResult> Login(LoginModel loginDetails)
         {
             LoginHandler handler = new LoginHandler();
-            string role = await handler.UserDetails(loginDetails.name, loginDetails.password);        
 
-            if (role.Equals("Arrangör"))
-            {
-                Session["user"] = role;
-                return RedirectToAction("Index", "Organizer");
-            }
-            else if (role.Equals("Admin"))
-            {
-                Session["user"] = role;
-                return RedirectToAction("Index","Admin");
-            }
+            try
+            {            
+                string role = await handler.UserDetails(loginDetails.name, loginDetails.password);
 
-            return RedirectToAction("Login", "Home");
+                if (role.Equals("Arrangör"))
+                {
+                    Session["user"] = role;
+                    return RedirectToAction("Index", "Organizer");
+                }
+                else if (role.Equals("Admin"))
+                {
+                    Session["user"] = role;
+                    return RedirectToAction("Index", "Admin");
+                }
+                return RedirectToAction("Login", "Home");
+            }
+            catch(Exception e)
+            {
+                TempData["tempErrorMessage"] = e.Message;
+                return RedirectToAction("Login", "Home");
+            }
         }
     }
-
 }
