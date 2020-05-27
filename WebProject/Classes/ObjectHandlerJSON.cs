@@ -14,7 +14,7 @@ namespace WebProject.classes
     public class ObjectHandlerJSON
     {
         // Egen API
-        //private string BaseURL = "http://193.10.202.78/";
+        //private string organiserBaseURL = "http://193.10.202.78/";
         private string organiserBaseURL = "http://localhost:50270/";
 
         // URL:er för egen API

@@ -51,6 +51,7 @@ namespace WebProject.Controllers
                     Session["user"] = role;
                     return RedirectToAction("Index", "Admin");
                 }
+
                 return RedirectToAction("Login", "Home");
             }
             catch(Exception e)
@@ -58,6 +59,11 @@ namespace WebProject.Controllers
                 TempData["tempErrorMessage"] = e.Message;
                 return RedirectToAction("Login", "Home");
             }
+        }
+        public ActionResult Logout()
+        {
+            Session.Remove("user");
+            return RedirectToAction("Login", "Home");
         }
     }
 }
