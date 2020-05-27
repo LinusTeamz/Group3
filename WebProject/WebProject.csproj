@@ -256,8 +256,13 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\FacilityIndex.cshtml" />
     <Content Include="Views\Admin\PlaceIndex.cshtml" />
-    <Content Include="Views\Admin\OrganizerIndex.cshtml" />
     <Content Include="Views\Help\Error.cshtml" />
+    <Content Include="Views\Admin\FacilityCreate.cshtml" />
+    <Content Include="Views\Admin\FacilityEdit.cshtml" />
+    <Content Include="Views\Admin\FacilityDelete.cshtml" />
+    <Content Include="Views\Admin\PlaceCreate.cshtml" />
+    <Content Include="Views\Admin\PlaceEdit.cshtml" />
+    <Content Include="Views\Admin\PlaceDelete.cshtml" />
     <Content Include="Views\Organizer\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
