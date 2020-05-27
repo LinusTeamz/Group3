@@ -142,10 +142,9 @@ namespace WebProject.Controllers
             //{
             //    return RedirectToAction("Index", "Home");
             //}
-
-            ObjectHandlerJSON json = new ObjectHandlerJSON();
+            
             List<Place> model = new List<Place>();
-            model = await json.GetPlaceList();
+            model = await obj.GetPlaceList();
 
             return View(model);
         }
