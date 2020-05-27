@@ -16,15 +16,20 @@ namespace WebProject.classes
         // Egen API
         //private string BaseURL = "http://193.10.202.78/";
         private string organiserBaseURL = "http://localhost:50270/";
+
         // URL:er för egen API
         private string facilityURL = "Facilities", organizersURL = "Organizers", placeURL = "Places", facilitiesBookedURL = "FacilitiesBooked";
-
-        // Annan API 
-        private string eventBaseURL = "http://193.10.202.77/EventService/";
-        private string eventAPI = "Api/Events";
-
-
         
+        // Event API
+        private string eventBaseURL = "http://193.10.202.77/EventService/";
+        private string eventGetAPI = "Api/Events";
+
+        // Login API
+        private string loginBaseURL = "http://193.10.202.76/";
+        private string loginGetAPI = "api/organizer";
+
+
+
         #region Read
         public async Task<List<Facility>> GetFacilityList()
         {
@@ -167,7 +172,7 @@ namespace WebProject.classes
 
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    HttpResponseMessage Res = await client.GetAsync(eventAPI);
+                    HttpResponseMessage Res = await client.GetAsync(eventGetAPI);
 
                     if (Res.IsSuccessStatusCode)
                     {
@@ -177,6 +182,37 @@ namespace WebProject.classes
                 }
 
                 return eventList;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public async Task<List<loginModelAPI>> GetLoginList()
+        {
+
+            List<loginModelAPI> loginList = new List<loginModelAPI>();
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(loginBaseURL);
+
+                    client.DefaultRequestHeaders.Clear();
+
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage Res = await client.GetAsync(loginGetAPI);
+
+                    if (Res.IsSuccessStatusCode)
+                    {
+                        var response = Res.Content.ReadAsStringAsync().Result;
+                        loginList = JsonConvert.DeserializeObject<List<loginModelAPI>>(response);
+                    }
+                }
+
+                return loginList;
             }
             catch (Exception e)
             {
@@ -288,7 +324,7 @@ namespace WebProject.classes
 
                 // URL vart datan ska skickas
 
-                string URL = eventBaseURL + eventAPI;
+                string URL = eventBaseURL + eventGetAPI;
 
                 // Connecting webapi
                 var response = await client.PostAsync(URL, content);
