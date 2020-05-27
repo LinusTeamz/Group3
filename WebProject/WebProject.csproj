@@ -225,7 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Classes\LoginClass.cs" />
+    <Compile Include="Classes\LoginHandler.cs" />
     <Compile Include="Classes\ObjectHandlerJSON.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
@@ -239,6 +239,7 @@
     <Compile Include="Models\FacilitiesBooked.cs" />
     <Compile Include="Models\Facility.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\loginModelAPI.cs" />
     <Compile Include="Models\MonitorModel.cs" />
     <Compile Include="Models\Organizer.cs" />
     <Compile Include="Models\Place.cs" />
