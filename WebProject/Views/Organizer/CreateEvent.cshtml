@@ -3,12 +3,12 @@
 @{
     ViewBag.Title = "CreateEvent";
 }
-    <link href="~/Custom/OrganizerLayout.css" rel="stylesheet" />
-<h2 style="text-align: center; margin-top: 20px">CreateEvent</h2>
+<link href="~/Custom/OrganizerLayout.css" rel="stylesheet" />
+<h2 class="h2_heading">Create Event</h2>
 
 @using (Html.BeginForm())
 {
-    <div class="container" style="border:dashed">
+    <div class="container" style="border:8px double purple ">
         <table class="table">
             <tr>
                 <th>Event details</th>
@@ -45,11 +45,11 @@
             </tr>
 
             @*<tr>
-            <td>Event Category</td>
-            <td>
-                @Html.DropDownListFor(m => m.Event_Category.Category_Name)
-            </td>
-        </tr>*@
+                    <td>Event Category</td>
+                    <td>
+                        @Html.DropDownListFor(m => m.Event_Category.Category_Name)
+                    </td>
+                </tr>*@
             <tr>
                 <td>Event Description</td>
                 <td>
@@ -61,7 +61,7 @@
                 <td>
                     <input id="priceInput" type="number" name="Event_Ticket_Price" />
                 </td>
-            </tr>   
+            </tr>
             <tr>
                 <td>Event Start Date</td>
                 <td>
@@ -77,4 +77,51 @@
         </table>
         <button type="submit">Create Event</button>
     </div>
+
+    //Förslag på form
+
+<div class="container" style="border:8px double purple ">
+    <div class="div_labelform">
+
+    <label for="nameInput">Event Name</label>
+    <input id="nameInput" type="text" name="Event_Name" /><br />
+
+    <label for="activeInput">Event Active</label>
+    <input id="activeInput" type="checkbox" name="Event_Active" /><br />
+
+    <label for="arrangerInput">Event Arranger Id</label>
+    <input id="arrangerInput" type="number" name="Event_Arranger_Id" /><br />
+
+    <label for="voulunteersInput">Event Seeking Voulunteers</label>
+    <input id="voulunteersInput" type="checkbox" name="Event_Seeking_Volunteers" /><br />
+
+    <label for="locationInput">Event Location Id</label>
+    <input id="locationInput" type="number" name="Event_Location_Id" /><br />
+
+    <label for="category">Event Category</label>
+    <select id="category" name="category">
+        <option value="music">Music</option>
+        <option value="art">Art</option>
+        <option value="holiday">Holiday</option>
+    </select><br />
+
+    <label for="descriptionInput">Event Description</label>
+    <input id="descriptionInput" type="text" name="Event_Description" /><br />
+
+    <label for="priceInput">Event Ticket Price</label>
+    <input id="priceInput" type="number" name="Event_Ticket_Price" /><br />
+
+    <label for="dateStartInput">Event Start Date</label>
+    <input id="dateStartInput" type="date" name="Event_Start_Datetime" /><br />
+
+    <label for="dateEndInput">Event End Date</label>
+    <input id="dateEndInput" type="date" name="Event_End_Datetime" /><br />
+
+    <button type="submit">Create Event</button>
+    </div>
+
+</div>
+
+
+
 }
