@@ -59,11 +59,11 @@ namespace WebProject.Controllers
 
         // POST: AdminFacility/Create
         [HttpPost]
-        public ActionResult FacilityCreate(Facility facility)
+        public async System.Threading.Tasks.Task<ActionResult> FacilityCreate(Facility facility)
         {
             try
             {
-                obj.AddFacility(facility);
+                await obj.AddFacility(facility);
 
                 return RedirectToAction("Index");
             }
@@ -86,11 +86,11 @@ namespace WebProject.Controllers
 
         // POST: AdminFacility/Edit/5
         [HttpPost]
-        public ActionResult FacilityEdit(int id, Facility facility)
+        public async System.Threading.Tasks.Task<ActionResult> FacilityEdit(int id, Facility facility)
         {
             try
             {
-                obj.UpdateFacility(facility);
+                await obj.UpdateFacility(facility);
 
                 return RedirectToAction("Index");
             }
