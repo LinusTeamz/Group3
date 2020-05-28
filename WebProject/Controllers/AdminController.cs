@@ -168,24 +168,6 @@ namespace WebProject.Controllers
             }
         }
 
-        public ActionResult PlaceDetails(int id)
-        {
-            //if (session["user"] == null || session["user"].tostring() != "admin")
-            //{
-            //    return redirecttoaction("index", "home");
-            //}
-
-            try
-            {
-                return View();
-            }
-            catch (Exception e)
-            {
-                TempData["tempErrorMessage"] = e.Message.ToString();
-                return RedirectToAction("Error", "Help");
-            }
-        }
-
         public ActionResult PlaceCreate()
         {
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
