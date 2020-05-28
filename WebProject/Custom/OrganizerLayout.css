@@ -1,6 +1,8 @@
 ﻿
 body {
-	background-color: rgba(165, 93, 23, 0.24)
+	background-image: url('Images/bakgrundOrg.png');
+	color: white;
+	font-size: 25px;
 }
 
 .p_welcome {
@@ -13,10 +15,15 @@ body {
 	text-align: center;
 	margin-top: 20px;
 }
-table {
-	max-width:600px;
+table, td, th {
+	max-width: 600px;
 	margin: 0 auto;
+	border: none !important;
+	color: white;
+	font-size: 25px;
+	background-color: #383838;
 }
+
 
 /*CSS för label form*/
 
