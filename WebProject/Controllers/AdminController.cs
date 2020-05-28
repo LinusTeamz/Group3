@@ -16,7 +16,17 @@ namespace WebProject.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+
+                TempData["tempErrorMessage"] = "Password or username is wrong";
+                return RedirectToAction("Error", "Help");
+            }
+           
         }
 
         // GET: AdminFacility
@@ -71,9 +81,10 @@ namespace WebProject.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
             }
         }
 
@@ -85,7 +96,16 @@ namespace WebProject.Controllers
             //    return RedirectToAction("Index", "Home");
             //}
 
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+            
         }
 
         // POST: AdminFacility/Edit/5
@@ -98,9 +118,10 @@ namespace WebProject.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
             }
         }
 
@@ -112,11 +133,18 @@ namespace WebProject.Controllers
             //    return RedirectToAction("Index", "Home");
             //}
 
-            Facility model = new Facility();
-
-            model = await obj.GetFacilityByID(id);
-
-            return View(model);
+            try
+            {
+                Facility model = new Facility();
+                model = await obj.GetFacilityByID(id);
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+         
         }
 
         // POST: AdminFacility/Delete/5
@@ -129,9 +157,10 @@ namespace WebProject.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
             }
         }
        
@@ -143,10 +172,17 @@ namespace WebProject.Controllers
             //    return RedirectToAction("Index", "Home");
             //}
             
-            List<Place> model = new List<Place>();
-            model = await obj.GetPlaceList();
-
-            return View(model);
+            try
+            {
+                List<Place> model = new List<Place>();
+                model = await obj.GetPlaceList();
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                TempData["tempErrorMessage"] = "Password or username is wrong";
+                return RedirectToAction("Error", "Help");
+            }
         }
 
         // GET: AdminPlace/Details/5
@@ -157,7 +193,17 @@ namespace WebProject.Controllers
             //    return redirecttoaction("index", "home");
             //}
 
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+
+          
         }
 
         // GET: AdminPlace/Create
@@ -169,7 +215,15 @@ namespace WebProject.Controllers
             //    return RedirectToAction("Index", "Home");
             //}
 
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
         }
 
         // POST: AdminPlace/Create
@@ -182,9 +236,10 @@ namespace WebProject.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
             }
         }
 
@@ -196,7 +251,15 @@ namespace WebProject.Controllers
             //    return RedirectToAction("Index", "Home");
             //}
 
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
         }
 
         // POST: AdminPlace/Edit/5
@@ -209,9 +272,10 @@ namespace WebProject.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
             }
         }
 
@@ -223,11 +287,21 @@ namespace WebProject.Controllers
             //    return RedirectToAction("Index", "Home");
             //}
 
-            Place model = new Place();
+         
+            try
+            {
+                Place model = new Place();
 
-            model = await obj.GetPlaceByID(id);
+                model = await obj.GetPlaceByID(id);
 
-            return View(model);
+                return View(model);
+
+            }
+            catch (Exception e)
+            {
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
         }
 
         // POST: AdminPlace/Delete/5
@@ -240,9 +314,10 @@ namespace WebProject.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
             }
         }
     
@@ -255,41 +330,50 @@ namespace WebProject.Controllers
             //    return RedirectToAction("Index", "Home");
             //}
 
-            ViewModel model = new ViewModel();
-
-            List<bool> resultat = new List<bool>();
-
-            // Lägg in adresser
-            List<string> adresser = new List<string>();
-            adresser.Add("www.ikea.se");
-            adresser.Add("www.google.com");
-            adresser.Add("http://193.10.202.76/");
-            adresser.Add("http://193.10.202.82/");
-            adresser.Add("http://193.10.202.81/");
-
-            int trueCounter = 0;
-            int falseCounter = 0;
-            foreach (var adress in adresser)
+            try
             {
-                MonitorModel namn = new MonitorModel();
-                resultat.Add(GetPing(adress));
-                if (GetPing(adress) == true)
+                ViewModel model = new ViewModel();
+
+                List<bool> resultat = new List<bool>();
+
+                // Lägg in adresser
+                List<string> adresser = new List<string>();
+                adresser.Add("www.ikea.se");
+                adresser.Add("www.google.com");
+                adresser.Add("http://193.10.202.76/");
+                adresser.Add("http://193.10.202.82/");
+                adresser.Add("http://193.10.202.81/");
+
+                int trueCounter = 0;
+                int falseCounter = 0;
+                foreach (var adress in adresser)
                 {
-                    namn.Adress = adress;
-                    namn.Ping = true;
-                    model.monitorList.Add(namn);
-                    trueCounter++;
+                    MonitorModel namn = new MonitorModel();
+                    resultat.Add(GetPing(adress));
+                    if (GetPing(adress) == true)
+                    {
+                        namn.Adress = adress;
+                        namn.Ping = true;
+                        model.monitorList.Add(namn);
+                        trueCounter++;
+                    }
+                    else
+                    {
+                        falseCounter++;
+                    }
                 }
-                else
-                {
-                    falseCounter++;
-                }
+                string result = trueCounter.ToString() + "/" + (falseCounter + trueCounter).ToString();
+                //ViewBag.AllaAdresser = adresser;
+                //ViewBag.AllaResultat = resultat;
+                //ViewBag.Message1 = result;
+                return View(model);
             }
-            string result = trueCounter.ToString() + "/" + (falseCounter + trueCounter).ToString();
-            //ViewBag.AllaAdresser = adresser;
-            //ViewBag.AllaResultat = resultat;
-            //ViewBag.Message1 = result;
-            return View(model);
+            catch (Exception e)
+            {
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+          
         }
         public bool GetPing(string adress)
         {
@@ -308,7 +392,7 @@ namespace WebProject.Controllers
                     value = false;
                 }
             }
-            catch (Exception e)
+            catch 
             {
                 return false;
             }

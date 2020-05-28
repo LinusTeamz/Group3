@@ -41,18 +41,22 @@ namespace WebProject.Controllers
             {            
                 string role = await handler.UserDetails(loginDetails.name, loginDetails.password);
 
-                if (role.Equals("Arrangör"))
+                if(role != null)
                 {
-                    Session["user"] = role;
-                    return RedirectToAction("Index", "Organizer");
-                }
-                else if (role.Equals("Admin"))
-                {
-                    Session["user"] = role;
-                    return RedirectToAction("Index", "Admin");
+                    if (role.Equals("Arrangör"))
+                    {
+                        Session["user"] = role;
+                        return RedirectToAction("Index", "Organizer");
+                    }
+                    else if (role.Equals("Admin"))
+                    {
+                        Session["user"] = role;
+                        return RedirectToAction("Index", "Admin");
+                    }
                 }
 
-                return RedirectToAction("Login", "Home");
+                TempData["tempErrorMessage"] = "Password or username is wrong";
+                return RedirectToAction("Login", "Home");  
             }
             catch(Exception e)
             {
