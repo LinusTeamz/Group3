@@ -6,7 +6,7 @@
 <link href="~/Custom/OrganizerLayout.css" rel="stylesheet" />
 <h2 class="h2_heading">Create Event</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateEvent", "Organizer", FormMethod.Post))
 {
     <div class="container" style="border:8px double purple ">
         <table class="table">
@@ -20,7 +20,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Event Active</td>
+                <td>Visible</td>
                 <td>
                     <input id="activeInput" type="checkbox" name="Event_Active" />
                 </td>
@@ -34,22 +34,22 @@
             <tr>
                 <td>Event Seeking Voulunteers</td>
                 <td>
-                    <input id="voulunteersInput" type="checkbox" name="Event_Seeking_Volunteers" />
+                    <input id="voulunteersInput" type="checkbox" name="Event_Seeking_Volunteers" value="true"/>
                 </td>
             </tr>
             <tr>
                 <td>Event Location Id</td>
                 <td>
-                    <input id="locationInput" type="number" name="Event_Location_Id" />
+                    <input id="locationInput" type="number" name="Event_Facility_Id" />
                 </td>
             </tr>
 
-            @*<tr>
+            <tr>
                     <td>Event Category</td>
                     <td>
-                        @Html.DropDownListFor(m => m.Event_Category.Category_Name)
+                        <input type="number" name="Category_Id" value="1"/>
                     </td>
-                </tr>*@
+                </tr>
             <tr>
                 <td>Event Description</td>
                 <td>
@@ -65,13 +65,13 @@
             <tr>
                 <td>Event Start Date</td>
                 <td>
-                    <input id="dateInput" type="date" width="10" class="date" name="Event_Start_Datetime" />
+                    <input id="dateInput" type="datetime-local" width="10" class="date" name="Event_Start_Datetime" />
                 </td>
             </tr>
             <tr>
                 <td>Event End Date</td>
                 <td>
-                    <input id="dateInput" type="date" width="10" class="date" name="Event_End_Datetime" />
+                    <input id="dateInput" type="datetime-local" width="10" class="date" name="Event_End_Datetime" />
                 </td>
             </tr>
         </table>
@@ -80,7 +80,7 @@
 
     //Förslag på form
 
-<div class="container" style="border:8px double purple ">
+@*<div class="container" style="border:8px double purple ">
     <div class="div_labelform">
 
     <label for="nameInput">Event Name</label>
@@ -120,7 +120,7 @@
     <button type="submit">Create Event</button>
     </div>
 
-</div>
+</div>*@
 
 
 

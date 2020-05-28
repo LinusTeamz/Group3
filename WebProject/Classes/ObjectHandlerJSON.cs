@@ -22,7 +22,7 @@ namespace WebProject.classes
         
         // Event API
         private string eventBaseURL = "http://193.10.202.77/EventService/";
-        private string eventGetAPI = "Api/Events";
+        private string eventGetAPI = "Api/Events", eventCategoryAPI = "Api/Categories/";
 
         // Login API
         private string loginBaseURL = "http://193.10.202.76/";
@@ -182,6 +182,36 @@ namespace WebProject.classes
                 }
 
                 return eventList;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public async Task<List<EventCategory>> GetCategoryList()
+        {
+            List<EventCategory> categoryList = new List<EventCategory>();
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(eventBaseURL);
+
+                    client.DefaultRequestHeaders.Clear();
+
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage Res = await client.GetAsync(eventGetAPI);
+
+                    if (Res.IsSuccessStatusCode)
+                    {
+                        var response = Res.Content.ReadAsStringAsync().Result;
+                        categoryList = JsonConvert.DeserializeObject<List<EventCategory>>(response);
+                    }
+                }
+
+                return categoryList;
             }
             catch (Exception e)
             {

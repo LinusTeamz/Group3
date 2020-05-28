@@ -18,13 +18,16 @@ namespace WebProject.Controllers
         }
         public ActionResult CreateEvent()
         {
+
             return View();
         }
         // POST: CreateE/Create
         [HttpPost]
 
-        public async System.Threading.Tasks.Task<ActionResult> CreateEvent(Event newEvent)
+        public async System.Threading.Tasks.Task<ActionResult> CreateEvent(Event newEvent, int Category_Id)
         {
+            newEvent.Event_Category = new EventCategory();
+            newEvent.Event_Category.Category_Id = Category_Id;
             newEvent.Event_Create_Datetime = DateTime.Now;
             await obj.AddEvent(newEvent);
             
