@@ -28,11 +28,17 @@ namespace WebProject.Controllers
         {          
             try
             {
+                List<SelectListItem> facilitiesDropDown = new List<SelectListItem>();
                 List<SelectListItem> categoryDropDown = new List<SelectListItem>();
+
                 List<EventCategory> categoriesList = new List<EventCategory>();
+                List<Facility> facilitiesList = new List<Facility>();
+                List<Place> placeList = new List<Place>();
 
                 categoriesList = await obj.GetCategoryList();
-              
+                facilitiesList = await obj.GetFacilityList();
+                placeList = await obj.GetPlaceList();
+
                 foreach (var item in categoriesList)
                 {
                     SelectListItem temp = new SelectListItem();
@@ -41,7 +47,23 @@ namespace WebProject.Controllers
                     categoryDropDown.Add(temp);
                 }
 
+                foreach (var item in facilitiesList)
+                {
+                    SelectListItem temp = new SelectListItem();
+                    Place place = new Place();
+
+                    place = await obj.GetPlaceByID(item.Fk_Place);
+
+                    string location = item.Name + " - " + place.Name.ToString();
+
+                    temp.Text = location;
+                    temp.Value = item.Id.ToString();
+
+                    facilitiesDropDown.Add(temp);
+                }
+
                 ViewBag.Category_Id = categoryDropDown;
+                ViewBag.Event_Facility_Id = facilitiesDropDown;
 
                 return View();
             }
@@ -58,12 +80,31 @@ namespace WebProject.Controllers
         {      
             try
             {
+                if(newEvent.Event_Seeking_Volunteers != true)
+                {
+                    newEvent.Event_Seeking_Volunteers = false;
+                }
+
+                if (newEvent.Event_Active != true)
+                {
+                    newEvent.Event_Active = false;
+                }
+
                 newEvent.Event_Category = new EventCategory();
                 newEvent.Event_Category.Category_Id = Category_Id;
                 newEvent.Event_Create_Datetime = DateTime.Now;
-                await obj.AddEvent(newEvent);
+
+                string result = await obj.AddEvent(newEvent);
                 
-                return RedirectToAction("Index", "Organizer");
+                // Ifall det blir fel vid inmatningen
+                if(result.ToLower() != "success")
+                {
+                    TempData["tempErrorMessage"] = result;
+                    return RedirectToAction("Error", "Help");
+                }
+
+                // Om allt går bra
+                return RedirectToAction("Index", "MyEvent");
             }
             catch (Exception e)
             {
