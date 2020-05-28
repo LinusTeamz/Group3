@@ -202,7 +202,7 @@ namespace WebProject.classes
 
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    HttpResponseMessage Res = await client.GetAsync(eventGetAPI);
+                    HttpResponseMessage Res = await client.GetAsync(eventCategoryAPI);
 
                     if (Res.IsSuccessStatusCode)
                     {
