@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
-using WebProject.Models;
 using WebProject.classes;
+using WebProject.Models;
 
 namespace WebProject.Controllers
 {
     public class AdminController : Controller
     {
-        ObjectHandlerJSON obj = new ObjectHandlerJSON();
+        private ObjectHandlerJSON obj = new ObjectHandlerJSON();
 
-        // GET: Admin
         public ActionResult Index()
         {
             try
@@ -22,14 +18,11 @@ namespace WebProject.Controllers
             }
             catch (Exception)
             {
-
                 TempData["tempErrorMessage"] = "Password or username is wrong";
                 return RedirectToAction("Error", "Help");
             }
-           
         }
 
-        // GET: AdminFacility
         public async System.Threading.Tasks.Task<ActionResult> FacilityIndex()
         {
             try
@@ -49,10 +42,8 @@ namespace WebProject.Controllers
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
-
         }
 
-        // GET: AdminFacility/Create
         public ActionResult FacilityCreate()
         {
             try
@@ -71,7 +62,6 @@ namespace WebProject.Controllers
             }
         }
 
-        // POST: AdminFacility/Create
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> FacilityCreate(Facility facility)
         {
@@ -88,7 +78,6 @@ namespace WebProject.Controllers
             }
         }
 
-        // GET: AdminFacility/Edit/5
         public ActionResult FacilityEdit(int id)
         {
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
@@ -105,10 +94,8 @@ namespace WebProject.Controllers
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
-            
         }
 
-        // POST: AdminFacility/Edit/5
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> FacilityEdit(int id, Facility facility)
         {
@@ -125,7 +112,6 @@ namespace WebProject.Controllers
             }
         }
 
-        // GET: AdminFacility/Delete/5
         public async System.Threading.Tasks.Task<ActionResult> FacilityDelete(int id)
         {
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
@@ -144,10 +130,8 @@ namespace WebProject.Controllers
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
-         
         }
 
-        // POST: AdminFacility/Delete/5
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> FacilityDelete(int id, Facility facility)
         {
@@ -163,15 +147,14 @@ namespace WebProject.Controllers
                 return RedirectToAction("Error", "Help");
             }
         }
-       
-        // GET: AdminPlace
+
         public async System.Threading.Tasks.Task<ActionResult> PlaceIndex()
         {
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
             //{
             //    return RedirectToAction("Index", "Home");
             //}
-            
+
             try
             {
                 List<Place> model = new List<Place>();
@@ -185,7 +168,6 @@ namespace WebProject.Controllers
             }
         }
 
-        // GET: AdminPlace/Details/5
         public ActionResult PlaceDetails(int id)
         {
             //if (session["user"] == null || session["user"].tostring() != "admin")
@@ -202,14 +184,10 @@ namespace WebProject.Controllers
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
-
-          
         }
 
-        // GET: AdminPlace/Create
         public ActionResult PlaceCreate()
         {
-
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
             //{
             //    return RedirectToAction("Index", "Home");
@@ -226,7 +204,6 @@ namespace WebProject.Controllers
             }
         }
 
-        // POST: AdminPlace/Create
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> PlaceCreate(Place place)
         {
@@ -243,7 +220,6 @@ namespace WebProject.Controllers
             }
         }
 
-        // GET: AdminPlace/Edit/5
         public ActionResult PlaceEdit(int id)
         {
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
@@ -262,7 +238,6 @@ namespace WebProject.Controllers
             }
         }
 
-        // POST: AdminPlace/Edit/5
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> PlaceEdit(int id, Place place)
         {
@@ -279,7 +254,6 @@ namespace WebProject.Controllers
             }
         }
 
-        // GET: AdminPlace/Delete/5
         public async System.Threading.Tasks.Task<ActionResult> PlaceDelete(int id)
         {
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
@@ -287,7 +261,6 @@ namespace WebProject.Controllers
             //    return RedirectToAction("Index", "Home");
             //}
 
-         
             try
             {
                 Place model = new Place();
@@ -295,7 +268,6 @@ namespace WebProject.Controllers
                 model = await obj.GetPlaceByID(id);
 
                 return View(model);
-
             }
             catch (Exception e)
             {
@@ -304,7 +276,6 @@ namespace WebProject.Controllers
             }
         }
 
-        // POST: AdminPlace/Delete/5
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> PlaceDelete(int id, Place place)
         {
@@ -320,9 +291,7 @@ namespace WebProject.Controllers
                 return RedirectToAction("Error", "Help");
             }
         }
-    
-        
-        // GET: Monitoring
+
         public ActionResult Monitoring()
         {
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
@@ -346,6 +315,7 @@ namespace WebProject.Controllers
 
                 int trueCounter = 0;
                 int falseCounter = 0;
+
                 foreach (var adress in adresser)
                 {
                     MonitorModel namn = new MonitorModel();
@@ -363,9 +333,7 @@ namespace WebProject.Controllers
                     }
                 }
                 string result = trueCounter.ToString() + "/" + (falseCounter + trueCounter).ToString();
-                //ViewBag.AllaAdresser = adresser;
-                //ViewBag.AllaResultat = resultat;
-                //ViewBag.Message1 = result;
+
                 return View(model);
             }
             catch (Exception e)
@@ -373,8 +341,8 @@ namespace WebProject.Controllers
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
-          
         }
+
         public bool GetPing(string adress)
         {
             bool value;
@@ -392,7 +360,7 @@ namespace WebProject.Controllers
                     value = false;
                 }
             }
-            catch 
+            catch
             {
                 return false;
             }
