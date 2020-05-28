@@ -42,9 +42,12 @@ namespace WebProject.Controllers
                 // Loopa igenom kategorier och skapa dropdown
                 foreach (var item in categoriesList)
                 {
+                    // Skapa nytt objekt vid varje loop
                     SelectListItem temp = new SelectListItem();
+
                     temp.Text = item.Category_Name;
                     temp.Value = item.Category_Id.ToString();
+
                     categoryDropDown.Add(temp);
                 }
 
@@ -54,8 +57,10 @@ namespace WebProject.Controllers
                     SelectListItem temp = new SelectListItem();
                     Place place = new Place();
 
+                    // Plocka ut plats som en lokal tillhör
                     place = await obj.GetPlaceByID(item.Fk_Place);
 
+                    // skapa ett bättre namn för användaren
                     string location = item.Name + " - " + place.Name.ToString();
 
                     temp.Text = location;
@@ -64,6 +69,7 @@ namespace WebProject.Controllers
                     facilitiesDropDown.Add(temp);
                 }
                 
+                // Dropdowns skapas
                 ViewBag.Category_Id = categoryDropDown;
                 ViewBag.Event_Facility_Id = facilitiesDropDown;
 
