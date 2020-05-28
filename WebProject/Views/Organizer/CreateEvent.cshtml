@@ -8,131 +8,81 @@
 
 @using (Html.BeginForm("CreateEvent", "Organizer", FormMethod.Post))
 {
-    <div class="container">
-        <table class="table">
-            <tr>
-                <th>Event details</th>
-            </tr>
-            <tr>
-                <td>Event Name</td>
-                <td>
-                    <input id="nameInput" type="text" name="Event_Name" />
-                </td>
-            </tr>
-            <tr>
-                <td>Visible</td>
-                <td>
-                    <input id="activeInput" type="checkbox" name="Event_Active" />
-                </td>
-            </tr>
-            <tr>
-                <td>Event Arranger Id</td>
-                <td>
-                    <input id="arrangerInput" type="number" name="Event_Arranger_Id" />
-                </td>
-            </tr>
-            <tr>
-                <td>Event Seeking Voulunteers</td>
-                <td>
-                    <input id="voulunteersInput" type="checkbox" name="Event_Seeking_Volunteers" value="true"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Event Location Id</td>
-                <td>
-                    <input id="locationInput" type="number" name="Event_Facility_Id" />
-                </td>
-            </tr>
+    <div class="container rounded py-4" style="background-color: rgba(229, 110, 149, 0.7)">
+        <form>
+            <h3>Event details</h3>
 
+            <div class="form-group row">
+                <label for="event-name" class="col-sm-4 col-form-label">Name</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="event-name" name="Event_Name">
+                </div>
+            </div>
 
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-4 pt-0">Visible</legend>
+                    <div class="form-check">
+                        <input id="activeInput" type="checkbox" name="Event_Active" />
+                    </div>
+                </div>
+            </fieldset>
 
-            <tr>
-                    <td>Event Category</td>
+            <div class="form-group row">
+                <label for="arrangerInput" class="col-sm-4 col-form-label">Arranger ID</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="arrangerInput" name="Event_Arranger_Id">
+                </div>
+            </div>
 
-                        @*<input type="number" name="Category_Id" value="1" />*@
-                    <td> @Html.DropDownList("Category_Id", new SelectList(ViewBag.Category_Id, "Value", "Text")) </td>  
-                </tr>
-            <tr>
-                <td>Event Description</td>
-                <td>
-                    <input id="descriptionInput" type="text" name="Event_Description" />
-                </td>
-            </tr>
-            <tr>
-                <td>Event Ticket Price</td>
-                <td>
-                    <input id="priceInput" type="number" name="Event_Ticket_Price" />
-                </td>
-            </tr>
-            <tr>
-                <td>Event Start Date</td>
-                <td>
-                    <input id="dateInput" type="datetime-local" width="10" class="date" name="Event_Start_Datetime" />
-                </td>
-            </tr>
-            <tr>
-                <td>Event End Date</td>
-                <td>
-                    <input id="dateInput" type="datetime-local" width="10" class="date" name="Event_End_Datetime" />
-                </td>
-            </tr>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-4 pt-0">Seeking Volunteers</legend>
+                    <div class="form-check">
+                        <input id="volunteersInput" type="checkbox" name="Event_Seeking_Volunteers" value="true" />
+                    </div>
+                </div>
+            </fieldset>
 
-        </table>
-        <input class="btn btn-primary" type="submit" value="Create Event">
+            <div class="form-group row">
+                <label for="locationInput" class="col-sm-4 col-form-label">Location ID</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="locationInput" name="Event_Facility_Id">
+                </div>
+            </div>
+
+            <!--EVENT CATEGORY-->
+            <!--/EVENT CATEGORY-->
+
+            <div class="form-group row">
+                <label for="description" class="col-sm-4 col-form-label">Description</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="description" name="Event_Name">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="priceInput" class="col-sm-4 col-form-label">Ticket Price</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="priceInput" name="Event_Ticket_Price">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="start-time" class="col-sm-4 col-form-label">Start Time</label>
+                <div class="col-sm-8">
+                    <input id="start-time" type="datetime-local" class="form-control" name="Event_Start_Datetime">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="end-time" class="col-sm-4 col-form-label">End Time</label>
+                <div class="col-sm-8">
+                    <input id="end-time" type="datetime-local" class="form-control" name="Event_End_Datetime">
+                </div>
+            </div>
+
+            <button class="btn btn-success">Submit</button>
+        </form>
     </div>
-
-    //Förslag på form
-
-<div class="container">
-    <form>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-            </div>         
-            <br />
-            <div class="form-group col-md-6">
-                <label for="inputPassword4">Password</label>
-                <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-            </div>
-            <br />
-        </div>
-        <div class="form-group">
-            <label for="inputAddress">Address</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-        </div>
-        <div class="form-group">
-            <label for="inputAddress2">Address 2</label>
-            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputState">State</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                </select>
-            </div>
-            <div class="form-group col-md-2">
-                <label for="inputZip">Zip</label>
-                <input type="text" class="form-control" id="inputZip">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-                    Check me out
-                </label>
-            </div>
-        </div>
-        <button type="submit">Create Event</button>
-    </form>
-
-</div>
-
 }

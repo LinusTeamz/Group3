@@ -1,8 +1,7 @@
-﻿
-body {
+﻿body {
 	background-image: url('Images/bakgrundOrg.png');
-	color: white;
 	font-size: 25px;
+	color: white;
 }
 
 .p_welcome {
@@ -24,6 +23,13 @@ table, td, th {
 	background-color: #383838;
 }
 
+th.event-details {
+	width: 100% !important;
+}
+
+h3 {
+	text-align: center;
+}
 
 /*CSS för label form*/
 
@@ -55,8 +61,4 @@ input[type=submit] {
 .div_labelform {
 	border-radius: 5px;
 	background-color: rgba(165, 93, 23, 0.24;
-
-
 }
-
-
