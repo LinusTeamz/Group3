@@ -8,28 +8,30 @@ using System.Web;
 using System.Threading.Tasks;
 using System.Text;
 using WebProject.Models;
+using System.Drawing;
 
 namespace WebProject.classes
 {
     public class ObjectHandlerJSON
     {
-        // Egen API
+        #region Egen API
         //private string organiserBaseURL = "http://193.10.202.78/";
-        private string organiserBaseURL = "http://localhost:50270/";
+        private string organiserBaseURL = "http://localhost:50270/api/";
 
         // URL:er för egen API
         private string facilityURL = "Facilities", organizersURL = "Organizers", placeURL = "Places", facilitiesBookedURL = "FacilitiesBooked";
-        
-        // Event API
-        private string eventBaseURL = "http://193.10.202.77/EventService/";
-        private string eventGetAPI = "Api/Events", eventCategoryAPI = "Api/Categories/";
+        #endregion
 
-        // Login API
+        #region Event API
+        private string eventBaseURL = "http://193.10.202.77/EventService/";
+        private string eventEventAPI = "Api/Events", eventCategoryAPI = "Api/Categories/";
+        #endregion
+     
+        #region Login API
         private string loginBaseURL = "http://193.10.202.76/";
         private string loginGetAPI = "api/organizer";
-
-
-
+        #endregion
+   
         #region Read
         public async Task<List<Facility>> GetFacilityList()
         {
@@ -172,7 +174,7 @@ namespace WebProject.classes
 
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    HttpResponseMessage Res = await client.GetAsync(eventGetAPI);
+                    HttpResponseMessage Res = await client.GetAsync(eventEventAPI);
 
                     if (Res.IsSuccessStatusCode)
                     {
@@ -317,7 +319,7 @@ namespace WebProject.classes
             return facilitiesBooked;
         }
         #endregion
-        #region Add
+        #region Create
         public async Task AddOrganizer(Organizer newOrganizer)
         {
             try
@@ -354,7 +356,7 @@ namespace WebProject.classes
 
                 // URL vart datan ska skickas
 
-                string URL = eventBaseURL + eventGetAPI;
+                string URL = eventBaseURL + eventEventAPI;
 
                 // Connecting webapi
                 var response = await client.PostAsync(URL, content);
