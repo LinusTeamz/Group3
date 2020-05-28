@@ -39,6 +39,7 @@ namespace WebProject.Controllers
                 facilitiesList = await obj.GetFacilityList();
                 placeList = await obj.GetPlaceList();
 
+                // Loopa igenom kategorier och skapa dropdown
                 foreach (var item in categoriesList)
                 {
                     SelectListItem temp = new SelectListItem();
@@ -47,6 +48,7 @@ namespace WebProject.Controllers
                     categoryDropDown.Add(temp);
                 }
 
+                // Loopa igenom facilities och skapa dropdown
                 foreach (var item in facilitiesList)
                 {
                     SelectListItem temp = new SelectListItem();
@@ -61,7 +63,7 @@ namespace WebProject.Controllers
 
                     facilitiesDropDown.Add(temp);
                 }
-
+                
                 ViewBag.Category_Id = categoryDropDown;
                 ViewBag.Event_Facility_Id = facilitiesDropDown;
 
