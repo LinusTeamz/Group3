@@ -263,9 +263,9 @@ namespace WebProject.Controllers
             List<string> adresser = new List<string>();
             adresser.Add("www.ikea.se");
             adresser.Add("www.google.com");
-            adresser.Add("www.inet.se");
-            adresser.Add("www.magnusgoogle.com");
-            adresser.Add("www.aftonbladet.se");
+            adresser.Add("http://193.10.202.76/");
+            adresser.Add("http://193.10.202.82/");
+            adresser.Add("http://193.10.202.81/");
 
             int trueCounter = 0;
             int falseCounter = 0;
