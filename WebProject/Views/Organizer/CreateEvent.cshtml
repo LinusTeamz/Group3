@@ -38,19 +38,13 @@
                 </td>
             </tr>
             <tr>
-                <td>Event Location Id</td>
-                <td>
-                    <input id="locationInput" type="number" name="Event_Facility_Id" />
-                </td>
+                <td>Location</td>           
+                <td>@Html.DropDownList("Event_Facility_Id", new SelectList(ViewBag.Event_Facility_Id, "Value", "Text")) </td>
             </tr>
-
-
 
             <tr>
                     <td>Event Category</td>
-                    <td>
-                        @*<input type="number" name="Category_Id" value="1" />*@
-                    <td> @Html.DropDownList("Category_Id", new SelectList(ViewBag.Category_Id, "Value", "Text")) </td>  
+                    <td>@Html.DropDownList("Category_Id", new SelectList(ViewBag.Category_Id, "Value", "Text")) </td>  
                 </tr>
             <tr>
                 <td>Event Description</td>
