@@ -255,7 +255,11 @@ namespace WebProject.Controllers
             //    return RedirectToAction("Index", "Home");
             //}
 
+            ViewModel model = new ViewModel();
+
             List<bool> resultat = new List<bool>();
+
+            // Lägg in adresser
             List<string> adresser = new List<string>();
             adresser.Add("www.ikea.se");
             adresser.Add("www.google.com");
@@ -271,6 +275,9 @@ namespace WebProject.Controllers
                 resultat.Add(GetPing(adress));
                 if (GetPing(adress) == true)
                 {
+                    namn.Adress = adress;
+                    namn.Ping = true;
+                    model.monitorList.Add(namn);
                     trueCounter++;
                 }
                 else
@@ -279,10 +286,10 @@ namespace WebProject.Controllers
                 }
             }
             string result = trueCounter.ToString() + "/" + (falseCounter + trueCounter).ToString();
-            ViewBag.AllaAdresser = adresser;
-            ViewBag.AllaResultat = resultat;
-            ViewBag.Message1 = result;
-            return View();
+            //ViewBag.AllaAdresser = adresser;
+            //ViewBag.AllaResultat = resultat;
+            //ViewBag.Message1 = result;
+            return View(model);
         }
         public bool GetPing(string adress)
         {

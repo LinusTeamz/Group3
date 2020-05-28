@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<WebProject.Models.Place>
 
 @{
-    ViewBag.Title = "PlaceIndex";
-    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewBag.Title = "Place";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>PlaceIndex</h2>
+<h2>Place</h2>
 
 <p>
     @Html.ActionLink("Create New", "PlaceCreate")
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -24,15 +27,18 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.City)
         </td>
         <td>
-            @Html.ActionLink("Edit", "PlaceEdit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "PlaceDetails", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "PlaceDelete", new { id=item.Id })
+            @Html.ActionLink("Edit", "PlaceEdit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "PlaceDetails", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "PlaceDelete", new { id = item.Id })
         </td>
     </tr>
 }

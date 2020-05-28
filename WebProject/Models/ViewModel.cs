@@ -11,6 +11,6 @@ namespace WebProject.Models
         public List<Place> placeList = new List<Place>();
         public List<Organizer> organizerList = new List<Organizer>();
         public List<FacilitiesBooked> facilitiesBookedList = new List<FacilitiesBooked>();
-        public List<MonitorModel> viewModelList { get; set; }//= new List<MonitorModel>();
+        public List<MonitorModel> monitorList = new List<MonitorModel>();
     }
 }
