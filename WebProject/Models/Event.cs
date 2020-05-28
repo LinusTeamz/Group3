@@ -11,8 +11,8 @@ namespace WebProject.Models
         public string Event_Name { get; set; }
         public bool Event_Active { get; set; }
         public int Event_Arranger_Id { get; set; }
-        public bool? Event_Seeking_Volunteers { get; set; }
-        public int? Event_Location_Id { get; set; }
+        public bool Event_Seeking_Volunteers { get; set; }
+        public int? Event_Facility_Id { get; set; }
         public EventCategory Event_Category { get; set; }
         public string Event_Description { get; set; }
         public string Event_Imagelink { get; set; }

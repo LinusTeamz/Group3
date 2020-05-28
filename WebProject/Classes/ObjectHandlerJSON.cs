@@ -1,59 +1,69 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
-using System.Threading.Tasks;
 using System.Text;
+using System.Threading.Tasks;
 using WebProject.Models;
 
 namespace WebProject.classes
 {
     public class ObjectHandlerJSON
     {
-        // Egen API
-        //private string BaseURL = "http://193.10.202.78/";
-        private string organiserBaseURL = "http://localhost:55581/";
+        #region Egen API
+
+        //private string organiserBaseURL = "http://193.10.202.78/";
+        private string organiserBaseURL = "http://localhost:50270/api/";
+
         // URL:er för egen API
         private string facilityURL = "Facilities", organizersURL = "Organizers", placeURL = "Places", facilitiesBookedURL = "FacilitiesBooked";
 
-        // Annan API 
+        #endregion Egen API
+
+        #region Event API
+
         private string eventBaseURL = "http://193.10.202.77/EventService/";
-        private string eventAPI = "Api/Events";
+        private string eventEventAPI = "Api/Events", eventCategoryAPI = "Api/Categories/";
 
+        #endregion Event API
 
-        
+        #region Login API
+
+        private string loginBaseURL = "http://193.10.202.76/";
+        private string loginGetAPI = "api/organizer";
+
+        #endregion Login API
+
         #region Read
+
         public async Task<List<Facility>> GetFacilityList()
         {
             List<Facility> FacilityInfo = new List<Facility>();
 
             using (var client = new HttpClient())
             {
-                //Passing service base url  
+                //Passing service base url
                 client.BaseAddress = new Uri(organiserBaseURL);
 
                 client.DefaultRequestHeaders.Clear();
-                //Define request data format  
+                //Define request data format
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                //Sending request to find web api REST service resource GetAllEmployees using HttpClient  
+                //Sending request to find web api REST service resource GetAllEmployees using HttpClient
 
                 HttpResponseMessage Res = await client.GetAsync(facilityURL);
 
-                //Checking the response is successful or not which is sent using HttpClient  
+                //Checking the response is successful or not which is sent using HttpClient
                 if (Res.IsSuccessStatusCode)
                 {
-                    //Storing the response details recieved from web api   
+                    //Storing the response details recieved from web api
                     var response = Res.Content.ReadAsStringAsync().Result;
 
-                    //Deserializing the response recieved from web api and storing into the Employee list  
+                    //Deserializing the response recieved from web api and storing into the Employee list
                     FacilityInfo = JsonConvert.DeserializeObject<List<Facility>>(response);
-
                 }
-     
+
                 return FacilityInfo;
             }
         }
@@ -63,29 +73,27 @@ namespace WebProject.classes
 
             using (var client = new HttpClient())
             {
-                //Passing service base url  
+                //Passing service base url
                 client.BaseAddress = new Uri(organiserBaseURL);
 
                 client.DefaultRequestHeaders.Clear();
-                //Define request data format  
+                //Define request data format
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                //Sending request to find web api REST service resource GetAllEmployees using HttpClient  
+                //Sending request to find web api REST service resource GetAllEmployees using HttpClient
 
                 HttpResponseMessage Res = await client.GetAsync(organizersURL);
 
-
-                //Checking the response is successful or not which is sent using HttpClient  
+                //Checking the response is successful or not which is sent using HttpClient
                 if (Res.IsSuccessStatusCode)
                 {
-                    //Storing the response details recieved from web api   
+                    //Storing the response details recieved from web api
                     var response = Res.Content.ReadAsStringAsync().Result;
 
-                    //Deserializing the response recieved from web api and storing into the Employee list  
+                    //Deserializing the response recieved from web api and storing into the Employee list
                     organizerInfo = JsonConvert.DeserializeObject<List<Organizer>>(response);
-
                 }
-             
+
                 return organizerInfo;
             }
         }
@@ -95,27 +103,25 @@ namespace WebProject.classes
 
             using (var client = new HttpClient())
             {
-                //Passing service base url  
+                //Passing service base url
                 client.BaseAddress = new Uri(organiserBaseURL);
 
                 client.DefaultRequestHeaders.Clear();
-                //Define request data format  
+                //Define request data format
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                //Sending request to find web api REST service resource GetAllEmployees using HttpClient  
+                //Sending request to find web api REST service resource GetAllEmployees using HttpClient
 
                 HttpResponseMessage Res = await client.GetAsync(placeURL);
 
-
-                //Checking the response is successful or not which is sent using HttpClient  
+                //Checking the response is successful or not which is sent using HttpClient
                 if (Res.IsSuccessStatusCode)
                 {
-                    //Storing the response details recieved from web api   
+                    //Storing the response details recieved from web api
                     var response = Res.Content.ReadAsStringAsync().Result;
 
-                    //Deserializing the response recieved from web api and storing into the Employee list  
+                    //Deserializing the response recieved from web api and storing into the Employee list
                     PlaceInfo = JsonConvert.DeserializeObject<List<Place>>(response);
-
                 }
                 return PlaceInfo;
             }
@@ -126,25 +132,24 @@ namespace WebProject.classes
 
             using (var client = new HttpClient())
             {
-                //Passing service base url  
+                //Passing service base url
                 client.BaseAddress = new Uri(organiserBaseURL);
 
                 client.DefaultRequestHeaders.Clear();
-                //Define request data format  
+                //Define request data format
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                //Sending request to find web api REST service resource GetAllEmployees using HttpClient  
+                //Sending request to find web api REST service resource GetAllEmployees using HttpClient
                 HttpResponseMessage Res = await client.GetAsync(facilitiesBookedURL);
 
-                //Checking the response is successful or not which is sent using HttpClient  
+                //Checking the response is successful or not which is sent using HttpClient
                 if (Res.IsSuccessStatusCode)
                 {
-                    //Storing the response details recieved from web api   
+                    //Storing the response details recieved from web api
                     var response = Res.Content.ReadAsStringAsync().Result;
 
-                    //Deserializing the response recieved from web api and storing into the Employee list  
+                    //Deserializing the response recieved from web api and storing into the Employee list
                     facilitiesBooked = JsonConvert.DeserializeObject<List<FacilitiesBooked>>(response);
-
                 }
 
                 return facilitiesBooked;
@@ -152,10 +157,7 @@ namespace WebProject.classes
         }
         public async Task<List<Event>> GetEventList()
         {
-    
-
             List<Event> eventList = new List<Event>();
-
 
             try
             {
@@ -167,12 +169,12 @@ namespace WebProject.classes
 
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    HttpResponseMessage Res = await client.GetAsync(eventAPI);
+                    HttpResponseMessage Res = await client.GetAsync(eventEventAPI);
 
                     if (Res.IsSuccessStatusCode)
                     {
                         var response = Res.Content.ReadAsStringAsync().Result;
-                        eventList = JsonConvert.DeserializeObject<List<Event>>(response); 
+                        eventList = JsonConvert.DeserializeObject<List<Event>>(response);
                     }
                 }
 
@@ -183,36 +185,96 @@ namespace WebProject.classes
                 return null;
             }
         }
+        public async Task<List<EventCategory>> GetCategoryList()
+        {
+            List<EventCategory> categoryList = new List<EventCategory>();
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(eventBaseURL);
+
+                    client.DefaultRequestHeaders.Clear();
+
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage Res = await client.GetAsync(eventCategoryAPI);
+
+                    if (Res.IsSuccessStatusCode)
+                    {
+                        var response = Res.Content.ReadAsStringAsync().Result;
+                        categoryList = JsonConvert.DeserializeObject<List<EventCategory>>(response);
+                    }
+                }
+
+                return categoryList;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public async Task<List<loginModelAPI>> GetLoginList()
+        {
+            List<loginModelAPI> loginList = new List<loginModelAPI>();
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(loginBaseURL);
+
+                    client.DefaultRequestHeaders.Clear();
+
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage Res = await client.GetAsync(loginGetAPI);
+
+                    if (Res.IsSuccessStatusCode)
+                    {
+                        var response = Res.Content.ReadAsStringAsync().Result;
+                        loginList = JsonConvert.DeserializeObject<List<loginModelAPI>>(response);
+                    }
+                }
+
+                return loginList;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         /* --- Get by ID --- */
-        public async Task<Place> GetPlaceByID(int id) 
+
+        public async Task<Place> GetPlaceByID(int id)
         {
             Place place = new Place();
             HttpClient client = new HttpClient();
 
-            string URL = organiserBaseURL + placeURL +"/" + id.ToString();
-            
+            string URL = organiserBaseURL + placeURL + "/" + id.ToString();
+
             var response = await client.GetAsync(new Uri(URL));
 
             if (response.IsSuccessStatusCode)
             {
-
                 var content = await response.Content.ReadAsStringAsync();
                 place = JsonConvert.DeserializeObject<Place>(content);
-
             }
-                return place;
+            return place;
         }
         public async Task<Facility> GetFacilityByID(int id)
         {
             Facility facility = new Facility();
             HttpClient client = new HttpClient();
-            
+
             string URL = organiserBaseURL + facilityURL + "/" + id.ToString();
 
             var response = await client.GetAsync(new Uri(URL));
 
             if (response.IsSuccessStatusCode)
-            {                
+            {
                 var content = await response.Content.ReadAsStringAsync();
                 facility = JsonConvert.DeserializeObject<Facility>(content);
             }
@@ -250,15 +312,18 @@ namespace WebProject.classes
             }
             return facilitiesBooked;
         }
-        #endregion
-        #region Add
+
+        #endregion Read
+
+        #region Create
+
         public async Task AddOrganizer(Organizer newOrganizer)
         {
             try
             {
                 HttpClient client = new HttpClient();
 
-                // Using jsonconvert and creates content 
+                // Using jsonconvert and creates content
                 string jsonString = JsonConvert.SerializeObject(newOrganizer); // Lägg in ny objekt
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
@@ -268,36 +333,41 @@ namespace WebProject.classes
 
                 // Connecting webapi
                 var response = await client.PostAsync(URL, content);
-                var responseString = await response.Content.ReadAsStringAsync(); 
-
+                var responseString = await response.Content.ReadAsStringAsync();
             }
-            catch (Exception ex)
+            catch 
             {
-                
             }
         }
-        public async Task AddEvent(Event newEvent)
+        public async Task<string> AddEvent(Event newEvent)
         {
             try
             {
                 HttpClient client = new HttpClient();
 
-                // Using jsonconvert and creates content 
+                // Using jsonconvert and creates content
                 string jsonString = JsonConvert.SerializeObject(newEvent); // Lägg in ny objekt
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
                 // URL vart datan ska skickas
 
-                string URL = eventBaseURL + eventAPI;
+                string URL = eventBaseURL + eventEventAPI;
 
                 // Connecting webapi
                 var response = await client.PostAsync(URL, content);
                 var responseString = await response.Content.ReadAsStringAsync();
 
+                // Ifall det blir error
+                if (responseString.ToString().Contains("The request is invalid") || responseString.ToString().Contains("An error has occurred"))
+                {
+                    return responseString.ToString();
+                }
+               
+                return "Success";
             }
-            catch (Exception e)
+            catch(Exception e) 
             {
-                
+                return e.Message;
             }
         }
         public async Task AddFacility(Facility newFacility)
@@ -306,7 +376,7 @@ namespace WebProject.classes
             {
                 HttpClient client = new HttpClient();
 
-                // Using jsonconvert and creates content 
+                // Using jsonconvert and creates content
                 string jsonString = JsonConvert.SerializeObject(newFacility); // Lägg in ny objekt
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
@@ -315,12 +385,10 @@ namespace WebProject.classes
 
                 // Connecting webapi
                 var response = await client.PostAsync(URL, content);
-                var responseString = await response.Content.ReadAsStringAsync(); 
-
+                var responseString = await response.Content.ReadAsStringAsync();
             }
-            catch (Exception ex)
+            catch 
             {
-            
             }
         }
         public async Task AddPlace(Place newPlace)
@@ -329,7 +397,7 @@ namespace WebProject.classes
             {
                 HttpClient client = new HttpClient();
 
-                // Using jsonconvert and creates content 
+                // Using jsonconvert and creates content
                 string jsonString = JsonConvert.SerializeObject(newPlace); // Lägg in ny objekt
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
@@ -341,14 +409,11 @@ namespace WebProject.classes
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseString = await response.Content.ReadAsStringAsync(); 
+                    var responseString = await response.Content.ReadAsStringAsync();
                 }
-              
-
             }
-            catch (Exception ex)
+            catch 
             {
-
             }
         }
         public async Task AddFacilitiesBooked(FacilitiesBooked newFacilitiesBooked)
@@ -357,7 +422,7 @@ namespace WebProject.classes
             {
                 HttpClient client = new HttpClient();
 
-                // Using jsonconvert and creates content 
+                // Using jsonconvert and creates content
                 string jsonString = JsonConvert.SerializeObject(newFacilitiesBooked); // Lägg in ny objekt
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
@@ -369,18 +434,19 @@ namespace WebProject.classes
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var responseString = await response.Content.ReadAsStringAsync(); 
+                    var responseString = await response.Content.ReadAsStringAsync();
                 }
-              
-
             }
-            catch (Exception ex)
+            catch 
             {
 
             }
         }
-        #endregion
+
+        #endregion Create
+
         #region Delete
+
         public async Task DeleteFacility(int id)
         {
             try
@@ -397,13 +463,9 @@ namespace WebProject.classes
                     // delete by ID
                     var respons = await client.DeleteAsync(new Uri(URL));
                 }
-
-
             }
             catch (Exception ex)
             {
-
-
             }
         }
         public async Task DeleteFacilitiesBooked(int id)
@@ -422,11 +484,9 @@ namespace WebProject.classes
                     // delete by ID
                     var respons = await client.DeleteAsync(new Uri(URL));
                 }
-
             }
             catch (Exception ex)
             {
-
             }
         }
         public async Task DeletePlace(int id)
@@ -445,11 +505,9 @@ namespace WebProject.classes
                     // delete by ID
                     var respons = await client.DeleteAsync(new Uri(URL));
                 }
-
             }
             catch (Exception ex)
             {
-
             }
         }
         public async Task DeleteOrganizer(int id)
@@ -468,15 +526,16 @@ namespace WebProject.classes
                     // delete by ID
                     var respons = await client.DeleteAsync(new Uri(URL));
                 }
-
             }
             catch (Exception ex)
             {
-
             }
         }
-        #endregion
+
+        #endregion Delete
+
         #region Update
+
         public async Task UpdateFacility(Facility updatedFacility)
         {
             HttpClient client = new HttpClient();
@@ -545,6 +604,7 @@ namespace WebProject.classes
                 var responsupdate = await client.PutAsync(URL, content);
             }
         }
-        #endregion
+
+        #endregion Update
     }
 }

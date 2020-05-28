@@ -1,0 +1,30 @@
+﻿* {
+    font-family: Rockwell, serif;
+}
+nav{
+    background-color:#b44c6f;
+    
+}
+.navName {
+    color: white;
+    margin-right:15px;
+}
+li {
+    display: block;
+    color: white;
+    text-align: center;
+    /*padding: 14px 16px;*/
+    border-radius: 15px;
+    text-decoration: none;
+    list-style-type: none;
+    margin: 0;
+    /*padding: 0;*/
+    overflow: hidden;
+    background-color: #333;
+}
+.active1:hover:not(.active) {
+    background-color: #b77189;
+}
+.active1 {
+    background-color: #b44c6f;
+}

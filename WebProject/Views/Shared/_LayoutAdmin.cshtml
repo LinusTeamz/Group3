@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!--DEFAULT-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <!--FONTS-->
+    <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <!--BOOTSTRAP-->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+    <!--STYLES-->
+    <link href="~/Custom/StyleSheet1.css" rel="stylesheet" />
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="float-left">
+                @Html.ActionLink("Admin start", "Index", "Admin", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("CRUD Place", "PlaceIndex", "Admin", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("CRUD Facility", "FacilityIndex", "Admin", null, new { @class = "navbar-brand" })
+                @Html.ActionLink("Monitoring", "Monitoring", "Admin", null, new { @class = "navbar-brand" })
+            </div>
+            <div class="float-right">
+                @Html.ActionLink("Logout", "Login", "Home", null, new { @class = "btn btn-danger " })
+            </div>
+        </div>
+</nav>
+    <div>
+        @RenderBody()
+    </div>
+
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

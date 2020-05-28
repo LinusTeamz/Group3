@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/WebAPI/App_Data
+/WebProject/Custom/pexels-photo-411207.jpg
