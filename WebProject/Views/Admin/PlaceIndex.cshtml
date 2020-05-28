@@ -8,7 +8,7 @@
 <h2>Place</h2>
 
 <p>
-    @Html.ActionLink("Create New", "PlaceCreate")
+    @Html.ActionLink("Skapa ny", "PlaceCreate")
 </p>
 <table class="table">
     <tr>
@@ -36,8 +36,8 @@
             @Html.DisplayFor(modelItem => item.City)
         </td>
         <td>
-            @Html.ActionLink("Edit", "PlaceEdit", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "PlaceDelete", new { id = item.Id })
+            @Html.ActionLink("Ändra", "PlaceEdit", new { id = item.Id }) |
+            @Html.ActionLink("Radera", "PlaceDelete", new { id = item.Id })
         </td>
     </tr>
 }

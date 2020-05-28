@@ -8,7 +8,7 @@
 <h2>Facility</h2>
 
 <p>
-    @Html.ActionLink("Create New", "FacilityCreate")
+    @Html.ActionLink("Skapa ny", "FacilityCreate")
 </p>
 <table class="table">
     <tr>
@@ -18,7 +18,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Fk_Place)
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -30,8 +29,8 @@
             @Html.DisplayFor(modelItem => item.Fk_Place)
         </td>
         <td>
-            @Html.ActionLink("Edit", "FacilityEdit", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "FacilityDelete", new { id=item.Id })
+            @Html.ActionLink("Ändra", "FacilityEdit", new { id=item.Id }) |
+            @Html.ActionLink("Radera", "FacilityDelete", new { id=item.Id })
         </td>
     </tr>
 }
