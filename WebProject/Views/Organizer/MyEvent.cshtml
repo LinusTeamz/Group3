@@ -1,7 +1,32 @@
-﻿
+﻿@model List<WebProject.Models.Event>
 @{
     ViewBag.Title = "MyEvent";
 }
 <link href="~/Custom/OrganizerLayout.css" rel="stylesheet" />
-<h2>MyEvents</h2>
-
+<h2 class="h2_heading">MyEvents</h2>
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Category</td>
+            <td>Start Date</td>
+            <td>End Date</td>
+            <td>Date Created</td>
+            <td>Ticket Price</td>
+        </tr>
+    </thead>
+    
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Event_Name</td>
+            <td>@item.Event_Description</td>
+            <td>@item.Event_Category</td>
+            <td>@item.Event_Start_Datetime</td>
+            <td>@item.Event_End_Datetime</td>
+            <td>@item.Event_Create_Datetime</td>
+            <td>@item.Event_Ticket_Price</td>
+        </tr>
+    }
+</table>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebProject.Models;
 using WebProject.classes;
+using System.Threading.Tasks;
 
 namespace WebProject.Controllers
 {
@@ -24,7 +25,7 @@ namespace WebProject.Controllers
         // POST: CreateE/Create
         [HttpPost]
 
-        public async System.Threading.Tasks.Task<ActionResult> CreateEvent(Event newEvent, int Category_Id)
+        public async Task<ActionResult> CreateEvent(Event newEvent, int Category_Id)
         {
             newEvent.Event_Category = new EventCategory();
             newEvent.Event_Category.Category_Id = Category_Id;
@@ -34,9 +35,20 @@ namespace WebProject.Controllers
             return RedirectToAction("Index", "Organizer");
         }
 
-        public ActionResult MyEvent()
+        public async Task<ActionResult> MyEvent()
         {
-            return View();
+            int id = 1;
+            List<Event> eventList = new List<Event>();
+            List<Event> eventModelList = new List<Event>();
+            eventList = await obj.GetEventList();
+            foreach (var item in eventList)
+            {
+                if (item.Event_Arranger_Id == id)
+                {
+                    eventModelList.Add(item);
+                }
+            }
+            return View(eventModelList);
         }
     }
 }
