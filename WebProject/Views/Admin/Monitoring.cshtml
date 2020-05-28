@@ -1,9 +1,13 @@
-﻿
+﻿@model WebProject.Models.ViewModel
 @{
     ViewBag.Title = "Monitoring";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <h2>Monitoring</h2>
+
+@{ 
+    int counter = 1;
+}
 
 <table class="table table-hover">
     <thead>
@@ -13,33 +17,19 @@
             <th scope="col">Active</th>
         </tr>
     </thead>
-    <tbody>
+    <thead>
+        @foreach (var item in Model.monitorList)
+        {
         <tr>
-            <th scope="row">1</th>
-            <td>@ViewBag.AllaAdresser[0]</td>
-            <td>@ViewBag.AllaResultat[0]</td>
+            <td>@counter</td>
+            <td>@item.Adress</td>
+            <td>@item.Ping</td>
         </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>@ViewBag.AllaAdresser[1]</td>
-            <td>@ViewBag.AllaResultat[1]</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>@ViewBag.AllaAdresser[2]</td>
-            <td>@ViewBag.AllaResultat[2]</td>
-        </tr>
-        <tr>
-            <th scope="row">4</th>
-            <td>@ViewBag.AllaAdresser[3]</td>
-            <td>@ViewBag.AllaResultat[3]</td>
-        </tr>
-        <tr>
-            <th scope="row">5</th>
-            <td>@ViewBag.AllaAdresser[4]</td>
-            <td>@ViewBag.AllaResultat[4]</td>
-        </tr>
-    </tbody>
+
+            counter++;
+
+        }
+    </thead>
 </table>
 <br />
 <p>Amount of sites running: @ViewBag.Message1</p>
