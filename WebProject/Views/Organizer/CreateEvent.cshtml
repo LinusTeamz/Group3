@@ -48,7 +48,7 @@
 
             <tr>
                     <td>Event Category</td>
-                    <td>
+
                         @*<input type="number" name="Category_Id" value="1" />*@
                     <td> @Html.DropDownList("Category_Id", new SelectList(ViewBag.Category_Id, "Value", "Text")) </td>  
                 </tr>
@@ -76,8 +76,9 @@
                     <input id="dateInput" type="datetime-local" width="10" class="date" name="Event_End_Datetime" />
                 </td>
             </tr>
+
         </table>
-        <button type="submit">Create Event</button>
+        <input class="btn btn-primary" type="submit" value="Create Event">
     </div>
 
     //Förslag på form
@@ -129,7 +130,7 @@
                 </label>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Sign in</button>
+        <button type="submit">Create Event</button>
     </form>
 
 </div>
