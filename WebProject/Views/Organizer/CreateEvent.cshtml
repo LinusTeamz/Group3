@@ -49,8 +49,8 @@
             <tr>
                     <td>Event Category</td>
                     <td>
-                        <input type="number" name="Category_Id" value="1"/>
-                    </td>
+                        @*<input type="number" name="Category_Id" value="1" />*@
+                    <td> @Html.DropDownList("Category_Id", new SelectList(ViewBag.Category_Id, "Value", "Text")) </td>  
                 </tr>
             <tr>
                 <td>Event Description</td>

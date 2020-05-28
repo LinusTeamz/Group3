@@ -16,8 +16,22 @@ namespace WebProject.Controllers
         {
             return View();
         }
-        public ActionResult CreateEvent()
+        public async System.Threading.Tasks.Task<ActionResult> CreateEvent()
         {
+            List<EventCategory> categoriesList = new List<EventCategory>();
+            categoriesList = await obj.GetCategoryList();
+            List<SelectListItem> categoryDropDown = new List<SelectListItem>();
+
+            foreach (var item in categoriesList)
+            {
+                SelectListItem temp = new SelectListItem();
+                temp.Text = item.Category_Name;
+                temp.Value = item.Category_Id.ToString();
+                categoryDropDown.Add(temp);
+            }
+
+            ViewBag.Category_Id = categoryDropDown;
+
 
             return View();
         }
