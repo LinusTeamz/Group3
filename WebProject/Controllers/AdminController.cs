@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using WebProject.classes;
 using WebProject.Models;
+using System.Threading.Tasks;
 
 namespace WebProject.Controllers
 {
@@ -78,16 +79,18 @@ namespace WebProject.Controllers
             }
         }
 
-        public ActionResult FacilityEdit(int id)
+        public async Task<ActionResult> FacilityEdit(int id)
         {
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
             //{
             //    return RedirectToAction("Index", "Home");
             //}
 
+            Facility facility = await obj.GetFacilityByID(id);
+
             try
             {
-                return View();
+                return View(facility);
             }
             catch (Exception e)
             {
@@ -97,7 +100,7 @@ namespace WebProject.Controllers
         }
 
         [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> FacilityEdit(int id, Facility facility)
+        public async System.Threading.Tasks.Task<ActionResult> FacilityEdit(Facility facility)
         {
             try
             {
@@ -112,7 +115,7 @@ namespace WebProject.Controllers
             }
         }
 
-        public async System.Threading.Tasks.Task<ActionResult> FacilityDelete(int id)
+        public async Task<ActionResult> FacilityDelete(int id)
         {
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
             //{
@@ -133,7 +136,7 @@ namespace WebProject.Controllers
         }
 
         [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> FacilityDelete(int id, Facility facility)
+        public async Task<ActionResult> FacilityDelete(int id, Facility facility)
         {
             try
             {
@@ -202,16 +205,18 @@ namespace WebProject.Controllers
             }
         }
 
-        public ActionResult PlaceEdit(int id)
+        public async Task<ActionResult> PlaceEdit(int id)
         {
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
             //{
             //    return RedirectToAction("Index", "Home");
             //}
 
+            Place place = await obj.GetPlaceByID(id);
+
             try
             {
-                return View();
+                return View(place);
             }
             catch (Exception e)
             {
@@ -221,7 +226,7 @@ namespace WebProject.Controllers
         }
 
         [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> PlaceEdit(int id, Place place)
+        public async Task<ActionResult> PlaceEdit(int id, Place place)
         {
             try
             {
@@ -236,7 +241,7 @@ namespace WebProject.Controllers
             }
         }
 
-        public async System.Threading.Tasks.Task<ActionResult> PlaceDelete(int id)
+        public async Task<ActionResult> PlaceDelete(int id)
         {
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
             //{
@@ -259,7 +264,7 @@ namespace WebProject.Controllers
         }
 
         [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> PlaceDelete(int id, Place place)
+        public async Task<ActionResult> PlaceDelete(int id, Place place)
         {
             try
             {
