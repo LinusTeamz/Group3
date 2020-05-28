@@ -103,6 +103,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Custom\Images\bakgrundOrg.png" />
     <Content Include="Custom\LoginStyle.css" />
     <Content Include="Custom\LayoutCSS.css" />
     <Content Include="Custom\OrganizerLayout.css" />
