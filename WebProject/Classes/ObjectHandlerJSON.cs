@@ -13,11 +13,13 @@ namespace WebProject.classes
     {
         #region Egen API
 
-        private string organiserBaseURL = "http://193.10.202.78/api/";
-        //private string organiserBaseURL = "http://localhost:50270/api/";
+        private string organiserBaseURL = "http://193.10.202.78/EventLokal/";
+        //private string organiserBaseURL = "http://localhost:53734/api/";
 
         // URL:er för egen API
-        private string facilityURL = "Facilities", organizersURL = "Organizers", placeURL = "Places", facilitiesBookedURL = "FacilitiesBooked";
+
+        //TODO: Ändra facilitiesBookeds till rätt api innan server
+        private string facilityURL = "Api/Facilities", organizersURL = "Api/Organizers", placeURL = "Api/Places", facilitiesBookedURL = "Api/FacilitiesBookeds";
 
         #endregion Egen API
 
@@ -31,7 +33,7 @@ namespace WebProject.classes
         #region Login API
 
         private string loginBaseURL = "http://193.10.202.76/";
-        private string loginGetAPI = "api/organizer";
+        private string loginGetAPI = "api/organizer", loginRole = "api/organizerlogin";
 
         #endregion Login API
 
@@ -155,9 +157,9 @@ namespace WebProject.classes
                 return facilitiesBooked;
             }
         }
-        public async Task<List<Event>> GetEventList()
+        public async Task<List<Events>> GetEventList()
         {
-            List<Event> eventList = new List<Event>();
+            List<Events> eventList = new List<Events>();
 
             try
             {
@@ -174,7 +176,7 @@ namespace WebProject.classes
                     if (Res.IsSuccessStatusCode)
                     {
                         var response = Res.Content.ReadAsStringAsync().Result;
-                        eventList = JsonConvert.DeserializeObject<List<Event>>(response);
+                        eventList = JsonConvert.DeserializeObject<List<Events>>(response);
                     }
                 }
 
@@ -194,6 +196,36 @@ namespace WebProject.classes
                 using (var client = new HttpClient())
                 {
                     client.BaseAddress = new Uri(eventBaseURL);
+
+                    client.DefaultRequestHeaders.Clear();
+
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage Res = await client.GetAsync(eventCategoryAPI);
+
+                    if (Res.IsSuccessStatusCode)
+                    {
+                        var response = Res.Content.ReadAsStringAsync().Result;
+                        categoryList = JsonConvert.DeserializeObject<List<EventCategory>>(response);
+                    }
+                }
+
+                return categoryList;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public async Task<List<loginModelAPI>> GetLoginList()
+        {
+            List<loginModelAPI> loginList = new List<loginModelAPI>();
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(loginBaseURL);
 
                     client.DefaultRequestHeaders.Clear();
 
@@ -339,7 +371,7 @@ namespace WebProject.classes
             {
             }
         }
-        public async Task<string> AddEvent(Event newEvent)
+        public async Task AddEvent(Events newEvent)
         {
             try
             {
@@ -355,15 +387,11 @@ namespace WebProject.classes
 
                 // Connecting webapi
                 var response = await client.PostAsync(URL, content);
-                var responseString = await response.Content.ReadAsStringAsync();
 
-                // Ifall det blir error
-                if (responseString.ToString().Contains("The request is invalid") || responseString.ToString().Contains("An error has occurred"))
+                if (response.IsSuccessStatusCode)
                 {
-                    return responseString.ToString();
+                    var responseString = await response.Content.ReadAsStringAsync();
                 }
-               
-                return "Success";
             }
             catch(Exception e) 
             {
@@ -606,5 +634,43 @@ namespace WebProject.classes
         }
 
         #endregion Update
+
+        #region Other
+        // This is post, but only returns a value for login information. Not really a create that makes a new object
+        // Returns a object if object exists
+
+        /// <summary>
+        /// Needs username, password and permission to work
+        /// </summary>
+        /// <param name="loginDetails"></param>
+        /// <returns></returns>
+        public async Task GetLoginRoleAPI(organizerlogin loginDetails)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+
+                // Using jsonconvert and creates content
+                string jsonString = JsonConvert.SerializeObject(loginDetails); // Lägg in ny objekt
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                // URL vart datan ska skickas
+                string URL = organiserBaseURL + facilitiesBookedURL;
+
+                // Connecting webapi
+                var response = await client.PostAsync(URL, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    loginDetails = JsonConvert.DeserializeObject<organizerlogin>(responseString);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        #endregion
     }
 }

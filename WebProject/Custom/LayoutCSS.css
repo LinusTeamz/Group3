@@ -1,9 +1,8 @@
 ﻿* {
     font-family: Rockwell, serif;
 }
-nav{
-    background-color:#b44c6f;
-    
+nav {
+    background-color: rgba(229, 110, 149, 0.7);
 }
 .navName {
     color: white;
@@ -22,9 +21,7 @@ li {
     overflow: hidden;
     background-color: #333;
 }
-.active1:hover:not(.active) {
-    background-color: #b77189;
-}
 .active1 {
-    background-color: #b44c6f;
+    background-color: #A24E6A;
+    font-size: 30px;
 }
