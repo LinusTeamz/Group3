@@ -128,17 +128,27 @@ namespace WebProject.Controllers
 
         public async Task<ActionResult> MyEvent()
         {
-            int id = 1;
-
+            int id = 2;
+            List<EventCategory> eventCategories = new List<EventCategory>();
             List<Event> eventList = new List<Event>();
             List<Event> eventModelList = new List<Event>();
 
+
             eventList = await obj.GetEventList();
+            eventCategories = await obj.GetCategoryList();
             foreach (var item in eventList)
             {
                 if (item.Event_Organizer.Id == id)
                 {
-                    eventModelList.Add(item);
+                    //foreach (var item2 in eventCategories)
+                    //{
+                    //    if (item.Event_Category.Category_Id == item2.Category_Id)
+                    //    {
+                            
+                    //    }
+                    //}
+                   //eventList.Add(item);
+                   eventModelList.Add(item);
                 }
             }
             return View(eventModelList);
