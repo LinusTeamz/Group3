@@ -29,13 +29,16 @@ namespace WebProject.Controllers
         {          
             try
             {
+                // List of dropdown items
                 List<SelectListItem> facilitiesDropDown = new List<SelectListItem>();
                 List<SelectListItem> categoryDropDown = new List<SelectListItem>();
 
+                // Lists for category, facility and places
                 List<EventCategory> categoriesList = new List<EventCategory>();
                 List<Facility> facilitiesList = new List<Facility>();
                 List<Place> placeList = new List<Place>();
 
+                // GET-lists 
                 categoriesList = await obj.GetCategoryList();
                 facilitiesList = await obj.GetFacilityList();
                 placeList = await obj.GetPlaceList();

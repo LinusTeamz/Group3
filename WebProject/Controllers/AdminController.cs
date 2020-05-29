@@ -9,6 +9,7 @@ namespace WebProject.Controllers
 {
     public class AdminController : Controller
     {
+        // create an object of model "ObjecthandlerJSON" to handle Json code
         private ObjectHandlerJSON obj = new ObjectHandlerJSON();
 
         public ActionResult Index()
@@ -38,8 +39,10 @@ namespace WebProject.Controllers
 
                 return View(model);
             }
+            // Redirect user to Help if an error occurs
             catch (Exception e)
             {
+                
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -303,6 +306,7 @@ namespace WebProject.Controllers
                 int trueCounter = 0;
                 int falseCounter = 0;
 
+                // Loop through adresses to check if they are active
                 foreach (var adress in adresser)
                 {
                     MonitorModel namn = new MonitorModel();
@@ -333,6 +337,8 @@ namespace WebProject.Controllers
         public bool GetPing(string adress)
         {
             bool value;
+            
+            //  Request to ping a an adress
             try
             {
                 var ping = new System.Net.NetworkInformation.Ping();
