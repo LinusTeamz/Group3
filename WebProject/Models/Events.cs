@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebProject.Models
 {
-    public class Event
+    public class Events
     {
         public int Event_Id { get; set; }
         public string Event_Name { get; set; }
