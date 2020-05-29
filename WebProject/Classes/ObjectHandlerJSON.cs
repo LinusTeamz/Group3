@@ -614,7 +614,7 @@ namespace WebProject.classes
         /// </summary>
         /// <param name="loginDetails"></param>
         /// <returns></returns>
-        public async Task GetLoginRoleAPI(organizerlogin loginDetails)
+        public async Task<string> GetLoginRoleAPI(organizerlogin loginDetails)
         {
             try
             {
@@ -634,11 +634,13 @@ namespace WebProject.classes
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
                     loginDetails = JsonConvert.DeserializeObject<organizerlogin>(responseString);
+                    return loginDetails.permission; // Return the permission
                 }
+                return null;
             }
             catch
             {
-
+                return null;
             }
         }
         #endregion

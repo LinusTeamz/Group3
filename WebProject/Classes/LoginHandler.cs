@@ -71,5 +71,36 @@ namespace WebProject.classes
             
             return role;
         }
+
+        public async Task<string> UserAuthorized(organizerlogin loginDetails)
+        {
+            ObjectHandlerJSON obj = new ObjectHandlerJSON();
+
+            try
+            {
+                // Checks if user is admin first
+                loginDetails.permission = "organizeradmin";
+                string role = await obj.GetLoginRoleAPI(loginDetails);
+
+                // If user is no admin, but can be a user
+                if (role == null)
+                {
+                    loginDetails.permission = "organazieradmin";
+                    role = await obj.GetLoginRoleAPI(loginDetails);
+                }
+                // If login does not work
+                else
+                {
+                    return "Invalid";
+                }
+
+                // If all goes well
+                return role;
+            }
+            catch (Exception e)
+            {
+                return e.Message.ToString();
+            }
+        }
     }
 }
