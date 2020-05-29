@@ -32,9 +32,9 @@ namespace WebProject.Controllers
             return View();
         }
 
-        // Login function
+        // Login function logic
         [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> Login(LoginModel loginDetails)
+        public async System.Threading.Tasks.Task<ActionResult> Login(organizerlogin loginDetails)
         {
             LoginHandler handler = new LoginHandler();
             // Try to verify if user is organizer or admin
@@ -66,7 +66,7 @@ namespace WebProject.Controllers
                 return RedirectToAction("Login", "Home");
             }
         }
-        // Remove cookies when user logs out
+        // Remove session when user logs out
         public ActionResult Logout()
         {
             Session.Remove("user");

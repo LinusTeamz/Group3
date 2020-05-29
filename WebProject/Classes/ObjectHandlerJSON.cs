@@ -33,7 +33,7 @@ namespace WebProject.classes
         #region Login API
 
         private string loginBaseURL = "http://193.10.202.76/";
-        private string loginGetAPI = "api/organizer";
+        private string loginGetAPI = "api/organizer", loginRole = "api/organizerlogin";
 
         #endregion Login API
 
@@ -604,5 +604,43 @@ namespace WebProject.classes
         }
 
         #endregion Update
+
+        #region Other
+        // This is post, but only returns a value for login information. Not really a create that makes a new object
+        // Returns a object if object exists
+
+        /// <summary>
+        /// Needs username, password and permission to work
+        /// </summary>
+        /// <param name="loginDetails"></param>
+        /// <returns></returns>
+        public async Task GetLoginRoleAPI(organizerlogin loginDetails)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+
+                // Using jsonconvert and creates content
+                string jsonString = JsonConvert.SerializeObject(loginDetails); // Lägg in ny objekt
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                // URL vart datan ska skickas
+                string URL = organiserBaseURL + facilitiesBookedURL;
+
+                // Connecting webapi
+                var response = await client.PostAsync(URL, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    loginDetails = JsonConvert.DeserializeObject<organizerlogin>(responseString);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        #endregion
     }
 }

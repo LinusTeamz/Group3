@@ -8,7 +8,7 @@ namespace WebProject.Controllers
 {
     public class HelpController : Controller
     {
-        // GET: Help
+        
         public ActionResult Error()
         {
 
