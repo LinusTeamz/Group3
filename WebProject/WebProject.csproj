@@ -107,7 +107,7 @@
     <Content Include="Custom\LoginStyle.css" />
     <Content Include="Custom\LayoutCSS.css" />
     <Content Include="Custom\OrganizerLayout.css" />
-    <Content Include="Custom\StyleSheet1.css" />
+    <Content Include="Custom\AdminStyle.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
