@@ -2,6 +2,7 @@
 	background-image: url('Images/bakgrundOrg.png');
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-color:black;
 	color: white;
 	font-size: 25px;
 }
@@ -17,12 +18,11 @@
 	margin-top: 20px;
 }
 table, td, th {
-	max-width: 600px;
 	margin: 0 auto;
 	border: none !important;
 	color: white;
 	font-size: 25px;
-	background-color: #383838;
+	background-color: rgba(229, 110, 149, 0.4);
 }
 
 th.event-details {
@@ -63,4 +63,9 @@ input[type=submit] {
 .div_labelform {
 	border-radius: 5px;
 	background-color: rgba(165, 93, 23, 0.24);
+}
+@media only screen and (max-width:540px){
+	table, td, th{
+		white-space:nowrap;
+	}
 }
