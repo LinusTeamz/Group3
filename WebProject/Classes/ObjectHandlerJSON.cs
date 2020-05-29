@@ -13,11 +13,13 @@ namespace WebProject.classes
     {
         #region Egen API
 
-        //private string organiserBaseURL = "http://193.10.202.78/";
-        private string organiserBaseURL = "http://localhost:53734/api/";
+        private string organiserBaseURL = "http://193.10.202.78/EventLokal/";
+        //private string organiserBaseURL = "http://localhost:53734/api/";
 
         // URL:er för egen API
-        private string facilityURL = "Facilities", organizersURL = "Organizers", placeURL = "Places", facilitiesBookedURL = "FacilitiesBooked";
+
+        //TODO: Ändra facilitiesBookeds till rätt api innan server
+        private string facilityURL = "Api/Facilities", organizersURL = "Api/Organizers", placeURL = "Api/Places", facilitiesBookedURL = "Api/FacilitiesBookeds";
 
         #endregion Egen API
 
@@ -155,9 +157,9 @@ namespace WebProject.classes
                 return facilitiesBooked;
             }
         }
-        public async Task<List<Event>> GetEventList()
+        public async Task<List<Events>> GetEventList()
         {
-            List<Event> eventList = new List<Event>();
+            List<Events> eventList = new List<Events>();
 
             try
             {
@@ -174,7 +176,7 @@ namespace WebProject.classes
                     if (Res.IsSuccessStatusCode)
                     {
                         var response = Res.Content.ReadAsStringAsync().Result;
-                        eventList = JsonConvert.DeserializeObject<List<Event>>(response);
+                        eventList = JsonConvert.DeserializeObject<List<Events>>(response);
                     }
                 }
 
@@ -339,7 +341,7 @@ namespace WebProject.classes
             {
             }
         }
-        public async Task AddEvent(Event newEvent)
+        public async Task AddEvent(Events newEvent)
         {
             try
             {
@@ -355,7 +357,11 @@ namespace WebProject.classes
 
                 // Connecting webapi
                 var response = await client.PostAsync(URL, content);
-                var responseString = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                }
             }
             catch(Exception e) 
             {

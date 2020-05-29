@@ -72,11 +72,11 @@ namespace WebProject.Controllers
                     facilitiesDropDown.Add(temp);
                    
                 }
-      
+                
                 // Dropdowns skapas
                 ViewBag.Category_Id = categoryDropDown;
                 ViewBag.FacilityID = facilitiesDropDown;
-
+                
                 return View();
             }
             catch (Exception e)
@@ -87,7 +87,7 @@ namespace WebProject.Controllers
         }
         // POST: CreateE/Create
         [HttpPost]
-        public async Task<ActionResult> CreateEvent(Event newEvent, int Category_Id, int FacilityID, int OrganizerID)
+        public async Task<ActionResult> CreateEvent(Events newEvent, int Category_Id, int FacilityID, int OrganizerID)
         {
 
             FacilitiesBooked facilitiesBooked = new FacilitiesBooked();
@@ -113,6 +113,12 @@ namespace WebProject.Controllers
                     newEvent.Event_Active = false;
                 }
 
+                facilitiesBooked.DateStart = newEvent.Event_Start_Datetime;
+                facilitiesBooked.DateEnd = newEvent.Event_End_Datetime;
+                facilitiesBooked.Fk_Facility = newEvent.Event_Facility.Id;
+                facilitiesBooked.Fk_Organizer = newEvent.Event_Organizer.Id;
+
+                await obj.AddFacilitiesBooked(facilitiesBooked);
                 await obj.AddEvent(newEvent);
              
 
@@ -128,17 +134,27 @@ namespace WebProject.Controllers
 
         public async Task<ActionResult> MyEvent()
         {
-            int id = 1;
-
+            int id = 2;
+            List<EventCategory> eventCategories = new List<EventCategory>();
             List<Event> eventList = new List<Event>();
             List<Event> eventModelList = new List<Event>();
 
+
             eventList = await obj.GetEventList();
+            eventCategories = await obj.GetCategoryList();
             foreach (var item in eventList)
             {
                 if (item.Event_Organizer.Id == id)
                 {
-                    eventModelList.Add(item);
+                    //foreach (var item2 in eventCategories)
+                    //{
+                    //    if (item.Event_Category.Category_Id == item2.Category_Id)
+                    //    {
+                            
+                    //    }
+                    //}
+                   //eventList.Add(item);
+                   eventModelList.Add(item);
                 }
             }
             return View(eventModelList);

@@ -1,4 +1,4 @@
-﻿@model WebProject.Models.Event
+﻿@model WebProject.Models.Events
 
 @{
     ViewBag.Title = "CreateEvent";
@@ -29,9 +29,9 @@
             </fieldset>
 
             <div class="form-group row">
-                <label for="arrangerInput" class="col-sm-4 col-form-label">Arranger ID</label>
+                <label for="arrangerInput" class="col-sm-4 col-form-label">Organizer ID</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="arrangerInput" name="Event_Arranger_Id">
+                    <input type="number" class="form-control" id="arrangerInput" name="OrganizerID" required value="2">
                 </div>
             </div>
 
@@ -68,7 +68,7 @@
             <div class="form-group row">
                 <label for="priceInput" class="col-sm-4 col-form-label">Ticket Price</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="priceInput" name="Event_Ticket_Price">
+                    <input type="number" class="form-control" id="priceInput" name="Event_Ticket_Price" value="0" required>
                 </div>
             </div>
 
