@@ -13,8 +13,8 @@ namespace WebProject.classes
     {
         #region Egen API
 
-        //private string organiserBaseURL = "http://193.10.202.78/";
-        private string organiserBaseURL = "http://localhost:50270/api/";
+        private string organiserBaseURL = "http://193.10.202.78/EventLokal/api/";
+        //private string organiserBaseURL = "http://localhost:50270/api/";
 
         // URL:er för egen API
         private string facilityURL = "Facilities", organizersURL = "Organizers", placeURL = "Places", facilitiesBookedURL = "FacilitiesBooked";

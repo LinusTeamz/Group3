@@ -25,7 +25,7 @@ namespace WebProject.Controllers
                 return RedirectToAction("Error", "Help");
             }
         }
-        public async System.Threading.Tasks.Task<ActionResult> CreateEvent()
+        public async Task<ActionResult> CreateEvent()
         {          
             try
             {
@@ -84,12 +84,25 @@ namespace WebProject.Controllers
         }
         // POST: CreateE/Create
         [HttpPost]
+        public async Task<ActionResult> CreateEvent(Event newEvent, int Category_Id)
+        {
 
-        public async System.Threading.Tasks.Task<ActionResult> CreateEvent(Event newEvent, int Category_Id)
-        {      
+            FacilitiesBooked facilitiesBooked = new FacilitiesBooked();
+
             try
             {
-                if(newEvent.Event_Seeking_Volunteers != true)
+                newEvent.Event_Category = new EventCategory();
+                newEvent.Event_Category.Category_Id = Category_Id;
+                newEvent.Event_Create_Datetime = DateTime.Now;
+
+                facilitiesBooked.DateStart = newEvent.Event_Start_Datetime;
+                facilitiesBooked.Fk_Facility = newEvent.Event_Facility_Id;
+                facilitiesBooked.Fk_Organizer = newEvent.Event_Arranger_Id;
+
+                await obj.AddFacilitiesBooked(facilitiesBooked);
+
+                // Om checkboxarna är null eller annat
+                if (newEvent.Event_Seeking_Volunteers != true)
                 {
                     newEvent.Event_Seeking_Volunteers = false;
                 }
@@ -98,10 +111,6 @@ namespace WebProject.Controllers
                 {
                     newEvent.Event_Active = false;
                 }
-
-                newEvent.Event_Category = new EventCategory();
-                newEvent.Event_Category.Category_Id = Category_Id;
-                newEvent.Event_Create_Datetime = DateTime.Now;
 
                 string result = await obj.AddEvent(newEvent);
                 
@@ -125,8 +134,10 @@ namespace WebProject.Controllers
         public async Task<ActionResult> MyEvent()
         {
             int id = 1;
+
             List<Event> eventList = new List<Event>();
             List<Event> eventModelList = new List<Event>();
+
             eventList = await obj.GetEventList();
             foreach (var item in eventList)
             {
