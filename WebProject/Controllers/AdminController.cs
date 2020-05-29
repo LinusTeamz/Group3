@@ -48,7 +48,7 @@ namespace WebProject.Controllers
             }
         }
 
-        public ActionResult FacilityCreate()
+        public async Task<ActionResult> FacilityCreate()
         {
             try
             {
@@ -56,6 +56,23 @@ namespace WebProject.Controllers
                 ////{
                 ////    return RedirectToAction("Index", "Home");
                 ////}
+
+                List<SelectListItem> placeDropDown = new List<SelectListItem>();
+                List<Place> placeList = new List<Place>();
+                placeList = await obj.GetPlaceList();
+
+                // Loopa igenom kategorier och skapa dropdown
+                foreach (var item in placeList)
+                {
+                    // Skapa nytt objekt vid varje loop
+                    SelectListItem temp = new SelectListItem();
+                    temp.Text = item.Name;
+                    temp.Value = item.Id.ToString();
+
+                    placeDropDown.Add(temp);
+                }
+                // Listan omvandlas till viewbag
+                ViewBag.Fk_Place = placeDropDown;
 
                 return View();
             }
@@ -71,6 +88,7 @@ namespace WebProject.Controllers
         {
             try
             {
+                
                 await obj.AddFacility(facility);
 
                 return RedirectToAction("FacilityIndex");
@@ -88,11 +106,35 @@ namespace WebProject.Controllers
             //{
             //    return RedirectToAction("Index", "Home");
             //}
+            
 
             Facility facility = await obj.GetFacilityByID(id);
 
             try
             {
+                List<SelectListItem> placeDropDown = new List<SelectListItem>();
+                List<Place> placeList = new List<Place>();
+                placeList = await obj.GetPlaceList();
+
+                // Loopa igenom kategorier och skapa dropdown
+                foreach (var item in placeList)
+                {
+                    // Skapa nytt objekt vid varje loop
+                    SelectListItem temp = new SelectListItem();
+                    temp.Text = item.Name;
+                    temp.Value = item.Id.ToString();
+                    if (item.Id == facility.Fk_Place)
+                    {
+                        temp.Selected = true;
+
+                    }
+                    else
+                    {
+                        temp.Selected = false;
+                    }
+                    placeDropDown.Add(temp);
+                }
+                ViewBag.Fk_Place = placeDropDown;
                 return View(facility);
             }
             catch (Exception e)
