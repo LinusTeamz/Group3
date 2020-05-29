@@ -72,11 +72,11 @@ namespace WebProject.Controllers
                     facilitiesDropDown.Add(temp);
                    
                 }
-      
+                
                 // Dropdowns skapas
                 ViewBag.Category_Id = categoryDropDown;
                 ViewBag.FacilityID = facilitiesDropDown;
-
+                
                 return View();
             }
             catch (Exception e)
