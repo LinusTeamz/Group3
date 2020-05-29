@@ -31,7 +31,7 @@
             <div class="form-group row">
                 <label for="arrangerInput" class="col-sm-4 col-form-label">Arranger ID</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="arrangerInput" name="OrganizerID" value="2">
+                    <input type="number" class="form-control" id="arrangerInput" name="Event_Arranger_Id">
                 </div>
             </div>
 
@@ -45,14 +45,14 @@
             </fieldset>
 
             <div class="form-group row">
-                <label for="locationInput" class="col-sm-4 col-form-label">Location ID</label>
+                <label for="locationInput" class="col-sm-4 col-form-label">Category</label>
                 <div class="col-sm-8">
                     @Html.DropDownList("Category_Id", (IEnumerable<SelectListItem>)ViewBag.Category_Id)
                 </div>
             </div>
-            
+
             <div class="form-group row">
-                <label for="locationInput" class="col-sm-4 col-form-label">Category</label>
+                <label for="locationInput" class="col-sm-4 col-form-label">Location ID</label>
                 <div class="col-sm-8">
                     @Html.DropDownList("FacilityID", (IEnumerable<SelectListItem>)ViewBag.FacilityID)
                 </div>
@@ -85,7 +85,6 @@
                     <input id="end-time" type="datetime-local" class="form-control" name="Event_End_Datetime">
                 </div>
             </div>
-
             <div class="form-group row d-flex justify-content-center">
                 <button class="btn btn-success btn-lg">Create Event</button>
             </div>

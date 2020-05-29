@@ -1,7 +1,9 @@
 ﻿body {
 	background-image: url('Images/bakgrundOrg.png');
-	font-size: 25px;
+	background-repeat: no-repeat;
+	background-size: cover;
 	color: white;
+	font-size: 25px;
 }
 
 .p_welcome {
@@ -60,5 +62,5 @@ input[type=submit] {
 
 .div_labelform {
 	border-radius: 5px;
-	background-color: rgba(165, 93, 23, 0.24;
+	background-color: rgba(165, 93, 23, 0.24);
 }
