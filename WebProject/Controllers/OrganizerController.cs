@@ -25,13 +25,15 @@ namespace WebProject.Controllers
                 return RedirectToAction("Error", "Help");
             }
         }
-        public async System.Threading.Tasks.Task<ActionResult> CreateEvent()
+        public async Task<ActionResult> CreateEvent()
         {          
             try
             {
+                // List of dropdown items
                 List<SelectListItem> facilitiesDropDown = new List<SelectListItem>();
                 List<SelectListItem> categoryDropDown = new List<SelectListItem>();
 
+                // Lists for category, facility and places
                 List<EventCategory> categoriesList = new List<EventCategory>();
                 List<Facility> facilitiesList = new List<Facility>();
                 List<Place> placeList = new List<Place>();
@@ -65,14 +67,15 @@ namespace WebProject.Controllers
                     string location = item.Name + " - " + place.Name.ToString();
 
                     temp.Text = location;
-                    temp.Value = item.Id.ToString();
+                    temp.Value = item.Id.ToString();                   
 
                     facilitiesDropDown.Add(temp);
+                   
                 }
-                
+      
                 // Dropdowns skapas
                 ViewBag.Category_Id = categoryDropDown;
-                ViewBag.Event_Facility_Id = facilitiesDropDown;
+                ViewBag.FacilityID = facilitiesDropDown;
 
                 return View();
             }
@@ -84,12 +87,23 @@ namespace WebProject.Controllers
         }
         // POST: CreateE/Create
         [HttpPost]
+        public async Task<ActionResult> CreateEvent(Event newEvent, int Category_Id, int FacilityID, int OrganizerID)
+        {
 
-        public async System.Threading.Tasks.Task<ActionResult> CreateEvent(Event newEvent, int Category_Id)
-        {      
+            FacilitiesBooked facilitiesBooked = new FacilitiesBooked();
+
             try
             {
-                if(newEvent.Event_Seeking_Volunteers != true)
+                newEvent.Event_Category = new EventCategory();
+                newEvent.Event_Category.Category_Id = Category_Id;
+                newEvent.Event_Create_Datetime = DateTime.Now;
+
+                // Nytt:
+                newEvent.Event_Facility = new EventFacility() { Id = FacilityID };
+
+                newEvent.Event_Organizer = new EventOrganizer() { Id = OrganizerID };
+
+                if (newEvent.Event_Seeking_Volunteers != true)
                 {
                     newEvent.Event_Seeking_Volunteers = false;
                 }
@@ -99,21 +113,11 @@ namespace WebProject.Controllers
                     newEvent.Event_Active = false;
                 }
 
-                newEvent.Event_Category = new EventCategory();
-                newEvent.Event_Category.Category_Id = Category_Id;
-                newEvent.Event_Create_Datetime = DateTime.Now;
-
-                string result = await obj.AddEvent(newEvent);
-                
-                // Ifall det blir fel vid inmatningen
-                if(result.ToLower() != "success")
-                {
-                    TempData["tempErrorMessage"] = result;
-                    return RedirectToAction("Error", "Help");
-                }
+                await obj.AddEvent(newEvent);
+             
 
                 // Om allt går bra
-                return RedirectToAction("Index", "MyEvent");
+                return RedirectToAction("Index", "Organizer");
             }
             catch (Exception e)
             {
@@ -125,12 +129,14 @@ namespace WebProject.Controllers
         public async Task<ActionResult> MyEvent()
         {
             int id = 1;
+
             List<Event> eventList = new List<Event>();
             List<Event> eventModelList = new List<Event>();
+
             eventList = await obj.GetEventList();
             foreach (var item in eventList)
             {
-                if (item.Event_Arranger_Id == id)
+                if (item.Event_Organizer.Id == id)
                 {
                     eventModelList.Add(item);
                 }

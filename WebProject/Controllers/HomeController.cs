@@ -32,11 +32,12 @@ namespace WebProject.Controllers
             return View();
         }
 
+        // Login function
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> Login(LoginModel loginDetails)
         {
             LoginHandler handler = new LoginHandler();
-
+            // Try to verify if user is organizer or admin
             try
             {            
                 string role = await handler.UserDetails(loginDetails.name, loginDetails.password);
@@ -58,12 +59,14 @@ namespace WebProject.Controllers
                 TempData["tempErrorMessage"] = "Password or username is wrong";
                 return RedirectToAction("Login", "Home");  
             }
+            // Redirect user to Home if username and password does not match
             catch(Exception e)
             {
                 TempData["tempErrorMessage"] = e.Message;
                 return RedirectToAction("Login", "Home");
             }
         }
+        // Remove cookies when user logs out
         public ActionResult Logout()
         {
             Session.Remove("user");
