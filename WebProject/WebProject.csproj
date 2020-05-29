@@ -238,6 +238,8 @@
     </Compile>
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventCategory.cs" />
+    <Compile Include="Models\EventFacility.cs" />
+    <Compile Include="Models\EventOrganizer.cs" />
     <Compile Include="Models\FacilitiesBooked.cs" />
     <Compile Include="Models\Facility.cs" />
     <Compile Include="Models\LoginModel.cs" />

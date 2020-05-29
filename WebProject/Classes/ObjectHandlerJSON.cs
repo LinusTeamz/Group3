@@ -339,7 +339,7 @@ namespace WebProject.classes
             {
             }
         }
-        public async Task<string> AddEvent(Event newEvent)
+        public async Task AddEvent(Event newEvent)
         {
             try
             {
@@ -356,18 +356,10 @@ namespace WebProject.classes
                 // Connecting webapi
                 var response = await client.PostAsync(URL, content);
                 var responseString = await response.Content.ReadAsStringAsync();
-
-                // Ifall det blir error
-                if (responseString.ToString().Contains("The request is invalid") || responseString.ToString().Contains("An error has occurred"))
-                {
-                    return responseString.ToString();
-                }
-               
-                return "Success";
             }
             catch(Exception e) 
             {
-                return e.Message;
+                
             }
         }
         public async Task AddFacility(Facility newFacility)

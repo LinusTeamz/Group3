@@ -38,7 +38,6 @@ namespace WebProject.Controllers
                 List<Facility> facilitiesList = new List<Facility>();
                 List<Place> placeList = new List<Place>();
 
-                // GET-lists 
                 categoriesList = await obj.GetCategoryList();
                 facilitiesList = await obj.GetFacilityList();
                 placeList = await obj.GetPlaceList();
@@ -68,14 +67,15 @@ namespace WebProject.Controllers
                     string location = item.Name + " - " + place.Name.ToString();
 
                     temp.Text = location;
-                    temp.Value = item.Id.ToString();
+                    temp.Value = item.Id.ToString();                   
 
                     facilitiesDropDown.Add(temp);
+                   
                 }
-                
+      
                 // Dropdowns skapas
                 ViewBag.Category_Id = categoryDropDown;
-                ViewBag.Event_Facility_Id = facilitiesDropDown;
+                ViewBag.FacilityID = facilitiesDropDown;
 
                 return View();
             }
@@ -87,7 +87,7 @@ namespace WebProject.Controllers
         }
         // POST: CreateE/Create
         [HttpPost]
-        public async Task<ActionResult> CreateEvent(Event newEvent, int Category_Id)
+        public async Task<ActionResult> CreateEvent(Event newEvent, int Category_Id, int FacilityID, int OrganizerID)
         {
 
             FacilitiesBooked facilitiesBooked = new FacilitiesBooked();
@@ -98,13 +98,11 @@ namespace WebProject.Controllers
                 newEvent.Event_Category.Category_Id = Category_Id;
                 newEvent.Event_Create_Datetime = DateTime.Now;
 
-                facilitiesBooked.DateStart = newEvent.Event_Start_Datetime;
-                facilitiesBooked.Fk_Facility = newEvent.Event_Facility_Id;
-                facilitiesBooked.Fk_Organizer = newEvent.Event_Arranger_Id;
+                // Nytt:
+                newEvent.Event_Facility = new EventFacility() { Id = FacilityID };
 
-                await obj.AddFacilitiesBooked(facilitiesBooked);
+                newEvent.Event_Organizer = new EventOrganizer() { Id = OrganizerID };
 
-                // Om checkboxarna är null eller annat
                 if (newEvent.Event_Seeking_Volunteers != true)
                 {
                     newEvent.Event_Seeking_Volunteers = false;
@@ -115,17 +113,11 @@ namespace WebProject.Controllers
                     newEvent.Event_Active = false;
                 }
 
-                string result = await obj.AddEvent(newEvent);
-                
-                // Ifall det blir fel vid inmatningen
-                if(result.ToLower() != "success")
-                {
-                    TempData["tempErrorMessage"] = result;
-                    return RedirectToAction("Error", "Help");
-                }
+                await obj.AddEvent(newEvent);
+             
 
                 // Om allt går bra
-                return RedirectToAction("Index", "MyEvent");
+                return RedirectToAction("Index", "Organizer");
             }
             catch (Exception e)
             {
@@ -144,7 +136,7 @@ namespace WebProject.Controllers
             eventList = await obj.GetEventList();
             foreach (var item in eventList)
             {
-                if (item.Event_Arranger_Id == id)
+                if (item.Event_Organizer.Id == id)
                 {
                     eventModelList.Add(item);
                 }

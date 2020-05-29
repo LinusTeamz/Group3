@@ -31,7 +31,7 @@
             <div class="form-group row">
                 <label for="arrangerInput" class="col-sm-4 col-form-label">Arranger ID</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="arrangerInput" name="Event_Arranger_Id">
+                    <input type="number" class="form-control" id="arrangerInput" name="OrganizerID" value="2">
                 </div>
             </div>
 
@@ -54,7 +54,7 @@
             <div class="form-group row">
                 <label for="locationInput" class="col-sm-4 col-form-label">Category</label>
                 <div class="col-sm-8">
-                    @Html.DropDownList("Event_Facility_Id", (IEnumerable<SelectListItem>)ViewBag.Event_Facility_Id)
+                    @Html.DropDownList("FacilityID", (IEnumerable<SelectListItem>)ViewBag.FacilityID)
                 </div>
             </div>
 
