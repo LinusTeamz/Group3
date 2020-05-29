@@ -113,6 +113,12 @@ namespace WebProject.Controllers
                     newEvent.Event_Active = false;
                 }
 
+                facilitiesBooked.DateStart = newEvent.Event_Start_Datetime;
+                facilitiesBooked.DateEnd = newEvent.Event_End_Datetime;
+                facilitiesBooked.Fk_Facility = newEvent.Event_Facility.Id;
+                facilitiesBooked.Fk_Organizer = newEvent.Event_Organizer.Id;
+
+                await obj.AddFacilitiesBooked(facilitiesBooked);
                 await obj.AddEvent(newEvent);
              
 

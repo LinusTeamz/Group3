@@ -17,7 +17,9 @@ namespace WebProject.classes
         //private string organiserBaseURL = "http://localhost:53734/api/";
 
         // URL:er för egen API
-        private string facilityURL = "Api/Facilities", organizersURL = "Api/Organizers", placeURL = "Api/Places", facilitiesBookedURL = "Api/FacilitiesBooked";
+
+        //TODO: Ändra facilitiesBookeds till rätt api innan server
+        private string facilityURL = "Api/Facilities", organizersURL = "Api/Organizers", placeURL = "Api/Places", facilitiesBookedURL = "Api/FacilitiesBookeds";
 
         #endregion Egen API
 
