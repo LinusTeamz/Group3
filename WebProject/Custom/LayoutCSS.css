@@ -3,7 +3,6 @@
 }
 nav {
     background-color: rgba(229, 110, 149, 0.7);
-   
 }
 .navName {
     color: white;
@@ -22,12 +21,7 @@ li {
     overflow: hidden;
     background-color: #333;
 }
-.active1:hover:not(.active) {
-    background-color: #b77189;
-}
 .active1 {
-    background-color: rgba(229, 110, 149, 0.7);
-}
-.nav-link {
-    background-color: rgba(229, 110, 149, 0.7) !important;
+    background-color: #A24E6A;
+    font-size: 30px;
 }

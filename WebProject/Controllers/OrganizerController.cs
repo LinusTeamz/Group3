@@ -87,7 +87,7 @@ namespace WebProject.Controllers
         }
         // POST: CreateE/Create
         [HttpPost]
-        public async Task<ActionResult> CreateEvent(Event newEvent, int Category_Id, int FacilityID, int OrganizerID)
+        public async Task<ActionResult> CreateEvent(Events newEvent, int Category_Id, int FacilityID, int OrganizerID)
         {
 
             FacilitiesBooked facilitiesBooked = new FacilitiesBooked();
@@ -130,8 +130,8 @@ namespace WebProject.Controllers
         {
             int id = 1;
 
-            List<Event> eventList = new List<Event>();
-            List<Event> eventModelList = new List<Event>();
+            List<Events> eventList = new List<Events>();
+            List<Events> eventModelList = new List<Events>();
 
             eventList = await obj.GetEventList();
             foreach (var item in eventList)
