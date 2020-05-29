@@ -73,7 +73,7 @@ namespace WebProject.Controllers
             {
                 await obj.AddFacility(facility);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("FacilityIndex");
             }
             catch (Exception e)
             {
@@ -109,7 +109,7 @@ namespace WebProject.Controllers
             {
                 await obj.UpdateFacility(facility);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("FacilityIndex");
             }
             catch (Exception e)
             {
@@ -145,7 +145,7 @@ namespace WebProject.Controllers
             {
                 await obj.DeleteFacility(id);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("FacilityIndex");
             }
             catch (Exception e)
             {
@@ -199,7 +199,7 @@ namespace WebProject.Controllers
             {
                 await obj.AddPlace(place);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("PlaceIndex");
             }
             catch (Exception e)
             {
@@ -235,7 +235,7 @@ namespace WebProject.Controllers
             {
                 await obj.UpdatePlace(place);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("PlaceIndex");
             }
             catch (Exception e)
             {
@@ -273,7 +273,7 @@ namespace WebProject.Controllers
             {
                 await obj.DeletePlace(id);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("PlaceIndex");
             }
             catch (Exception e)
             {
