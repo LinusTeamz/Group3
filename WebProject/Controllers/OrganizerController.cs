@@ -136,8 +136,8 @@ namespace WebProject.Controllers
         {
             int id = 2;
             List<EventCategory> eventCategories = new List<EventCategory>();
-            List<Event> eventList = new List<Event>();
-            List<Event> eventModelList = new List<Event>();
+            List<Events> eventList = new List<Events>();
+            List<Events> eventModelList = new List<Events>();
 
 
             eventList = await obj.GetEventList();

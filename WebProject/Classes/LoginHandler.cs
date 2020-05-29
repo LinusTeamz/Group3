@@ -14,18 +14,20 @@ namespace WebProject.classes
 {
     public class LoginHandler
     {
+        public string adminKey = "organizeradmin", userKey = "organizer";
+
         #region Dummy
-    
+
         private string UserRole(string name, string password)
         {
 
             if (name == "admin" && password == "admin")
             {
-                return "admin";
+                return adminKey;
             }
             else if (name == "orge" && password == "orge")
             {
-                return "normal";
+                return userKey;
             }
             else
             {
@@ -41,37 +43,6 @@ namespace WebProject.classes
         }
         #endregion
         
-        //TODO: Optimera denna kod...
-        public async Task <string> UserDetails(string email, string password)
-        {
-            List<loginModelAPI> loginList = new List<loginModelAPI>();
-            ObjectHandlerJSON obj = new ObjectHandlerJSON();
-
-            // Null by default
-            string role = null;
-
-       
-
-            loginList = await obj.GetLoginList();
-            
-            // If email and password is true
-
-            bool apiPasswordExist = loginList.Any(m => m.Email.Equals(email) && m.Password.Equals(password));
-
-            if (apiPasswordExist)
-            {
-                var selectedItem = loginList.Where(m => m.Email.Equals(email) && m.Password.Equals(password));
-
-                foreach (var item in selectedItem)
-                {
-                    role = item.Role;
-                }
-            }
-           
-            
-            return role;
-        }
-
         public async Task<string> UserAuthorized(organizerlogin loginDetails)
         {
             ObjectHandlerJSON obj = new ObjectHandlerJSON();

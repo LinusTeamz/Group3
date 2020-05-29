@@ -242,8 +242,6 @@
     <Compile Include="Models\EventOrganizer.cs" />
     <Compile Include="Models\FacilitiesBooked.cs" />
     <Compile Include="Models\Facility.cs" />
-    <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Models\loginModelAPI.cs" />
     <Compile Include="Models\MonitorModel.cs" />
     <Compile Include="Models\Organizer.cs" />
     <Compile Include="Models\organizerlogin.cs" />

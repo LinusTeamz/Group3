@@ -40,8 +40,9 @@ namespace WebProject.Controllers
             // Try to verify if user is organizer or admin
             try
             {            
-                string role = await handler.UserDetails(loginDetails.name, loginDetails.password);
+                string role = await handler.UserAuthorized(loginDetails);
 
+                // Get the role and assign the correct one
                 if(role != null)
                 {
                     if (role.Equals("Arrangör"))

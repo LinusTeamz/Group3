@@ -33,7 +33,7 @@ namespace WebProject.classes
         #region Login API
 
         private string loginBaseURL = "http://193.10.202.76/";
-        private string loginGetAPI = "api/organizer", loginRole = "api/organizerlogin";
+        private string loginRole = "api/organizerlogin";
 
         #endregion Login API
 
@@ -217,37 +217,7 @@ namespace WebProject.classes
                 return null;
             }
         }
-        public async Task<List<loginModelAPI>> GetLoginList()
-        {
-            List<loginModelAPI> loginList = new List<loginModelAPI>();
-
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(loginBaseURL);
-
-                    client.DefaultRequestHeaders.Clear();
-
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    HttpResponseMessage Res = await client.GetAsync(loginGetAPI);
-
-                    if (Res.IsSuccessStatusCode)
-                    {
-                        var response = Res.Content.ReadAsStringAsync().Result;
-                        loginList = JsonConvert.DeserializeObject<List<loginModelAPI>>(response);
-                    }
-                }
-
-                return loginList;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-
+ 
         /* --- Get by ID --- */
 
         public async Task<Place> GetPlaceByID(int id)
@@ -607,10 +577,9 @@ namespace WebProject.classes
 
         #region Other
         // This is post, but only returns a value for login information. Not really a create that makes a new object
-        // Returns a object if object exists
 
         /// <summary>
-        /// Needs username, password and permission to work
+        /// Needs username, password and permission to work. Returns a object if the object exists.
         /// </summary>
         /// <param name="loginDetails"></param>
         /// <returns></returns>
@@ -625,7 +594,7 @@ namespace WebProject.classes
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
                 // URL vart datan ska skickas
-                string URL = organiserBaseURL + facilitiesBookedURL;
+                string URL = loginBaseURL + loginRole;
 
                 // Connecting webapi
                 var response = await client.PostAsync(URL, content);
