@@ -72,11 +72,11 @@ namespace WebProject.Controllers
                     facilitiesDropDown.Add(temp);
                    
                 }
-      
+                
                 // Dropdowns skapas
                 ViewBag.Category_Id = categoryDropDown;
                 ViewBag.FacilityID = facilitiesDropDown;
-
+                
                 return View();
             }
             catch (Exception e)
@@ -87,7 +87,7 @@ namespace WebProject.Controllers
         }
         // POST: CreateE/Create
         [HttpPost]
-        public async Task<ActionResult> CreateEvent(Event newEvent, int Category_Id, int FacilityID, int OrganizerID)
+        public async Task<ActionResult> CreateEvent(Events newEvent, int Category_Id, int FacilityID, int OrganizerID)
         {
 
             FacilitiesBooked facilitiesBooked = new FacilitiesBooked();
