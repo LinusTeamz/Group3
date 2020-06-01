@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using WebProject.Models;
@@ -67,6 +68,31 @@ namespace WebProject.classes
                 }
 
                 return FacilityInfo;
+            }
+        }
+        public async Task <bool> GetMonitorList(string baseUrl, string apiUrl)
+         {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    //Passing api service base url
+                    client.BaseAddress = new Uri(baseUrl);
+                
+                    client.DefaultRequestHeaders.Clear();
+                    //Define request data format
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    //Sending request to find web api REST service resource GetAllEmployees using HttpClient
+
+                    HttpResponseMessage Res = await client.GetAsync(apiUrl);
+
+                    return Res.IsSuccessStatusCode;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
             }
         }
         public async Task<List<Organizer>> GetOrganizerList()
