@@ -4,11 +4,15 @@ using System.Web.Mvc;
 using WebProject.classes;
 using WebProject.Models;
 using System.Threading.Tasks;
+using NLog;
 
 namespace WebProject.Controllers
 {
     public class AdminController : Controller
     {
+        // Add Logger tool object
+        public readonly Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
         // create an object of model "ObjecthandlerJSON" to handle Json code
         private ObjectHandlerJSON obj = new ObjectHandlerJSON();
 
@@ -29,6 +33,7 @@ namespace WebProject.Controllers
         {
             try
             {
+
                 //if (Session["user"] == null || Session["user"].ToString() != "admin")
                 //{
                 //    return RedirectToAction("Index", "Home");
@@ -42,7 +47,9 @@ namespace WebProject.Controllers
             // Redirect user to Help if an error occurs
             catch (Exception e)
             {
-                
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -78,6 +85,10 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -95,6 +106,10 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -139,6 +154,11 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -155,6 +175,10 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -175,6 +199,10 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -191,6 +219,10 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -211,6 +243,10 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = "Password or username is wrong";
                 return RedirectToAction("Error", "Help");
             }
@@ -229,6 +265,10 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -245,6 +285,10 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -265,6 +309,10 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -281,6 +329,10 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -303,6 +355,10 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -319,6 +375,10 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }

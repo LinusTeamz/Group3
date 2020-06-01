@@ -56,13 +56,13 @@ namespace WebProject.classes
                 // If user is no admin, but can be a user
                 if (role == null)
                 {
-                    loginDetails.permission = "organazieradmin";
-                    role = await obj.GetLoginRoleAPI(loginDetails);
+                    return "invalid";
                 }
-                // If login does not work
-                else
+                // If user is no admin and might be an user
+                else if (role != null && role != "organizeradmin")
                 {
-                    return "Invalid";
+                    loginDetails.permission = "organizer";
+                    role = await obj.GetLoginRoleAPI(loginDetails);
                 }
 
                 // If all goes well

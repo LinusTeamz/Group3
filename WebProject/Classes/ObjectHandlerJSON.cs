@@ -567,7 +567,7 @@ namespace WebProject.classes
         public async Task UpdatePlace(Place updatedPlace)
         {
             HttpClient client = new HttpClient();
-
+            
             // URL for customer id selected by user
             string URL = organiserBaseURL + placeURL + "/" + updatedPlace.Id.ToString();
 
@@ -618,7 +618,7 @@ namespace WebProject.classes
                 // Using jsonconvert and creates content
                 string jsonString = JsonConvert.SerializeObject(loginDetails); // Lägg in ny objekt
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-
+                
                 // URL vart datan ska skickas
                 string URL = loginBaseURL + loginRole;
 
