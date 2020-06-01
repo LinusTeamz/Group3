@@ -77,7 +77,7 @@ namespace WebProject.Controllers
                     place = await obj.GetPlaceByID(item.Fk_Place);
 
                     // Create a string which includes facility and place name for better readability
-                    string location = item.Name + " - " + place.Name.ToString();
+                    string location = item.Name + " | " + place.Name.ToString() + " | " + place.City.ToString();
 
                     temp.Text = location;
                     temp.Value = item.Id.ToString();                   
@@ -184,6 +184,10 @@ namespace WebProject.Controllers
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             } 
+        }
+        private bool CheckUserAuthorization()
+        {
+            return false;
         }
     }
 }

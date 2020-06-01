@@ -487,5 +487,9 @@ namespace WebProject.Controllers
             }
             return value;
         }
+        private bool CheckUserAuthorization()
+        {
+            return false;
+        }
     }
 }
