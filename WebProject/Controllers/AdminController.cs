@@ -384,49 +384,43 @@ namespace WebProject.Controllers
             }
         }
 
-        public ActionResult Monitoring()
+        public async Task<ActionResult> Monitoring()
         {
             //if (Session["user"] == null || Session["user"].ToString() != "admin")
             //{
             //    return RedirectToAction("Index", "Home");
             //}
-
+            List<MonitorModel> monitorList = new List<MonitorModel> { 
+                new MonitorModel{GroupName = "Group 1", BaseAdress = "http://193.10.202.76/", ApiURL = "api/visitor"},
+                new MonitorModel{GroupName = "Group 2", BaseAdress = "http://193.10.202.77/", ApiURL = "EventService"},
+                new MonitorModel{GroupName = "Group 3", BaseAdress = "http://193.10.202.78/", ApiURL = "EventLokal"},
+                new MonitorModel{GroupName = "Group 4", BaseAdress = "http://193.10.202.81/", ApiURL = "BookingService"},
+                new MonitorModel{GroupName = "Group 5", BaseAdress = "http://193.10.202.82/", ApiURL = "api/GetProfiles/1"},
+            };
             try
             {
                 ViewModel model = new ViewModel();
-
-                List<bool> resultat = new List<bool>();
-
-                // Lägg in adresser
-                List<string> adresser = new List<string>();
-                adresser.Add("www.ikea.se");
-                adresser.Add("www.google.com");
-                adresser.Add("http://193.10.202.76/");
-                adresser.Add("http://193.10.202.82/");
-                adresser.Add("http://193.10.202.81/");
-
                 int trueCounter = 0;
                 int falseCounter = 0;
 
-                // Loop through adresses to check if they are active
-                foreach (var adress in adresser)
+                foreach (var item in monitorList)
                 {
-                    MonitorModel namn = new MonitorModel();
-                    resultat.Add(GetPing(adress));
-                    if (GetPing(adress) == true)
+                    ObjectHandlerJSON callFunction = new ObjectHandlerJSON();
+                    item.Ping = await callFunction.GetMonitorList(item.BaseAdress, item.ApiURL);
+                    if (item.Ping)
                     {
-                        namn.Adress = adress;
-                        namn.Ping = true;
-                        model.monitorList.Add(namn);
                         trueCounter++;
+                        ViewBag.MessageTrue = "Running";
                     }
                     else
                     {
                         falseCounter++;
+                        ViewBag.MessageFalse = "Offline";
                     }
                 }
+                model.monitorList = monitorList;
                 string result = trueCounter.ToString() + "/" + (falseCounter + trueCounter).ToString();
-
+                ViewBag.Message1 = result;
                 return View(model);
             }
             catch (Exception e)
