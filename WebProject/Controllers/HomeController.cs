@@ -48,7 +48,7 @@ namespace WebProject.Controllers
                 Session["userID"] = 2;
                 return RedirectToAction("Index", "Organizer");
             }
-
+            
             try
             {
                 // Get admin permission first. permission must be sent same time, otherwise API wont accept it. 

@@ -18,7 +18,7 @@ namespace WebProject.Controllers
         {          
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizer")
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -37,7 +37,7 @@ namespace WebProject.Controllers
         {          
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizer")
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -153,7 +153,7 @@ namespace WebProject.Controllers
         {
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizer")
                 {
                     return RedirectToAction("Login", "Home");
                 }
