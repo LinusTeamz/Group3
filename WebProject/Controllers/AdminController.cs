@@ -20,6 +20,11 @@ namespace WebProject.Controllers
         {
             try
             {
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+                
                 return View();
             }
             catch (Exception)
@@ -34,10 +39,10 @@ namespace WebProject.Controllers
             try
             {
 
-                //if (Session["user"] == null || Session["user"].ToString() != "admin")
-                //{
-                //    return RedirectToAction("Index", "Home");
-                //}
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
 
                 List<Facility> model = new List<Facility>();
                 model = await obj.GetFacilityList();
@@ -59,10 +64,10 @@ namespace WebProject.Controllers
         {
             try
             {
-                ////if (Session["user"] == null || Session["user"].ToString() != "admin")
-                ////{
-                ////    return RedirectToAction("Index", "Home");
-                ////}
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
 
                 List<SelectListItem> placeDropDown = new List<SelectListItem>();
                 List<Place> placeList = new List<Place>();
@@ -99,7 +104,10 @@ namespace WebProject.Controllers
         {
             try
             {
-                
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
                 await obj.AddFacility(facility);
 
                 return RedirectToAction("FacilityIndex");
@@ -117,16 +125,20 @@ namespace WebProject.Controllers
 
         public async Task<ActionResult> FacilityEdit(int id)
         {
-            //if (Session["user"] == null || Session["user"].ToString() != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-            
+          
 
-            Facility facility = await obj.GetFacilityByID(id);
+
+        
 
             try
             {
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                Facility facility = await obj.GetFacilityByID(id);
+
                 List<SelectListItem> placeDropDown = new List<SelectListItem>();
                 List<Place> placeList = new List<Place>();
                 placeList = await obj.GetPlaceList();
@@ -169,6 +181,11 @@ namespace WebProject.Controllers
         {
             try
             {
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
                 await obj.UpdateFacility(facility);
 
                 return RedirectToAction("FacilityIndex");
@@ -186,13 +203,15 @@ namespace WebProject.Controllers
 
         public async Task<ActionResult> FacilityDelete(int id)
         {
-            //if (Session["user"] == null || Session["user"].ToString() != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
+          
 
             try
             {
+
+            if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+            {
+                return RedirectToAction("Login", "Home");
+            }
                 Facility model = new Facility();
                 model = await obj.GetFacilityByID(id);
                 return View(model);
@@ -213,6 +232,11 @@ namespace WebProject.Controllers
         {
             try
             {
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
                 await obj.DeleteFacility(id);
 
                 return RedirectToAction("FacilityIndex");
@@ -230,13 +254,14 @@ namespace WebProject.Controllers
 
         public async System.Threading.Tasks.Task<ActionResult> PlaceIndex()
         {
-            //if (Session["user"] == null || Session["user"].ToString() != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
-
+        
             try
             {
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
                 List<Place> model = new List<Place>();
                 model = await obj.GetPlaceList();
                 return View(model);
@@ -247,20 +272,22 @@ namespace WebProject.Controllers
                 Logger.Error(e, "Error Level");
                 Logger.Fatal(e, "Fatal Level");
 
-                TempData["tempErrorMessage"] = "Password or username is wrong";
+                TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
         }
 
         public ActionResult PlaceCreate()
         {
-            //if (Session["user"] == null || Session["user"].ToString() != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
+         
 
             try
             {
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
                 return View();
             }
             catch (Exception e)
@@ -296,15 +323,17 @@ namespace WebProject.Controllers
 
         public async Task<ActionResult> PlaceEdit(int id)
         {
-            //if (Session["user"] == null || Session["user"].ToString() != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
+
 
             Place place = await obj.GetPlaceByID(id);
 
             try
             {
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
                 return View(place);
             }
             catch (Exception e)
@@ -340,13 +369,14 @@ namespace WebProject.Controllers
 
         public async Task<ActionResult> PlaceDelete(int id)
         {
-            //if (Session["user"] == null || Session["user"].ToString() != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
 
             try
             {
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
                 Place model = new Place();
 
                 model = await obj.GetPlaceByID(id);
@@ -386,10 +416,6 @@ namespace WebProject.Controllers
 
         public async Task<ActionResult> Monitoring()
         {
-            //if (Session["user"] == null || Session["user"].ToString() != "admin")
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
             List<MonitorModel> monitorList = new List<MonitorModel> { 
                 new MonitorModel{GroupName = "Group 1", BaseAdress = "http://193.10.202.76/", ApiURL = "api/visitor"},
                 new MonitorModel{GroupName = "Group 2", BaseAdress = "http://193.10.202.77/", ApiURL = "EventService"},
@@ -399,6 +425,12 @@ namespace WebProject.Controllers
             };
             try
             {
+
+                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
                 ViewModel model = new ViewModel();
                 int trueCounter = 0;
                 int falseCounter = 0;

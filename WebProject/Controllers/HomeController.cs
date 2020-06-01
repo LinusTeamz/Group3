@@ -11,9 +11,12 @@ namespace WebProject.Controllers
     public class HomeController : Controller
     {
 
-        //Arrangör namn: dennis@live.se 
-        //Arrangör psw: hejhej123
+        //Arrangör namn: user 
+        //Arrangör psw: user
 
+        // Admin namn: organizer
+        // Admin psw: organizer
+        
         public ActionResult Login()
         {
       
@@ -37,6 +40,15 @@ namespace WebProject.Controllers
         {
             LoginHandler handler = new LoginHandler();
 
+            // Hardcoded user
+            if(loginDetails.password == "user" && loginDetails.username == "user")
+            {
+                Session["userRole"] = "organizer";
+                Session["userName"] = loginDetails.username;
+                Session["userID"] = 2;
+                return RedirectToAction("Index", "Organizer");
+            }
+
             try
             {
                 // Get admin permission first. permission must be sent same time, otherwise API wont accept it. 
@@ -48,20 +60,20 @@ namespace WebProject.Controllers
                 {
                     if (role.Equals("organizer"))
                     {
-                        Session["user"] = role;
+                        Session["userRole"] = role;
                         return RedirectToAction("Index", "Organizer");
                     }
                     // Different redirect than user
                     else if (role.Equals("organizeradmin"))
                     {
-                        Session["user"] = role;
+                        Session["userRole"] = role;
                         return RedirectToAction("Index", "Admin");
                     }
                 }
                 else
                 {
-                    // Remove session in case
-                    Session.Remove("user");
+                    // Remove session just in case
+                    RemoveAllSessions();
                 }
 
                 TempData["tempErrorMessage"] = "Password or username is wrong";
@@ -77,8 +89,14 @@ namespace WebProject.Controllers
         // Remove session when user logs out
         public ActionResult Logout()
         {
-            Session.Remove("user");
+            RemoveAllSessions();
             return RedirectToAction("Login", "Home");
+        }
+        private void RemoveAllSessions()
+        {
+            Session.Remove("userID");
+            Session.Remove("userName");
+            Session.Remove("userRole");
         }
     }
 }
