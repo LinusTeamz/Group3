@@ -26,7 +26,7 @@ namespace WebProject.Controllers
                     return RedirectToAction("Login", "Home");
                 }
 
-                ViewBag.userName = Session["userName"].ToString().ToUpper();
+                //ViewBag.userName = Session["userName"].ToString().ToUpper();
 
                 return View();
             }
@@ -155,8 +155,8 @@ namespace WebProject.Controllers
         public async Task<ActionResult> MyEvent()
         {
             ObjectHandlerJSON callFunction = new ObjectHandlerJSON();
-            var organizerList = await callFunction.GetOrganizerList();
-            
+            var organizerList = await callFunction.GetOrganizerList();      
+
             try
             {
                 var findUser = organizerList.Where(m => m.Email == "reashid@.com");
@@ -191,7 +191,7 @@ namespace WebProject.Controllers
                 // Get the lists
                 eventList = await obj.GetEventList();
                 //eventCategories = await obj.GetCategoryList();
-
+                
                 foreach (var item in eventList)
                 {
                     if (item.Event_Organizer.Id == id)
@@ -199,7 +199,7 @@ namespace WebProject.Controllers
                         eventModelList.Add(item);
                     }
                 }
-
+                eventModelList = eventModelList.OrderBy(o => o.Event_Create_Datetime).ToList();
                 return View(eventModelList);
             }
             catch(Exception e)
@@ -211,12 +211,12 @@ namespace WebProject.Controllers
         private bool CheckUserAuthorization()
         {
             // false by default
-            bool allowed = false;
+            bool allowed = true;
 
-            if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+            /*if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
             {
                 allowed = true;
-            }
+            }*/
 
             return allowed;
         }

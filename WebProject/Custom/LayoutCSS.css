@@ -2,7 +2,7 @@
     font-family: Rockwell, serif;
 }
 nav {
-    background-color: rgba(229, 110, 149, 0.7);
+    background-color: rgba(173, 216, 230, 1);
 }
 .navName {
     color: white;
@@ -22,6 +22,6 @@ li {
     background-color: #333;
 }
 .active1 {
-    background-color: #A24E6A;
+    background-color: rgba(173, 216, 230, 1);
     font-size: 30px;
 }

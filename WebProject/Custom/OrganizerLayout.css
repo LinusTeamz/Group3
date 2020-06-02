@@ -1,80 +1,19 @@
-﻿body {
-	background-image: url('Images/bakgrundOrg.png');
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-color:black;
-	color: white;
-	font-size: 25px;
+﻿nav > * {
+	font-family: Stencil, sans-serif;
 }
 
-.p_welcome {
-	font-family: 'Bangers', cursive;
-	text-align: center;
-	margin-top: 200px;
-	font-size: 30px;
-}
- .h2_heading {
-	text-align: center;
-	margin-top: 20px;
-}
-table, td, th {
-	margin: 0 auto;
-	border: none !important;
-	color: white;
-	font-size: 25px;
-	background-color: rgba(229, 110, 149, 0.4);
+.navbar-brand {
+	font-size: 2.1rem;
 }
 
-th.event-details {
-	width: 100% !important;
+nav {
+	background-color: #add8e6 !important;
 }
 
-h3 {
-	text-align: center;
+body > * {
+	font-family: "Allerta Stencil", sans-serif;
 }
 
-/*CSS för label form*/
-
-input[type=text], select {
-	width: 100%;
-	padding: 4px 35px 2px 4px;
-	margin: 8px 0;
-	display: inline-block;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
-}
-
-input[type=submit] {
-	width: 100%;
-	background-color: #4CAF50;
-	color: white;
-	padding: 14px 20px;
-	margin: 8px 0;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
-
-	input[type=submit]:hover {
-		background-color: #45a049;
-	}
-
-.div_labelform {
-	border-radius: 5px;
-	background-color: rgba(165, 93, 23, 0.24);
-}
-
-.nav-link {
-	color: rgba(255, 255, 255, 0.5);
-	padding-left: 0 !important;
-}
-
-.nav-link:hover {
-	color: rgba(255, 255, 255, 0.75);
-}
-@media only screen and (max-width:540px){
-	table, td, th{
-		white-space:nowrap;
-	}
+.form {
+	background-color: #add8e6 !important;
 }

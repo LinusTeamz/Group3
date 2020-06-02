@@ -3,35 +3,39 @@
     ViewBag.Title = "Monitoring";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<h2>Monitoring</h2>
 
-@{ 
-    int counter = 1;
-}
+        <h2>Monitoring</h2>
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Group Name</th>
-            <th scope="col">Name</th>
-            <th scope="col">Status</th>
-        </tr>
-    </thead>
-    <thead>
-        @foreach (var item in Model.monitorList)
-        {
-        <tr>
-            <td>@counter</td>
-            <td>@item.GroupName</td>
-            <td>@item.BaseAdress@item.ApiURL</td>
-            <td>@if (@item.Ping == true) { @ViewBag.MessageTrue } else { @ViewBag.MessageFalse}</td>
-        </tr>
-
-            counter++;
-
+        @{
+            int counter = 1;
         }
-    </thead>
-</table>
-<br />
-<p>Amount of sites running: @ViewBag.Message1</p>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Group Name</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <thead>
+                @foreach (var item in Model.monitorList)
+                {
+                    <tr>
+                        <td>@counter</td>
+                        <td>@item.GroupName</td>
+                        <td>@item.BaseAdress@item.ApiURL</td>
+                        <td>@if (@item.Ping == true)
+                        {@ViewBag.MessageTrue }
+                    else
+                    { @ViewBag.MessageFalse}</td>
+                    </tr>
+
+                    counter++;
+
+                }
+            </thead>
+        </table>
+        <br />
+        <p>Amount of sites running: @ViewBag.Message1</p>
