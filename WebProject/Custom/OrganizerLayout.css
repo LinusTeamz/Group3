@@ -1,17 +1,14 @@
-﻿nav > * {
+﻿.navbar-brand {
+	font-size: 2.1rem;
 	font-family: Stencil, sans-serif;
 }
 
-.navbar-brand {
-	font-size: 2.1rem;
+body > * {
+	font-family: 'Helvetica', 'Arial', sans-serif;
 }
 
 nav {
 	background-color: #add8e6 !important;
-}
-
-body > * {
-	font-family: "Allerta Stencil", sans-serif;
 }
 
 .form {
