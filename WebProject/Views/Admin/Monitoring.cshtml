@@ -10,27 +10,24 @@
             int counter = 1;
         }
 
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Group Name</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Status</th>
-                </tr>
-            </thead>
-            <thead>
-                @foreach (var item in Model.monitorList)
-                {
-                    <tr>
-                        <td>@counter</td>
-                        <td>@item.GroupName</td>
-                        <td>@item.BaseAdress@item.ApiURL</td>
-                        <td>@if (@item.Ping == true)
-                        {@ViewBag.MessageTrue }
-                    else
-                    { @ViewBag.MessageFalse}</td>
-                    </tr>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Group Name</th>
+            <th scope="col">Name</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <thead>
+        @foreach (var item in Model.monitorList)
+        {
+        <tr>
+            <td>@counter</td>
+            <td>@item.GroupName</td>
+            <td>@item.BaseAdress@item.ApiURL</td>
+            <td>@item.status</td>
+        </tr>
 
                     counter++;
 
