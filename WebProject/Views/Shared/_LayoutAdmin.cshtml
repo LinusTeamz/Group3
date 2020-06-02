@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <!--FONTS-->
+
     <!--BOOTSTRAP-->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
@@ -14,21 +15,33 @@
     <link href="~/Custom/AdminStyle.css" rel="stylesheet" />
 
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <div class="float-left">
-                @Html.ActionLink("Admin start", "Index", "Admin", null, new { @class = "navbar-brand" })
-                @Html.ActionLink("CRUD Place", "PlaceIndex", "Admin", null, new { @class = "navbar-brand" })
-                @Html.ActionLink("CRUD Facility", "FacilityIndex", "Admin", null, new { @class = "navbar-brand" })
-                @Html.ActionLink("Monitoring", "Monitoring", "Admin", null, new { @class = "navbar-brand" })
-            </div>
-            <div class="float-right">
-                @Html.ActionLink("Logout", "Login", "Home", null, new { @class = "btn btn-danger " })
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+        <div class="container">
+            @Html.ActionLink("EVENT", "Index", "Admin", null, new { @class = "navbar-brand" })
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        @Html.ActionLink("Hantera Platser", "PlaceIndex", "Admin", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Hantera Lokaler", "FacilityIndex", "Admin", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Övervakning", "Monitoring", "Admin", null, new { @class = "nav-link" })
+                    </li>
+                </ul>
+                <div>
+                    @Html.ActionLink("Logout", "Login", "Home", null, new { @class = "btn btn-danger" })
+                </div>
             </div>
         </div>
-</nav>
-    <div>
+    </nav>
+    <div class="container my-5">
         @RenderBody()
     </div>
 
