@@ -111,12 +111,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Custom\Images\bakgrundOrg.png" />
-    <Content Include="Custom\LoginStyle.css" />
     <Content Include="Custom\LayoutCSS.css" />
     <Content Include="Custom\OrganizerLayout.css" />
     <Content Include="Custom\AdminStyle.css" />
-    <Content Include="Custom\Standard\Site.css" />
-    <Content Include="Custom\Standard\Standard.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -286,7 +283,6 @@
     <Content Include="Views\Organizer\MyEvent.cshtml" />
     <Content Include="Views\Admin\Monitoring.cshtml" />
     <Content Include="Views\Shared\_LayoutPageEmpty.cshtml" />
-    <Content Include="Views\Shared\_LayoutStandard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

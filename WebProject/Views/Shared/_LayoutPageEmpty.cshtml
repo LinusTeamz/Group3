@@ -16,14 +16,24 @@
 
     <!--STYLES-->
     <link href="~/Custom/OrganizerLayout.css" rel="stylesheet" />
+    <link href="~/Custom/LoginStyle.css" rel="stylesheet" />
+
 </head>
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
         <div class="container">
-            @Html.ActionLink("EVENT", "Index", "Organizer", null, new { @class = "navbar-brand" })
+            @Html.ActionLink("EVENT", "Login", "Home", null, new { @class = "navbar-brand" })
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://193.10.202.81/BookingAdmin/Login/Login?ReturnUrl=%2fBookingAdmin%2f">Bokningar</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
     <div class="container my-5">
