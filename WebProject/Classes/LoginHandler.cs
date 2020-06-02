@@ -31,16 +31,17 @@ namespace WebProject.classes
                     if(role == null)
                     {
                         List<Organizer> organizers = await obj.GetOrganizerList();
-                        var organizerFound = organizers.Select(m => m.Name == loginDetails.username);
 
-                        // If organizer is found the role will be given
-                        if(organizers != null)
+                        foreach (var item in organizers)
                         {
-                            role = "organizer";
+                            if(item.Name == loginDetails.username)
+                            {
+                                role = userKey;
+                            }
                         }
                     }
                 }
-
+                
                 // If all goes well
                 return role;
             }
