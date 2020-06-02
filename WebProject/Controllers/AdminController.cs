@@ -81,7 +81,7 @@ namespace WebProject.Controllers
                 {
                     // Skapa nytt objekt vid varje loop
                     SelectListItem temp = new SelectListItem();
-                    temp.Text = item.Name;
+                    temp.Text = item.Name + " | " + item.City;
                     temp.Value = item.Id.ToString();
 
                     placeDropDown.Add(temp);
@@ -103,7 +103,7 @@ namespace WebProject.Controllers
         }
 
         [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> FacilityCreate(Facility facility)
+        public async Task<ActionResult> FacilityCreate(Facility facility)
         {
             try
             {
@@ -145,12 +145,11 @@ namespace WebProject.Controllers
                 {
                     // Skapa nytt objekt vid varje loop
                     SelectListItem temp = new SelectListItem();
-                    temp.Text = item.Name;
+                    temp.Text = item.Name + " | " + item.City;
                     temp.Value = item.Id.ToString();
                     if (item.Id == facility.Fk_Place)
                     {
                         temp.Selected = true;
-
                     }
                     else
                     {
@@ -174,7 +173,7 @@ namespace WebProject.Controllers
         }
 
         [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> FacilityEdit(Facility facility)
+        public async Task<ActionResult> FacilityEdit(Facility facility)
         {
             try
             {
@@ -249,7 +248,7 @@ namespace WebProject.Controllers
             }
         }
 
-        public async System.Threading.Tasks.Task<ActionResult> PlaceIndex()
+        public async Task<ActionResult> PlaceIndex()
         {
         
             try
@@ -489,12 +488,13 @@ namespace WebProject.Controllers
         private bool CheckUserAuthorization()
         {
             // false by default
-            bool allowed = false;
+            bool allowed = true;
 
-            if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
-            {
-                allowed = true;
-            }
+            // Comment the if and set allowed to true to run without login
+            //if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+            //{
+            //    allowed = true;
+            //}
             
             return allowed;
         }

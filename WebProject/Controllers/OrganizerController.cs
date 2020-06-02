@@ -205,6 +205,7 @@ namespace WebProject.Controllers
             // false by default
             bool allowed = false;
 
+            // Comment the if and set allowed to true to run without login
             if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
             {
                 allowed = true;
