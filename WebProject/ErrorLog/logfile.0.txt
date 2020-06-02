@@ -1,0 +1,14 @@
+------Error(2020-06-01 12:19:25.4499)DESKTOP-O24AGAR------
+
+                      Exception Type:System.Net.Http.HttpRequestException |
+                      Exception Message:Ett fel uppstod när begäran skickades. |
+                      Stack Trace: |
+                      Additional Info:Error Level
+
+------Fatal(2020-06-01 12:19:25.4899)DESKTOP-O24AGAR------
+
+                      Exception Type:System.Net.Http.HttpRequestException |
+                      Exception Message:Ett fel uppstod när begäran skickades. |
+                      Stack Trace: |
+                      Additional Info:Fatal Level
+

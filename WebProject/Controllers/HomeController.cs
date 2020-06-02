@@ -11,13 +11,15 @@ namespace WebProject.Controllers
     public class HomeController : Controller
     {
 
-        //Arrangör namn: dennis@live.se 
-        //Arrangör psw: hejhej123
+        //Arrangör namn: user alternativt reashid@.com
+        //Arrangör psw: user
+
+        // Admin namn: disney@.com
+        // Admin psw: organizer
 
         public ActionResult Login()
         {
-            // Tar bort session vid start
-            Session.Remove("user");
+      
 
             // Skriv enbart ut ifall det finns data
             if (TempData.ContainsKey("tempErrorMessage"))
@@ -37,23 +39,35 @@ namespace WebProject.Controllers
         public async System.Threading.Tasks.Task<ActionResult> Login(organizerlogin loginDetails)
         {
             LoginHandler handler = new LoginHandler();
-            // Try to verify if user is organizer or admin
+          
             try
-            {            
-                string role = await handler.UserDetails(loginDetails.name, loginDetails.password);
+            {
+                // Get admin permission first. permission must be sent same time, otherwise API wont accept it. 
+                loginDetails.permission = "organizeradmin";
 
-                if(role != null)
+                // Replace old values
+                loginDetails = await handler.UserAuthorized(loginDetails);
+
+                // If invalid the role is liekly null and the password, username can be wrong. Alternativley the service can be down.
+                if(loginDetails != null)
                 {
-                    if (role.Equals("Arrangör"))
+                    if (loginDetails.permission.Equals("organizer"))
                     {
-                        Session["user"] = role;
+                        Session["userRole"] = loginDetails.permission;
+                        Session["userID"] = loginDetails.Id;
                         return RedirectToAction("Index", "Organizer");
                     }
-                    else if (role.Equals("Admin"))
+                    // Different redirect than user
+                    else if (loginDetails.permission.Equals("organizeradmin"))
                     {
-                        Session["user"] = role;
+                        Session["userRole"] = loginDetails.permission;
                         return RedirectToAction("Index", "Admin");
                     }
+                }
+                else
+                {
+                    // Remove session just in case
+                    RemoveAllSessions();
                 }
 
                 TempData["tempErrorMessage"] = "Password or username is wrong";
@@ -69,8 +83,14 @@ namespace WebProject.Controllers
         // Remove session when user logs out
         public ActionResult Logout()
         {
-            Session.Remove("user");
+            RemoveAllSessions();
             return RedirectToAction("Login", "Home");
+        }
+        private void RemoveAllSessions()
+        {
+            Session.Remove("userID");
+            Session.Remove("userName");
+            Session.Remove("userRole");
         }
     }
 }

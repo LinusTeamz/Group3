@@ -3,18 +3,20 @@
     ViewBag.Title = "Monitoring";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<h2>Monitoring</h2>
 
-@{ 
-    int counter = 1;
-}
+        <h2>Övervakning</h2>
+
+        @{
+            int counter = 1;
+        }
 
 <table class="table table-hover">
     <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Group Name</th>
             <th scope="col">Name</th>
-            <th scope="col">Active</th>
+            <th scope="col">Status</th>
         </tr>
     </thead>
     <thead>
@@ -22,14 +24,15 @@
         {
         <tr>
             <td>@counter</td>
-            <td>@item.Adress</td>
-            <td>@item.Ping</td>
+            <td>@item.GroupName</td>
+            <td>@item.BaseAdress@item.ApiURL</td>
+            <td>@item.status</td>
         </tr>
 
-            counter++;
+                    counter++;
 
-        }
-    </thead>
-</table>
-<br />
-<p>Amount of sites running: @ViewBag.Message1</p>
+                }
+            </thead>
+        </table>
+        <br />
+        <p>Amount of sites running: @ViewBag.Message1</p>

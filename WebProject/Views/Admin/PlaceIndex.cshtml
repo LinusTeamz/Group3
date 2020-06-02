@@ -5,41 +5,43 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Place</h2>
 
-<p>
-    @Html.ActionLink("Skapa ny", "PlaceCreate")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th></th>
-    </tr>
+    <h2>Platser</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.ActionLink("Ändra", "PlaceEdit", new { id = item.Id }) |
-            @Html.ActionLink("Radera", "PlaceDelete", new { id = item.Id })
-        </td>
-    </tr>
-}
+    <p>
+        @Html.ActionLink("Skapa ny", "PlaceCreate")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.ActionLink("Ändra", "PlaceEdit", new { id = item.Id }) |
+                    @Html.ActionLink("Radera", "PlaceDelete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>

@@ -14,76 +14,47 @@
     <!--BOOTSTRAP-->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
-    @*               Modernizr finns inte
-    <script src="~/Scripts/modernizr-2.8.3.js"></script>*@
-
     <!--STYLES-->
-    <link href="~/Custom/LayoutCSS.css" rel="stylesheet" />
+    <link href="~/Custom/OrganizerLayout.css" rel="stylesheet" />
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container d-flex justify-content-center">
-            @*<h1 class="navName" href="#">Organizer</h1>*@
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+        <div class="container">
+            @Html.ActionLink("EVENT", "Index", "Organizer", null, new { @class = "navbar-brand" })
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-    
-    @*
 
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active1" href="~/Home/Login">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link active1" href="#">Features</a>
-                <a class="nav-item nav-link active1" href="#">Pricing</a>
-            </div>
-        </div>*@
-            @{
-                //if (Session["user"] != null && Session["user"].ToString() == "admin") // för admin
-                //{
-                @*<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <ul class="navbar-nav">
-                        <li class="li_nav"><a class="active" href="#home">Home</a></li>
-
-                        <li class="nav-item active1">@Html.ActionLink("Index", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item active1">@Html.ActionLink("Places", "PlaceIndex", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item active1">@Html.ActionLink("Facilities", "FacilityIndex", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item active1">@Html.ActionLink("Monitoring", "Monitoring", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item active1">@Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    </ul>
-                </div>*@
-
-                @*}
-            else if (Session["user"] != null && Session["user"].ToString() == "normal") // för arrangör
-            {*@
-
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <ul class="navbar-nav">
-                        @*<li class="li_nav"><a class="active" href="#home">Home</a></li>*@
-                        <li class="nav-item active1">@Html.ActionLink("Organizer", "Index", "Organizer", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item active1">@Html.ActionLink("My Events", "MyEvent", "Organizer", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item active1">@Html.ActionLink("Create Event", "CreateEvent", "Organizer", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li class="nav-item active1">@Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        @Html.ActionLink("Hem", "Index", "Organizer", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Skapa Event", "CreateEvent", "Organizer", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Mina Event", "MyEvent", "Organizer", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://193.10.202.77/EventAdmin" class="nav-link">Event</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="http://193.10.202.81/Bookingadmin" class="nav-link">Booking</a>
+                    </li>
+                </ul>
+                <div>
+                    @Html.ActionLink("Logga Ut", "Login", "Home", null, new { @class = "btn btn-danger" })
                 </div>
-                @*}
-            else
-            {
-                @Html.ActionLink("Login", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
-            }*@
-            }
+            </div>
         </div>
     </nav>
-
-    <div>
+    <div class="container my-5">
         @RenderBody()
     </div>
 
-
-    @*popper i scripts gav felmeddelande under F12 på webbsidan*@
-    @*<script src="~/Scripts/popper.min.js"></script>*@
-
     <script src="~/Scripts/jquery-3.0.0.min.js"></script>
-    <script src="~/Scripts/umd/popper.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script>
         function myFunction() {
@@ -102,6 +73,16 @@
                 }
             }
         }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#eventFilter").on("keyup", function () {
+                let value = $(this).val().toLowerCase();
+                $(".card-container").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
     </script>
 </body>
 </html>

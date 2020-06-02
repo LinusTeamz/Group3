@@ -1,3 +1,16 @@
-﻿body {
+﻿nav > * {
+    text-transform: uppercase;
+}
 
+nav {
+    background-color: #add8e6 !important;
+}
+
+.navbar-brand {
+    font-size: 2.1rem;
+    font-family: Stencil, sans-serif;
+}
+
+body > * {
+    font-family: 'Helvetica', 'Arial', sans-serif;
 }

@@ -1,41 +1,32 @@
-﻿@model List<WebProject.Models.Event>
+﻿@model List<WebProject.Models.Events>
 @{
-    ViewBag.Title = "MyEvent";
+    ViewBag.Title = "Mina Event";
 }
 <link href="~/Custom/OrganizerLayout.css" rel="stylesheet" />
-<h2 class="h2_heading">MyEvents</h2>
-<div class="container-fluid">
-    <div class="table-responsive">
-        <table class="table table-sm rounded">
-            <thead>
-                <tr>
-                    <td>Name</td>
-                    <td>Description</td>
-                    <td>Category</td>
-                    <td>Start Date</td>
-                    <td>End Date</td>
-                    <td>Date Created</td>
-                    <td>Ticket Price</td>
-                </tr>
-            </thead>
+<h2 class="h2_heading">@ViewBag.Title</h2>
+<input class="form-control" type="text" placeholder="Sök Event ..." id="eventFilter"/>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Event_Name</td>
-                    <td>@item.Event_Description</td>
-                    <td>@item.Event_Category.Category_Name</td>
-                    <td>@item.Event_Start_Datetime</td>
-                    <td>@item.Event_End_Datetime</td>
-                    <td>@item.Event_Create_Datetime</td>
-                    <td>@item.Event_Ticket_Price</td>
-                </tr>
-            }
-        </table>
+<div class="row row-cols-1 row-cols-md-3 my-2">
+    @foreach (var item in Model)
+    {
+        <div class="col mb-4 card-container">
+            <div class="card">
+                <img src="@item.Event_Imagelink" class="card-img-top" alt="Event Image">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Event_Name</h5>
+                    <h6>@item.Event_Category.Category_Name</h6>
+                    <p class="card-text">@item.Event_Description</p>                  
+                    <small>@item.Event_Start_Datetime - @item.Event_End_Datetime</small>
+                    <br />
+                    <p style="font-weight: bold;">Pris: @item.Event_Ticket_Price kr.</p>
+                </div>
+            </div>
+        </div>
+    }
     </div>
-    
-</div>
-    
-    
+
+
+
+
 
 

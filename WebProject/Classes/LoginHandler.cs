@@ -1,12 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web;
-using System.Web.UI.WebControls;
 using WebProject.Models;
 using System.Threading.Tasks;
 
@@ -14,62 +8,46 @@ namespace WebProject.classes
 {
     public class LoginHandler
     {
-        #region Dummy
-    
-        private string UserRole(string name, string password)
+        // Roles
+        public string adminRole = "organizeradmin", userRole = "organizer";
+        
+        public async Task<organizerlogin> UserAuthorized(organizerlogin loginDetails)
         {
+            ObjectHandlerJSON obj = new ObjectHandlerJSON();
+            organizerlogin details = new organizerlogin();
 
-            if (name == "admin" && password == "admin")
+            try
             {
-                return "admin";
+                // Checks if user is admin first
+                loginDetails.permission = adminRole;
+                string role = await obj.GetLoginRoleAPI(loginDetails);
+
+                // If admin
+                details.permission = role;
+
+                // If user is no admin, but can be a user
+                if (role == null)
+                {
+                    // If API returns null for normal user, it will use our database to check if user exists.       
+                    List<Organizer> organizers = await obj.GetOrganizerList();
+
+                    foreach (var item in organizers)
+                    {
+                        if(item.Name == loginDetails.username)
+                        {
+                            details.username = item.Name;
+                            details.Id = item.Id;
+                            details.permission = userRole;
+                        }
+                    }
+                }
+                // If all goes well
+                return details;
             }
-            else if (name == "orge" && password == "orge")
-            {
-                return "normal";
-            }
-            else
+            catch 
             {
                 return null;
             }
-        }
-
-        public string GetUser(string name, string password)
-        {
-            string role = UserRole(name, password);
-
-            return role;
-        }
-        #endregion
-        
-        //TODO: Optimera denna kod...
-        public async Task <string> UserDetails(string email, string password)
-        {
-            List<loginModelAPI> loginList = new List<loginModelAPI>();
-            ObjectHandlerJSON obj = new ObjectHandlerJSON();
-
-            // Null by default
-            string role = null;
-
-       
-
-            loginList = await obj.GetLoginList();
-            
-            // If email and password is true
-
-            bool apiPasswordExist = loginList.Any(m => m.Email.Equals(email) && m.Password.Equals(password));
-
-            if (apiPasswordExist)
-            {
-                var selectedItem = loginList.Where(m => m.Email.Equals(email) && m.Password.Equals(password));
-
-                foreach (var item in selectedItem)
-                {
-                    role = item.Role;
-                }
-            }
-           
-            
-            return role;
         }
     }
 }

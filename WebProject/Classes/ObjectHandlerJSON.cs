@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using WebProject.Models;
@@ -11,6 +13,9 @@ namespace WebProject.classes
 {
     public class ObjectHandlerJSON
     {
+        // Add Logger tool object
+        public readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         #region Egen API
 
         private string organiserBaseURL = "http://193.10.202.78/EventLokal/";
@@ -19,21 +24,19 @@ namespace WebProject.classes
         // URL:er för egen API
 
         //TODO: Ändra facilitiesBookeds till rätt api innan server
-        private string facilityURL = "Api/Facilities", organizersURL = "Api/Organizers", placeURL = "Api/Places", facilitiesBookedURL = "Api/FacilitiesBookeds";
+        private string facilityURL = "Api/Facilities", organizersURL = "Api/Organizers", placeURL = "Api/Places", facilitiesBookedURL = "Api/FacilitiesBooked";
 
         #endregion Egen API
-
         #region Event API
 
         private string eventBaseURL = "http://193.10.202.77/EventService/";
         private string eventEventAPI = "Api/Events", eventCategoryAPI = "Api/Categories/";
 
         #endregion Event API
-
         #region Login API
 
         private string loginBaseURL = "http://193.10.202.76/";
-        private string loginGetAPI = "api/organizer", loginRole = "api/organizerlogin";
+        private string loginRole = "api/organizerlogin";
 
         #endregion Login API
 
@@ -67,6 +70,31 @@ namespace WebProject.classes
                 }
 
                 return FacilityInfo;
+            }
+        }
+        public async Task <bool> GetStatusFromAPI(string baseUrl, string apiUrl)
+         {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    //Passing api service base url
+                    client.BaseAddress = new Uri(baseUrl);
+                
+                    client.DefaultRequestHeaders.Clear();
+                    //Define request data format
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    //Sending request to find web api REST service resource GetAllEmployees using HttpClient
+
+                    HttpResponseMessage Res = await client.GetAsync(apiUrl);
+
+                    return Res.IsSuccessStatusCode;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
         public async Task<List<Organizer>> GetOrganizerList()
@@ -184,6 +212,7 @@ namespace WebProject.classes
             }
             catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
                 return null;
             }
         }
@@ -214,70 +243,11 @@ namespace WebProject.classes
             }
             catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
                 return null;
             }
         }
-        public async Task<List<loginModelAPI>> GetLoginList()
-        {
-            List<loginModelAPI> loginList = new List<loginModelAPI>();
-
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(loginBaseURL);
-
-                    client.DefaultRequestHeaders.Clear();
-
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    HttpResponseMessage Res = await client.GetAsync(eventCategoryAPI);
-
-                    if (Res.IsSuccessStatusCode)
-                    {
-                        var response = Res.Content.ReadAsStringAsync().Result;
-                        categoryList = JsonConvert.DeserializeObject<List<EventCategory>>(response);
-                    }
-                }
-
-                return categoryList;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        public async Task<List<loginModelAPI>> GetLoginList()
-        {
-            List<loginModelAPI> loginList = new List<loginModelAPI>();
-
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri(loginBaseURL);
-
-                    client.DefaultRequestHeaders.Clear();
-
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    HttpResponseMessage Res = await client.GetAsync(loginGetAPI);
-
-                    if (Res.IsSuccessStatusCode)
-                    {
-                        var response = Res.Content.ReadAsStringAsync().Result;
-                        loginList = JsonConvert.DeserializeObject<List<loginModelAPI>>(response);
-                    }
-                }
-
-                return loginList;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-
+ 
         /* --- Get by ID --- */
 
         public async Task<Place> GetPlaceByID(int id)
@@ -367,8 +337,9 @@ namespace WebProject.classes
                 var response = await client.PostAsync(URL, content);
                 var responseString = await response.Content.ReadAsStringAsync();
             }
-            catch 
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task AddEvent(Events newEvent)
@@ -393,9 +364,9 @@ namespace WebProject.classes
                     var responseString = await response.Content.ReadAsStringAsync();
                 }
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
-                return e.Message;
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task AddFacility(Facility newFacility)
@@ -415,8 +386,9 @@ namespace WebProject.classes
                 var response = await client.PostAsync(URL, content);
                 var responseString = await response.Content.ReadAsStringAsync();
             }
-            catch 
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task AddPlace(Place newPlace)
@@ -440,8 +412,9 @@ namespace WebProject.classes
                     var responseString = await response.Content.ReadAsStringAsync();
                 }
             }
-            catch 
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task AddFacilitiesBooked(FacilitiesBooked newFacilitiesBooked)
@@ -465,9 +438,9 @@ namespace WebProject.classes
                     var responseString = await response.Content.ReadAsStringAsync();
                 }
             }
-            catch 
+            catch (Exception e)
             {
-
+                Logger.Error(e, "Error Level");
             }
         }
 
@@ -492,8 +465,9 @@ namespace WebProject.classes
                     var respons = await client.DeleteAsync(new Uri(URL));
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task DeleteFacilitiesBooked(int id)
@@ -513,8 +487,9 @@ namespace WebProject.classes
                     var respons = await client.DeleteAsync(new Uri(URL));
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task DeletePlace(int id)
@@ -534,8 +509,9 @@ namespace WebProject.classes
                     var respons = await client.DeleteAsync(new Uri(URL));
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task DeleteOrganizer(int id)
@@ -555,8 +531,9 @@ namespace WebProject.classes
                     var respons = await client.DeleteAsync(new Uri(URL));
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
 
@@ -601,7 +578,7 @@ namespace WebProject.classes
         public async Task UpdatePlace(Place updatedPlace)
         {
             HttpClient client = new HttpClient();
-
+            
             // URL for customer id selected by user
             string URL = organiserBaseURL + placeURL + "/" + updatedPlace.Id.ToString();
 
@@ -634,17 +611,16 @@ namespace WebProject.classes
         }
 
         #endregion Update
-
+        
         #region Other
         // This is post, but only returns a value for login information. Not really a create that makes a new object
-        // Returns a object if object exists
 
         /// <summary>
-        /// Needs username, password and permission to work
+        /// Needs username, password and permission to work. Returns a object if the object exists.
         /// </summary>
         /// <param name="loginDetails"></param>
         /// <returns></returns>
-        public async Task GetLoginRoleAPI(organizerlogin loginDetails)
+        public async Task<string> GetLoginRoleAPI(organizerlogin loginDetails)
         {
             try
             {
@@ -653,9 +629,9 @@ namespace WebProject.classes
                 // Using jsonconvert and creates content
                 string jsonString = JsonConvert.SerializeObject(loginDetails); // Lägg in ny objekt
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-
+                
                 // URL vart datan ska skickas
-                string URL = organiserBaseURL + facilitiesBookedURL;
+                string URL = loginBaseURL + loginRole;
 
                 // Connecting webapi
                 var response = await client.PostAsync(URL, content);
@@ -664,11 +640,14 @@ namespace WebProject.classes
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
                     loginDetails = JsonConvert.DeserializeObject<organizerlogin>(responseString);
+                    return loginDetails.permission; // Return the permission
                 }
+                return null;
             }
-            catch
+            catch (Exception e)
             {
-
+                Logger.Error(e, "Error Level");
+                return null;
             }
         }
         #endregion

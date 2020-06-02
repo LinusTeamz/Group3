@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WebProject.Models;
 using WebProject.classes;
 using System.Threading.Tasks;
+using NLog;
 
 namespace WebProject.Controllers
 {
@@ -13,10 +14,20 @@ namespace WebProject.Controllers
     {
         ObjectHandlerJSON obj = new ObjectHandlerJSON();
 
+        // Role which allows user on this site
+        private string allowedRole = "organizer";
+
         public ActionResult Index()
         {          
             try
             {
+                if (!CheckUserAuthorization())
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                //ViewBag.userName = Session["userName"].ToString().ToUpper();
+
                 return View();
             }
             catch (Exception e)
@@ -29,6 +40,11 @@ namespace WebProject.Controllers
         {          
             try
             {
+                if (!CheckUserAuthorization())
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
                 // List of dropdown items
                 List<SelectListItem> facilitiesDropDown = new List<SelectListItem>();
                 List<SelectListItem> categoryDropDown = new List<SelectListItem>();
@@ -42,10 +58,10 @@ namespace WebProject.Controllers
                 facilitiesList = await obj.GetFacilityList();
                 placeList = await obj.GetPlaceList();
 
-                // Loopa igenom kategorier och skapa dropdown
+                // Loopa through the category list to create dropdown
                 foreach (var item in categoriesList)
                 {
-                    // Skapa nytt objekt vid varje loop
+                    // Create new object every loop
                     SelectListItem temp = new SelectListItem();
 
                     temp.Text = item.Category_Name;
@@ -60,11 +76,11 @@ namespace WebProject.Controllers
                     SelectListItem temp = new SelectListItem();
                     Place place = new Place();
 
-                    // Plocka ut plats som en lokal tillhör
+                    // pick the place which the facility belongs to
                     place = await obj.GetPlaceByID(item.Fk_Place);
 
-                    // skapa ett bättre namn för användaren
-                    string location = item.Name + " - " + place.Name.ToString();
+                    // Create a string which includes facility and place name for better readability
+                    string location = item.Name + " | " + place.Name.ToString() + " | " + place.City.ToString();
 
                     temp.Text = location;
                     temp.Value = item.Id.ToString();                   
@@ -73,7 +89,7 @@ namespace WebProject.Controllers
                    
                 }
                 
-                // Dropdowns skapas
+                // Dropdowns created
                 ViewBag.Category_Id = categoryDropDown;
                 ViewBag.FacilityID = facilitiesDropDown;
                 
@@ -87,7 +103,7 @@ namespace WebProject.Controllers
         }
         // POST: CreateE/Create
         [HttpPost]
-        public async Task<ActionResult> CreateEvent(Events newEvent, int Category_Id, int FacilityID, int OrganizerID)
+        public async Task<ActionResult> CreateEvent(Events newEvent, int Category_Id, int FacilityID)
         {
 
             FacilitiesBooked facilitiesBooked = new FacilitiesBooked();
@@ -101,8 +117,10 @@ namespace WebProject.Controllers
                 // Nytt:
                 newEvent.Event_Facility = new EventFacility() { Id = FacilityID };
 
-                newEvent.Event_Organizer = new EventOrganizer() { Id = OrganizerID };
+                newEvent.Event_Organizer = new EventOrganizer() { Id = int.Parse(Session["userID"].ToString()) };
 
+
+                // In case value is null. Value cannot be null
                 if (newEvent.Event_Seeking_Volunteers != true)
                 {
                     newEvent.Event_Seeking_Volunteers = false;
@@ -113,11 +131,13 @@ namespace WebProject.Controllers
                     newEvent.Event_Active = false;
                 }
 
+                // Booked facility
                 facilitiesBooked.DateStart = newEvent.Event_Start_Datetime;
                 facilitiesBooked.DateEnd = newEvent.Event_End_Datetime;
                 facilitiesBooked.Fk_Facility = newEvent.Event_Facility.Id;
                 facilitiesBooked.Fk_Organizer = newEvent.Event_Organizer.Id;
 
+                // Add objects in respective database
                 await obj.AddFacilitiesBooked(facilitiesBooked);
                 await obj.AddEvent(newEvent);
              
@@ -134,30 +154,64 @@ namespace WebProject.Controllers
 
         public async Task<ActionResult> MyEvent()
         {
-            int id = 2;
-            List<EventCategory> eventCategories = new List<EventCategory>();
-            List<Event> eventList = new List<Event>();
-            List<Event> eventModelList = new List<Event>();
+            ObjectHandlerJSON callFunction = new ObjectHandlerJSON();
+            var organizerList = await callFunction.GetOrganizerList();      
 
-
-            eventList = await obj.GetEventList();
-            eventCategories = await obj.GetCategoryList();
-            foreach (var item in eventList)
+            try
             {
-                if (item.Event_Organizer.Id == id)
+                var findUser = organizerList.Where(m => m.Email == "reashid@.com");
+                foreach (var user in findUser)
                 {
-                    //foreach (var item2 in eventCategories)
-                    //{
-                    //    if (item.Event_Category.Category_Id == item2.Category_Id)
-                    //    {
-                            
-                    //    }
-                    //}
-                   //eventList.Add(item);
-                   eventModelList.Add(item);
+                    Session["userID"] = user.Id;
                 }
             }
-            return View(eventModelList);
+            catch (Exception)
+            {
+
+            }
+            try
+            {
+                if (!CheckUserAuthorization())
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                int id = int.Parse(Session["userID"].ToString());
+
+                List<Events> eventList = new List<Events>();
+                List<Events> eventModelList = new List<Events>();
+
+                // Get the lists
+                eventList = await obj.GetEventList();
+                
+                foreach (var item in eventList)
+                {
+                    if (item.Event_Organizer.Id == id)
+                    {
+                        eventModelList.Add(item);
+                    }
+                }
+                eventModelList = eventModelList.OrderBy(o => o.Event_Create_Datetime).ToList();
+                return View(eventModelList);
+            }
+            catch(Exception e)
+            {
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            } 
+        }
+        private bool CheckUserAuthorization()
+        {
+            // false by default
+            bool allowed = false;
+
+            // Comment the if and set allowed to true to run without login
+            if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+            {
+                allowed = true;
+            }
+
+            return allowed;
         }
     }
 }

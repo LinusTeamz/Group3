@@ -7,6 +7,7 @@ namespace WebProject.Models
 {
     public class ViewModel
     {
+        // Used in different views if needed
         public List<Facility> facilityList = new List<Facility>();
         public List<Place> placeList = new List<Place>();
         public List<Organizer> organizerList = new List<Organizer>();
