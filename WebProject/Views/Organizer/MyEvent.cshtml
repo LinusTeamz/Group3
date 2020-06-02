@@ -1,4 +1,4 @@
-﻿@model List<WebProject.Models.Events>
+﻿@model List<WebProject.Models.MyEventModel>
 @{
     ViewBag.Title = "MyEvent";
 }
@@ -25,7 +25,7 @@
                     <td>@item.Event_Name</td>
                     <td>@item.Event_Description</td>
                     <td>@item.Event_Category.Category_Name</td>
-                    <td>@item.Event_Start_Datetime</td>
+                    <td>@item.endDateTime</td>
                     <td>@item.Event_End_Datetime</td>
                     <td>@item.Event_Create_Datetime</td>
                     <td>@item.Event_Ticket_Price</td>
