@@ -211,12 +211,12 @@ namespace WebProject.Controllers
         private bool CheckUserAuthorization()
         {
             // false by default
-            bool allowed = true;
+            bool allowed = false;
 
-            /*if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+            if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
             {
                 allowed = true;
-            }*/
+            }
 
             return allowed;
         }
