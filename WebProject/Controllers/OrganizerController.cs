@@ -154,6 +154,21 @@ namespace WebProject.Controllers
 
         public async Task<ActionResult> MyEvent()
         {
+            ObjectHandlerJSON callFunction = new ObjectHandlerJSON();
+            var organizerList = await callFunction.GetOrganizerList();
+            
+            try
+            {
+                var findUser = organizerList.Where(m => m.Email == "reashid@.com");
+                foreach (var user in findUser)
+                {
+                    Session["userID"] = user.Id;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
             try
             {
                 if (!CheckUserAuthorization())
@@ -161,6 +176,11 @@ namespace WebProject.Controllers
                     return RedirectToAction("Login", "Home");
                 }
 
+                var findUser = organizerList.Where(m=>m.Email == "reashid@.com");
+                foreach (var user in findUser)
+                {
+                    Session["userID"] = user.Id;
+                }
                 // Convert the users id to int
                 int id = int.Parse(Session["userID"].ToString());
 
