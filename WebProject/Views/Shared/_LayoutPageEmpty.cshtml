@@ -2,12 +2,36 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <!--DEFAULT-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+
+    <!--FONTS-->
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e5c3891ab7.js" crossorigin="anonymous"></script>
+
+    <!--BOOTSTRAP-->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <!--STYLES-->
+    <link href="~/Custom/OrganizerLayout.css" rel="stylesheet" />
 </head>
-<body>
-    <div>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+        <div class="container">
+            @Html.ActionLink("EVENT", "Index", "Organizer", null, new { @class = "navbar-brand" })
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+    <div class="container my-5">
         @RenderBody()
     </div>
+
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
 </body>
 </html>
