@@ -11,12 +11,12 @@ namespace WebProject.Controllers
     public class HomeController : Controller
     {
 
-        //Arrangör namn: user 
+        //Arrangör namn: user alternativt reashid@.com
         //Arrangör psw: user
 
-        // Admin namn: organizer
+        // Admin namn: disney@.com
         // Admin psw: organizer
-        
+
         public ActionResult Login()
         {
       

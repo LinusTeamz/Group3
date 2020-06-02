@@ -13,6 +13,9 @@ namespace WebProject.Controllers
         // Add Logger tool object
         public readonly Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
+        // Role which allows user on this site
+        private string allowedRole = "organizeradmin";
+
         // create an object of model "ObjecthandlerJSON" to handle Json code
         private ObjectHandlerJSON obj = new ObjectHandlerJSON();
 
@@ -20,11 +23,11 @@ namespace WebProject.Controllers
         {
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
-                
+
                 return View();
             }
             catch (Exception)
@@ -39,7 +42,7 @@ namespace WebProject.Controllers
             try
             {
 
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -64,7 +67,7 @@ namespace WebProject.Controllers
         {
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -104,7 +107,7 @@ namespace WebProject.Controllers
         {
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -124,19 +127,13 @@ namespace WebProject.Controllers
         }
 
         public async Task<ActionResult> FacilityEdit(int id)
-        {
-          
-
-
-        
-
+        {      
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
-
                 Facility facility = await obj.GetFacilityByID(id);
 
                 List<SelectListItem> placeDropDown = new List<SelectListItem>();
@@ -181,7 +178,7 @@ namespace WebProject.Controllers
         {
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -208,10 +205,10 @@ namespace WebProject.Controllers
             try
             {
 
-            if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
-            {
-                return RedirectToAction("Login", "Home");
-            }
+                if (!CheckUserAuthorization())
+                {
+                    return RedirectToAction("Login", "Home");
+                }
                 Facility model = new Facility();
                 model = await obj.GetFacilityByID(id);
                 return View(model);
@@ -232,7 +229,7 @@ namespace WebProject.Controllers
         {
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -257,7 +254,7 @@ namespace WebProject.Controllers
         
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -283,7 +280,7 @@ namespace WebProject.Controllers
 
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -329,7 +326,7 @@ namespace WebProject.Controllers
 
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -372,7 +369,7 @@ namespace WebProject.Controllers
 
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -416,20 +413,22 @@ namespace WebProject.Controllers
 
         public async Task<ActionResult> Monitoring()
         {
-            List<MonitorModel> monitorList = new List<MonitorModel> { 
+         
+            try
+            {
+
+                if (!CheckUserAuthorization())
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                List<MonitorModel> monitorList = new List<MonitorModel> {
                 new MonitorModel{GroupName = "Group 1", BaseAdress = "http://193.10.202.76/", ApiURL = "api/visitor"},
                 new MonitorModel{GroupName = "Group 2", BaseAdress = "http://193.10.202.77/", ApiURL = "EventService"},
                 new MonitorModel{GroupName = "Group 3", BaseAdress = "http://193.10.202.78/", ApiURL = "EventLokal"},
                 new MonitorModel{GroupName = "Group 4", BaseAdress = "http://193.10.202.81/", ApiURL = "BookingService"},
                 new MonitorModel{GroupName = "Group 5", BaseAdress = "http://193.10.202.82/", ApiURL = "api/GetProfiles/1"},
-            };
-            try
-            {
-
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizeradmin")
-                {
-                    return RedirectToAction("Login", "Home");
-                }
+                };
 
                 ViewModel model = new ViewModel();
                 int trueCounter = 0;
@@ -462,7 +461,7 @@ namespace WebProject.Controllers
             }
         }
 
-        public bool GetPing(string adress)
+        private bool GetPing(string adress)
         {
             bool value;
             
@@ -489,7 +488,15 @@ namespace WebProject.Controllers
         }
         private bool CheckUserAuthorization()
         {
-            return false;
+            // false by default
+            bool allowed = false;
+
+            if(Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+            {
+                allowed = true;
+            }
+
+            return allowed;
         }
     }
 }
