@@ -39,34 +39,28 @@ namespace WebProject.Controllers
         public async System.Threading.Tasks.Task<ActionResult> Login(organizerlogin loginDetails)
         {
             LoginHandler handler = new LoginHandler();
-
-            // Hardcoded user
-            if(loginDetails.password == "user" && loginDetails.username == "user")
-            {
-                Session["userRole"] = "organizer";
-                Session["userName"] = loginDetails.username;
-                Session["userID"] = 2;
-                return RedirectToAction("Index", "Organizer");
-            }
-            
+          
             try
             {
                 // Get admin permission first. permission must be sent same time, otherwise API wont accept it. 
                 loginDetails.permission = "organizeradmin";
-                string role = await handler.UserAuthorized(loginDetails);
+
+                // Replace old values
+                loginDetails = await handler.UserAuthorized(loginDetails);
 
                 // If invalid the role is liekly null and the password, username can be wrong. Alternativley the service can be down.
-                if(role != null)
+                if(loginDetails != null)
                 {
-                    if (role.Equals("organizer"))
+                    if (loginDetails.permission.Equals("organizer"))
                     {
-                        Session["userRole"] = role;
+                        Session["userRole"] = loginDetails.permission;
+                        Session["userID"] = loginDetails.Id;
                         return RedirectToAction("Index", "Organizer");
                     }
                     // Different redirect than user
-                    else if (role.Equals("organizeradmin"))
+                    else if (loginDetails.permission.Equals("organizeradmin"))
                     {
-                        Session["userRole"] = role;
+                        Session["userRole"] = loginDetails.permission;
                         return RedirectToAction("Index", "Admin");
                     }
                 }

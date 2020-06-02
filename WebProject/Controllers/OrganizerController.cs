@@ -176,21 +176,13 @@ namespace WebProject.Controllers
                     return RedirectToAction("Login", "Home");
                 }
 
-                var findUser = organizerList.Where(m=>m.Email == "reashid@.com");
-                foreach (var user in findUser)
-                {
-                    Session["userID"] = user.Id;
-                }
-                // Convert the users id to int
                 int id = int.Parse(Session["userID"].ToString());
 
-                //List<EventCategory> eventCategories = new List<EventCategory>();
                 List<Events> eventList = new List<Events>();
                 List<Events> eventModelList = new List<Events>();
 
                 // Get the lists
                 eventList = await obj.GetEventList();
-                //eventCategories = await obj.GetCategoryList();
                 
                 foreach (var item in eventList)
                 {
@@ -211,12 +203,12 @@ namespace WebProject.Controllers
         private bool CheckUserAuthorization()
         {
             // false by default
-            bool allowed = true;
+            bool allowed = false;
 
-            /*if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+            if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
             {
                 allowed = true;
-            }*/
+            }
 
             return allowed;
         }
