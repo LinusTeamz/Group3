@@ -258,7 +258,6 @@
     <Compile Include="Models\FacilitiesBooked.cs" />
     <Compile Include="Models\Facility.cs" />
     <Compile Include="Models\MonitorModel.cs" />
-    <Compile Include="Models\MyEventModel.cs" />
     <Compile Include="Models\Organizer.cs" />
     <Compile Include="Models\organizerlogin.cs" />
     <Compile Include="Models\Place.cs" />
