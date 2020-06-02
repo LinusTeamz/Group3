@@ -11,12 +11,12 @@ namespace WebProject.Controllers
     public class HomeController : Controller
     {
 
-        //Arrangör namn: user 
+        //Arrangör namn: user alternativt reashid@.com
         //Arrangör psw: user
 
-        // Admin namn: organizer
+        // Admin namn: disney@.com
         // Admin psw: organizer
-        
+
         public ActionResult Login()
         {
       
@@ -56,7 +56,7 @@ namespace WebProject.Controllers
                 string role = await handler.UserAuthorized(loginDetails);
 
                 // If invalid the role is liekly null and the password, username can be wrong. Alternativley the service can be down.
-                if(role != "invalid")
+                if(role != null)
                 {
                     if (role.Equals("organizer"))
                     {

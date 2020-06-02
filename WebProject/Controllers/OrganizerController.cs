@@ -14,11 +14,14 @@ namespace WebProject.Controllers
     {
         ObjectHandlerJSON obj = new ObjectHandlerJSON();
 
+        // Role which allows user on this site
+        private string allowedRole = "organizer";
+
         public ActionResult Index()
         {          
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizer")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -37,7 +40,7 @@ namespace WebProject.Controllers
         {          
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizer")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -168,7 +171,7 @@ namespace WebProject.Controllers
             }
             try
             {
-                if (Session["userRole"] == null || Session["userRole"].ToString() != "organizer")
+                if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
                 }
@@ -207,7 +210,15 @@ namespace WebProject.Controllers
         }
         private bool CheckUserAuthorization()
         {
-            return false;
+            // false by default
+            bool allowed = false;
+
+            if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+            {
+                allowed = true;
+            }
+
+            return allowed;
         }
     }
 }
