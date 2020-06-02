@@ -286,6 +286,7 @@
     <Content Include="Views\Organizer\MyEvent.cshtml" />
     <Content Include="Views\Admin\Monitoring.cshtml" />
     <Content Include="Views\Shared\_LayoutPageEmpty.cshtml" />
+    <Content Include="Views\Shared\_LayoutStandard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

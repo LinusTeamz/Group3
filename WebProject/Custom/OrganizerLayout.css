@@ -17,3 +17,10 @@ body > * {
 .form {
 	background-color: #add8e6 !important;
 }
+.p-welcome {
+	font-size: 30px;
+}
+.p-choose {
+	font-size: 30px;
+	margin-top: 70px;
+}

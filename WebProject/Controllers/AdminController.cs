@@ -427,7 +427,7 @@ namespace WebProject.Controllers
                 new MonitorModel{GroupName = "Group 2", BaseAdress = "http://193.10.202.77/", ApiURL = "EventService"},
                 new MonitorModel{GroupName = "Group 3", BaseAdress = "http://193.10.202.78/", ApiURL = "EventLokal"},
                 new MonitorModel{GroupName = "Group 4", BaseAdress = "http://193.10.202.81/", ApiURL = "BookingService"},
-                new MonitorModel{GroupName = "Group 5", BaseAdress = "http://193.10.202.82/", ApiURL = "api/GetProfiles/1"},
+                new MonitorModel{GroupName = "Group 5", BaseAdress = "http://193.10.202.82/MyProfile/", ApiURL = "api/Profiles/GetProfile"},
                 };
 
                 ViewModel model = new ViewModel();
@@ -437,16 +437,16 @@ namespace WebProject.Controllers
                 foreach (var item in monitorList)
                 {
                     ObjectHandlerJSON callFunction = new ObjectHandlerJSON();
-                    item.Ping = await callFunction.GetMonitorList(item.BaseAdress, item.ApiURL);
+                    item.Ping = await callFunction.GetStatusFromAPI(item.BaseAdress, item.ApiURL);
                     if (item.Ping)
                     {
                         trueCounter++;
-                        ViewBag.MessageTrue = "Running";
+                        item.status = "Running";
                     }
                     else
                     {
                         falseCounter++;
-                        ViewBag.MessageFalse = "Offline";
+                        item.status = "Offline";
                     }
                 }
                 model.monitorList = monitorList;
@@ -491,10 +491,10 @@ namespace WebProject.Controllers
             // false by default
             bool allowed = true;
 
-            /*if(Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
-            {
-                allowed = true;
-            }*/
+            //if(Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+            //{
+            //    allowed = true;
+            //}
 
             return allowed;
         }

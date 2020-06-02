@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -12,6 +13,9 @@ namespace WebProject.classes
 {
     public class ObjectHandlerJSON
     {
+        // Add Logger tool object
+        public readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         #region Egen API
 
         private string organiserBaseURL = "http://193.10.202.78/EventLokal/";
@@ -23,14 +27,12 @@ namespace WebProject.classes
         private string facilityURL = "Api/Facilities", organizersURL = "Api/Organizers", placeURL = "Api/Places", facilitiesBookedURL = "Api/FacilitiesBooked";
 
         #endregion Egen API
-
         #region Event API
 
         private string eventBaseURL = "http://193.10.202.77/EventService/";
         private string eventEventAPI = "Api/Events", eventCategoryAPI = "Api/Categories/";
 
         #endregion Event API
-
         #region Login API
 
         private string loginBaseURL = "http://193.10.202.76/";
@@ -70,7 +72,7 @@ namespace WebProject.classes
                 return FacilityInfo;
             }
         }
-        public async Task <bool> GetMonitorList(string baseUrl, string apiUrl)
+        public async Task <bool> GetStatusFromAPI(string baseUrl, string apiUrl)
          {
             try
             {
@@ -90,7 +92,7 @@ namespace WebProject.classes
                     return Res.IsSuccessStatusCode;
                 }
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
@@ -210,6 +212,7 @@ namespace WebProject.classes
             }
             catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
                 return null;
             }
         }
@@ -240,6 +243,7 @@ namespace WebProject.classes
             }
             catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
                 return null;
             }
         }
@@ -333,8 +337,9 @@ namespace WebProject.classes
                 var response = await client.PostAsync(URL, content);
                 var responseString = await response.Content.ReadAsStringAsync();
             }
-            catch 
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task AddEvent(Events newEvent)
@@ -359,9 +364,9 @@ namespace WebProject.classes
                     var responseString = await response.Content.ReadAsStringAsync();
                 }
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
-                
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task AddFacility(Facility newFacility)
@@ -381,8 +386,9 @@ namespace WebProject.classes
                 var response = await client.PostAsync(URL, content);
                 var responseString = await response.Content.ReadAsStringAsync();
             }
-            catch 
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task AddPlace(Place newPlace)
@@ -406,8 +412,9 @@ namespace WebProject.classes
                     var responseString = await response.Content.ReadAsStringAsync();
                 }
             }
-            catch 
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task AddFacilitiesBooked(FacilitiesBooked newFacilitiesBooked)
@@ -431,9 +438,9 @@ namespace WebProject.classes
                     var responseString = await response.Content.ReadAsStringAsync();
                 }
             }
-            catch 
+            catch (Exception e)
             {
-
+                Logger.Error(e, "Error Level");
             }
         }
 
@@ -458,8 +465,9 @@ namespace WebProject.classes
                     var respons = await client.DeleteAsync(new Uri(URL));
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task DeleteFacilitiesBooked(int id)
@@ -479,8 +487,9 @@ namespace WebProject.classes
                     var respons = await client.DeleteAsync(new Uri(URL));
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task DeletePlace(int id)
@@ -500,8 +509,9 @@ namespace WebProject.classes
                     var respons = await client.DeleteAsync(new Uri(URL));
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
         public async Task DeleteOrganizer(int id)
@@ -521,8 +531,9 @@ namespace WebProject.classes
                     var respons = await client.DeleteAsync(new Uri(URL));
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
             }
         }
 
@@ -600,7 +611,7 @@ namespace WebProject.classes
         }
 
         #endregion Update
-
+        
         #region Other
         // This is post, but only returns a value for login information. Not really a create that makes a new object
 
@@ -633,8 +644,9 @@ namespace WebProject.classes
                 }
                 return null;
             }
-            catch
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
                 return null;
             }
         }
