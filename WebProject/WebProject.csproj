@@ -115,6 +115,8 @@
     <Content Include="Custom\LayoutCSS.css" />
     <Content Include="Custom\OrganizerLayout.css" />
     <Content Include="Custom\AdminStyle.css" />
+    <Content Include="Custom\Standard\Site.css" />
+    <Content Include="Custom\Standard\Standard.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
