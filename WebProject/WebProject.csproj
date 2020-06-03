@@ -286,6 +286,8 @@
     <Content Include="Views\Admin\OrganizerIndex.cshtml" />
     <Content Include="Views\Admin\OrganizerEdit.cshtml" />
     <Content Include="Views\Admin\OrganizerDelete.cshtml" />
+    <Content Include="Views\Admin\FacilitiesBookedIndex.cshtml" />
+    <Content Include="Views\Admin\FacilitesBookedDelete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

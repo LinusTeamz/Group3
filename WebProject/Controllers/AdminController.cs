@@ -36,6 +36,7 @@ namespace WebProject.Controllers
                 return RedirectToAction("Error", "Help");
             }
         }
+        #region Facility
 
         public async System.Threading.Tasks.Task<ActionResult> FacilityIndex()
         {
@@ -199,8 +200,6 @@ namespace WebProject.Controllers
 
         public async Task<ActionResult> FacilityDelete(int id)
         {
-          
-
             try
             {
 
@@ -247,6 +246,10 @@ namespace WebProject.Controllers
                 return RedirectToAction("Error", "Help");
             }
         }
+        #endregion
+
+        #region Place
+
 
         public async Task<ActionResult> PlaceIndex()
         {
@@ -389,8 +392,83 @@ namespace WebProject.Controllers
                 return RedirectToAction("Error", "Help");
             }
         }
+        #endregion
 
-        #region Organizer
+        #region FacilitiesBooked
+
+
+        public async Task<ActionResult> FacilitiesBookedIndex()
+        {
+
+            try
+            {
+                if (!CheckUserAuthorization())
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                List<FacilitiesBooked> model = new List<FacilitiesBooked>();
+                model = await obj.GetFacilitiesBookedList();
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+        }
+        public async Task<ActionResult> FacilitesBookedDelete(int id)
+        {
+
+            try
+            {
+                if (!CheckUserAuthorization())
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                FacilitiesBooked model = new FacilitiesBooked();
+
+                model = await obj.GetFacilitiesBookedByID(id);
+
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> FacilitiesBookedDelete(int id, FacilitiesBooked bookedFacility)
+        {
+            try
+            {
+                await obj.DeleteFacilitiesBooked(id);
+                return RedirectToAction("FacilitiesBookedIndex");
+            }
+            catch (Exception e)
+            {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+        }
+        #endregion
+
+        #region Manage Organizer
         public async Task<ActionResult> OrganizerIndex()
         {
 
@@ -550,6 +628,7 @@ namespace WebProject.Controllers
             }
         }
 
+        #region Monitoring
         public async Task<ActionResult> Monitoring()
         {
          
@@ -641,5 +720,6 @@ namespace WebProject.Controllers
 
             return allowed;
         }
+        #endregion
     }
 }

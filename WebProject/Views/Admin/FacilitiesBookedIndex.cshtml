@@ -1,0 +1,48 @@
+﻿@model IEnumerable<WebProject.Models.FacilitiesBooked>
+
+@{
+    ViewBag.Title = "FacilitiesBookedIndex";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Facilities Booked</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fk_Facility)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fk_Organizer)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fk_Facility)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fk_Organizer)
+        </td>
+        <td>
+            @Html.ActionLink("Ta bort", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
