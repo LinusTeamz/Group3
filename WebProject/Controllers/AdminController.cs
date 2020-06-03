@@ -390,13 +390,153 @@ namespace WebProject.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult> PlaceDelete(int id, Place place)
+        #region Organizer
+        public async Task<ActionResult> OrganizerIndex()
+        {
+
+            try
+            {
+                if (!CheckUserAuthorization())
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                List<Organizer> model = new List<Organizer>();
+                model = await obj.GetOrganizerList();
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+        }
+
+        public ActionResult OrganizerCreate()
         {
             try
             {
-                await obj.DeletePlace(id);
+                if (!CheckUserAuthorization())
+                {
+                    return RedirectToAction("Login", "Home");
+                }
 
+                return View();
+            }
+            catch (Exception e)
+            {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> OrganizerCreate(Organizer organizer)
+        {
+            try
+            {
+                await obj.AddOrganizer(organizer);
+                return RedirectToAction("OrganizerIndex");
+            }
+            catch (Exception e)
+            {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+        }
+
+        public async Task<ActionResult> OrganizerEdit(int id)
+        {
+
+
+            Organizer organizer = await obj.GetOrganizerByID(id);
+
+            try
+            {
+                if (!CheckUserAuthorization())
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                return View(organizer);
+            }
+            catch (Exception e)
+            {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> OrganizerEdit(Organizer organizer)
+        {
+            try
+            {
+                await obj.UpdateOrganizer(organizer);
+
+                return RedirectToAction("OrganizerIndex");
+            }
+            catch (Exception e)
+            {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+        }
+
+        public async Task<ActionResult> OrganizerDelete(int id)
+        {
+
+            try
+            {
+                if (!CheckUserAuthorization())
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                Organizer model = new Organizer();
+
+                model = await obj.GetOrganizerByID(id);
+
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+        }
+        #endregion
+
+        [HttpPost]
+        public async Task<ActionResult> OrganizerDelete(int id, Place place)
+        {
+            try
+            {
+                await obj.DeleteOrganizer(id);
                 return RedirectToAction("PlaceIndex");
             }
             catch (Exception e)
@@ -488,16 +628,16 @@ namespace WebProject.Controllers
         private bool CheckUserAuthorization()
         {
             // false by default
-            bool allowed = false;
+            bool allowed = true;
 
             // Comment the if and set allowed to true to run without login
-            if (Session["userRole"] != null)
-            {
-                if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
-                {
-                    allowed = true;
-                }
-            }
+            //if (Session["userRole"] != null)
+            //{
+            //    if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+            //    {
+            //        allowed = true;
+            //    }
+            //}
 
             return allowed;
         }

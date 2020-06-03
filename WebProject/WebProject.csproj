@@ -282,6 +282,10 @@
     <Content Include="Views\Organizer\MyEvent.cshtml" />
     <Content Include="Views\Admin\Monitoring.cshtml" />
     <Content Include="Views\Shared\_LayoutPageEmpty.cshtml" />
+    <Content Include="Views\Admin\OrganizerCreate.cshtml" />
+    <Content Include="Views\Admin\OrganizerIndex.cshtml" />
+    <Content Include="Views\Admin\OrganizerEdit.cshtml" />
+    <Content Include="Views\Admin\OrganizerDelete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
