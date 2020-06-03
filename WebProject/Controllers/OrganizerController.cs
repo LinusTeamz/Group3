@@ -204,17 +204,17 @@ namespace WebProject.Controllers
         private bool CheckUserAuthorization()
         {
             // false by default
-            bool allowed = true;
+            bool allowed = false;
 
             //Comment the if and set allowed to true to run without login
-            //if(Session["userRole"] != null)
-            //{
-            //    if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
-            //    {
-            //        allowed = true;
-            //    }
-            //}
-  
+            if (Session["userRole"] != null)
+            {
+                if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+                {
+                    allowed = true;
+                }
+            }
+
             return allowed;
         }
     }

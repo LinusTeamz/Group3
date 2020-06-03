@@ -39,9 +39,10 @@ namespace WebProject.Controllers
                 return RedirectToAction("Error", "Help");
             }
         }
+
         #region Facility
 
-        public async System.Threading.Tasks.Task<ActionResult> FacilityIndex()
+        public async Task<ActionResult> FacilityIndex()
         {
             try
             {
@@ -250,9 +251,8 @@ namespace WebProject.Controllers
             }
         }
         #endregion
-
+        
         #region Place
-
 
         public async Task<ActionResult> PlaceIndex()
         {
@@ -563,6 +563,24 @@ namespace WebProject.Controllers
                 return RedirectToAction("Error", "Help");
             }
         }
+        [HttpPost]
+        public async Task<ActionResult> OrganizerDelete(int id, Place place)
+        {
+            try
+            {
+                await obj.DeleteOrganizer(id);
+                return RedirectToAction("PlaceIndex");
+            }
+            catch (Exception e)
+            {
+                // Add logger
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
+                TempData["tempErrorMessage"] = e.Message.ToString();
+                return RedirectToAction("Error", "Help");
+            }
+        }
 
         [HttpPost]
         public async Task<ActionResult> OrganizerEdit(Organizer organizer)
@@ -611,25 +629,6 @@ namespace WebProject.Controllers
             }
         }
         #endregion
-
-        [HttpPost]
-        public async Task<ActionResult> OrganizerDelete(int id, Place place)
-        {
-            try
-            {
-                await obj.DeleteOrganizer(id);
-                return RedirectToAction("PlaceIndex");
-            }
-            catch (Exception e)
-            {
-                // Add logger
-                Logger.Error(e, "Error Level");
-                Logger.Fatal(e, "Fatal Level");
-
-                TempData["tempErrorMessage"] = e.Message.ToString();
-                return RedirectToAction("Error", "Help");
-            }
-        }
 
         #region Monitoring
         public async Task<ActionResult> Monitoring()
@@ -707,22 +706,24 @@ namespace WebProject.Controllers
             }
             return value;
         }
+
+        #endregion
+
         private bool CheckUserAuthorization()
         {
             // false by default
             bool allowed = true;
 
             // Comment the if and set allowed to true to run without login
-            //if (Session["userRole"] != null)
-            //{
-            //    if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
-            //    {
-            //        allowed = true;
-            //    }
-            //}
+            if (Session["userRole"] != null)
+            {
+                if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+                {
+                    allowed = true;
+                }
+            }
 
             return allowed;
         }
-        #endregion
     }
 }
