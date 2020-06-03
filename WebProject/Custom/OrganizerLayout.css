@@ -1,14 +1,15 @@
 ﻿nav > * {
-	text-transform: uppercase;
+	text-transform: capitalize;
+	font-size: 20px;
 }
 
 .navbar-brand {
-	font-size: 2.1rem;
+	font-size: 35px;
 	font-family: Stencil, sans-serif;
 }
 
 body > * {
-	font-family: 'Helvetica', 'Arial', sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 nav {
