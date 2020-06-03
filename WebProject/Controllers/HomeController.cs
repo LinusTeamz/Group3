@@ -10,10 +10,6 @@ namespace WebProject.Controllers
 {
     public class HomeController : Controller
     {
-
-        //Arrangör namn: user alternativt reashid@.com
-        //Arrangör psw: user
-
         // Admin namn: disney@.com
         // Admin psw: organizer
 
@@ -21,7 +17,7 @@ namespace WebProject.Controllers
         {
 
 
-
+            // If user did not log out, the user will be redirected to the proper site
             if (Session["userRole"] != null && Session["userRole"].ToString().Equals("organizeradmin"))
             {
                 return RedirectToAction("Index", "Admin");
@@ -32,6 +28,7 @@ namespace WebProject.Controllers
             }
             else
             {
+                // Remove all sessions if any of the above is not correct
                 RemoveAllSessions();
             }
 
