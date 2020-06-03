@@ -159,18 +159,6 @@ namespace WebProject.Controllers
 
             try
             {
-                var findUser = organizerList.Where(m => m.Email == "reashid@.com");
-                foreach (var user in findUser)
-                {
-                    Session["userID"] = user.Id;
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-            try
-            {
                 if (!CheckUserAuthorization())
                 {
                     return RedirectToAction("Login", "Home");
@@ -191,7 +179,7 @@ namespace WebProject.Controllers
                         eventModelList.Add(item);
                     }
                 }
-                eventModelList = eventModelList.OrderBy(o => o.Event_Create_Datetime).ToList();
+
                 return View(eventModelList);
             }
             catch(Exception e)
@@ -205,11 +193,15 @@ namespace WebProject.Controllers
             // false by default
             bool allowed = false;
 
-            if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+            //Comment the if and set allowed to true to run without login
+            if(Session["userRole"] != null)
             {
-                allowed = true;
+                if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+                {
+                    allowed = true;
+                }
             }
-
+  
             return allowed;
         }
     }
