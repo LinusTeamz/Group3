@@ -30,8 +30,11 @@ namespace WebProject.Controllers
 
                 return View();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = "Password or username is wrong";
                 return RedirectToAction("Error", "Help");
             }
