@@ -13,6 +13,7 @@ namespace WebProject.Controllers
     public class OrganizerController : Controller
     {
         ObjectHandlerJSON obj = new ObjectHandlerJSON();
+        public readonly Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         // Role which allows user on this site
         private string allowedRole = "organizer";
@@ -32,6 +33,9 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -97,6 +101,9 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -147,6 +154,9 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -184,6 +194,9 @@ namespace WebProject.Controllers
             }
             catch(Exception e)
             {
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             } 
