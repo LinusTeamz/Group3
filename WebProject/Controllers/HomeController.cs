@@ -51,17 +51,22 @@ namespace WebProject.Controllers
                 // If invalid the role is liekly null and the password, username can be wrong. Alternativley the service can be down.
                 if(loginDetails != null)
                 {
-                    if (loginDetails.permission.Equals("organizer"))
+                    if (loginDetails.permission != null && loginDetails.permission.Equals("organizer"))
                     {
                         Session["userRole"] = loginDetails.permission;
                         Session["userID"] = loginDetails.Id;
                         return RedirectToAction("Index", "Organizer");
                     }
                     // Different redirect than user
-                    else if (loginDetails.permission.Equals("organizeradmin"))
+                    else if (loginDetails.permission != null && loginDetails.permission.Equals("organizeradmin"))
                     {
                         Session["userRole"] = loginDetails.permission;
                         return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        TempData["tempErrorMessage"] = "Password or username is wrong";
+                        return RedirectToAction("Login", "Home");
                     }
                 }
                 else
@@ -69,7 +74,7 @@ namespace WebProject.Controllers
                     // Remove session just in case
                     RemoveAllSessions();
                 }
-
+                
                 TempData["tempErrorMessage"] = "Password or username is wrong";
                 return RedirectToAction("Login", "Home");  
             }
