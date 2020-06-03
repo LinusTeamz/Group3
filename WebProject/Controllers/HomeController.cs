@@ -19,7 +19,21 @@ namespace WebProject.Controllers
 
         public ActionResult Login()
         {
-      
+
+
+
+            if (Session["userRole"] != null && Session["userRole"].ToString().Equals("organizeradmin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            else if (Session["userRole"] != null && Session["userRole"].ToString().Equals("organizer"))
+            {
+                return RedirectToAction("Index", "Organizer");
+            }
+            else
+            {
+                RemoveAllSessions();
+            }
 
             // Skriv enbart ut ifall det finns data
             if (TempData.ContainsKey("tempErrorMessage"))
