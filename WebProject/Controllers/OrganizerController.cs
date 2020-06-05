@@ -13,6 +13,7 @@ namespace WebProject.Controllers
     public class OrganizerController : Controller
     {
         ObjectHandlerJSON obj = new ObjectHandlerJSON();
+        public readonly Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         // Role which allows user on this site
         private string allowedRole = "organizer";
@@ -32,6 +33,9 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -97,6 +101,9 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -147,6 +154,9 @@ namespace WebProject.Controllers
             }
             catch (Exception e)
             {
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             }
@@ -157,18 +167,6 @@ namespace WebProject.Controllers
             ObjectHandlerJSON callFunction = new ObjectHandlerJSON();
             var organizerList = await callFunction.GetOrganizerList();      
 
-            try
-            {
-                var findUser = organizerList.Where(m => m.Email == "reashid@.com");
-                foreach (var user in findUser)
-                {
-                    Session["userID"] = user.Id;
-                }
-            }
-            catch (Exception)
-            {
-
-            }
             try
             {
                 if (!CheckUserAuthorization())
@@ -191,11 +189,14 @@ namespace WebProject.Controllers
                         eventModelList.Add(item);
                     }
                 }
-                eventModelList = eventModelList.OrderBy(o => o.Event_Create_Datetime).ToList();
+
                 return View(eventModelList);
             }
             catch(Exception e)
             {
+                Logger.Error(e, "Error Level");
+                Logger.Fatal(e, "Fatal Level");
+
                 TempData["tempErrorMessage"] = e.Message.ToString();
                 return RedirectToAction("Error", "Help");
             } 
@@ -205,12 +206,15 @@ namespace WebProject.Controllers
             // false by default
             bool allowed = false;
 
-            // Comment the if and set allowed to true to run without login
-            if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+            //Comment the if and set allowed to true to run without login
+            if(Session["userRole"] != null)
             {
-                allowed = true;
+                if (Session["userRole"].ToString() != null && Session["userRole"].ToString() == allowedRole)
+                {
+                    allowed = true;
+                }
             }
-
+  
             return allowed;
         }
     }

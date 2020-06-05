@@ -10,16 +10,27 @@ namespace WebProject.Controllers
 {
     public class HomeController : Controller
     {
-
-        //Arrangör namn: user alternativt reashid@.com
-        //Arrangör psw: user
-
         // Admin namn: disney@.com
         // Admin psw: organizer
 
         public ActionResult Login()
         {
-      
+
+
+            // If user did not log out, the user will be redirected to the proper site
+            if (Session["userRole"] != null && Session["userRole"].ToString().Equals("organizeradmin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            else if (Session["userRole"] != null && Session["userRole"].ToString().Equals("organizer"))
+            {
+                return RedirectToAction("Index", "Organizer");
+            }
+            else
+            {
+                // Remove all sessions if any of the above is not correct
+                RemoveAllSessions();
+            }
 
             // Skriv enbart ut ifall det finns data
             if (TempData.ContainsKey("tempErrorMessage"))
@@ -51,17 +62,22 @@ namespace WebProject.Controllers
                 // If invalid the role is liekly null and the password, username can be wrong. Alternativley the service can be down.
                 if(loginDetails != null)
                 {
-                    if (loginDetails.permission.Equals("organizer"))
+                    if (loginDetails.permission != null && loginDetails.permission.Equals("organizer"))
                     {
                         Session["userRole"] = loginDetails.permission;
                         Session["userID"] = loginDetails.Id;
                         return RedirectToAction("Index", "Organizer");
                     }
                     // Different redirect than user
-                    else if (loginDetails.permission.Equals("organizeradmin"))
+                    else if (loginDetails.permission != null && loginDetails.permission.Equals("organizeradmin"))
                     {
                         Session["userRole"] = loginDetails.permission;
                         return RedirectToAction("Index", "Admin");
+                    }
+                    else
+                    {
+                        TempData["tempErrorMessage"] = "Password or username is wrong";
+                        return RedirectToAction("Login", "Home");
                     }
                 }
                 else
@@ -69,7 +85,7 @@ namespace WebProject.Controllers
                     // Remove session just in case
                     RemoveAllSessions();
                 }
-
+                
                 TempData["tempErrorMessage"] = "Password or username is wrong";
                 return RedirectToAction("Login", "Home");  
             }

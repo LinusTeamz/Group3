@@ -1,0 +1,6 @@
+------Error(2020-06-02 20:41:14.4385)LINUSPRO------
+                       Exception Type:System.NullReferenceException |                       Exception Message:Objektreferensen har inte angetts till en instans av ett objekt. |                       Stack Trace: |                       Additional Info:Error Level
+
+------Fatal(2020-06-02 20:41:14.4955)LINUSPRO------
+                       Exception Type:System.NullReferenceException |                       Exception Message:Objektreferensen har inte angetts till en instans av ett objekt. |                       Stack Trace: |                       Additional Info:Fatal Level
+
